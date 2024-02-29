@@ -17,12 +17,9 @@ This is a Stalls Management System created for learning purposes.
 5.  Change top directory folder where manage.py is located
   cd coded
 
-6.  Then run server
-  python manage.py runserver 
+6.  Run makemigrations using `python manage.py makemigrations`
 
-7.  Run makemigrations using `python manage.py makemigrations`
+7.  Run migrations using `python manage.py migrate`
 
-8.  Run migrations using `python manage.py migrate`
-
-9.  Start the development server with `python manage.py runserver`
+8.  Start the development server with `python manage.py runserver`
 
