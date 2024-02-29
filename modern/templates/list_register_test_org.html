@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for floor, total_balance in total_balance_per_floor.items %}
+    <p>Total Balance for Floor {{ floor }}: {{ total_balance }}</p>
+{% endfor %}
+
+<h1>Registers in Payment</h1>
+
+<table border="1">
+    <tr>
+        <th>Owner</th>
+        <th>Floor</th>
+        <th>Room Number</th>
+        <th>Balance</th>
+        <th>Due Months</th>
+        <th>OUW US</th>
+        <th>TOTAL OUW US</th>
+        <th>Month Paid</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>PAY STATUS</th>
+        <th>STATUS</th>
+        <th>Months Unpaid</th>
+       
+    </tr>
+    {% for register in registers_in_payment %}
+        <tr>
+            <td>{{ register.owner }}</td>
+            <td>{{ register.floor }}</td>
+            <td>{{ register.room_number }}</td>
+            <td>{{ register.balance }}</td>
+            <td>{{ register.due_months }}</td>
+            <td>{{ register.ouw_us }}</td>
+            <td>{{ register.total_ouw_us }}</td>
+            <td>{{ register.month_paid }}</td>
+            <td>{{ register.start_date }}</td>
+            <td>{{ register.end_date }}</td>
+            <td>{{ register.pay_status }}</td>
+            <td>{{ register.status }}</td>
+            <td>{{ register.new_month_paid_list }}</td>
+           
+        </tr>
+    {% endfor %}
+</table>
+
+<h1>Registers Not in Payment</h1>
+<table border="1">
+    <tr>
+        <th>Owner</th>
+        <th>Floor</th>
+        <th>Room Number</th>
+        <th>Balance</th>
+        <th>Due Months</th>
+        <th>OUW US</th>
+        <th>Month Paid</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Months Unpaid</th>
+       
+    </tr>
+    {% for register in registers_not_in_payment %}
+        <tr>
+            <td>{{ register.owner }}</td>
+            <td>{{ register.floor }}</td>
+            <td>{{ register.room_number }}</td>
+            <td>{{ register.balance }}</td>
+            <td>{{ register.due_months }}</td>
+            <td>{{ register.ouw_us }}</td>
+            <td>{{ register.month_paid }}</td>
+            <td>{{ register.start_date }}</td>
+            <td>{{ register.end_date }}</td>
+            <td>{{ register.new_month_paid_list }}</td>
+           
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Edited Registers</h2>
+    <p><a href="{% url 'edited_registers' %}">Edited Registers</a></p>
+<!--div-->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title">Stall Owners Registered</div>
+	</div>
+	<div class="card-body">
+		<div class="">
+			<div class="table-responsive">
+				<table id="example" class="table table-bordered text-nowrap key-buttons">
+					<thead>
+						<tr>
+							<th class="border-bottom-0">Name</th>
+							<th class="border-bottom-0">Floor</th>
+							<th class="border-bottom-0">Room</th>
+							<th class="border-bottom-0">Amount</th>
+							<th class="border-bottom-0">Start Date</th>
+							<th class="border-bottom-0">Date Created</th>
+							<th class="border-bottom-0">Reassign</th>
+							<th class="border-bottom-0">Create Payment</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						{% for i in registers %}
+						<tr>
+							<td>{{ i.owner.name }}</td>
+							<td>{{ i.room.room_number }}</td>
+							<td>{{ i.reg_status }}</td>
+							<td>{{ i.room.amount }}</td>
+							<td>{{ i.start_date }}</td>
+							<td>{{ i.date_registered }}</td>
+							<td><a href="{% url 'edit_register' i.pk %}">Edit</a></td>
+							<td><a href="{% url 'create_payment_test2' i.pk %}">Edit</a></td>
+							
+
+							
+							
+						</tr>
+						
+						{% endfor %}
+
+						<!-- register_list.html -->
+
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/div-->
+
+
+{% endblock %}

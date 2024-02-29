@@ -1,0 +1,317 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(19, 1fr); /* 19 columns with equal width */
+        gap: 5px; /* Gap between grid items */
+    }
+
+    .grid-item {
+        width: 100%;
+        padding-top: 40%; /* Maintain a square aspect ratio */
+        background-color: #5860aa; /* Background color for the cells */
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Style the first and last grid items in the top grid to make them blank */
+    .grid-container:first-child .grid-item:first-child,
+    .grid-container:first-child .grid-item:last-child {
+        background-color: transparent;
+    }
+
+    /* Add a margin to the bottom of the second row */
+    .grid-container:nth-child(2) {
+        margin-bottom: 15px; /* Adjust the margin as needed */
+    }
+
+    /* Add a margin to the top of the third row */
+    .grid-container:nth-child(3) {
+        /* margin-top: 15px; /* Adjust the margin as needed */ 
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    /* Add a margin to the top of the third row */
+    .grid-container:nth-child(4) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    /* Add a margin to the top of the third row */
+    .grid-container:nth-child(5) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(6) {
+        margin-bottom: 15px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(7) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(8) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(9) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(10) {
+        margin-bottom: 2px; /* Adjust the margin as needed */
+    }
+    .grid-container:nth-child(11) {
+        margin-bottom: 200px; /* Adjust the margin as needed */
+    }
+
+   /* */
+   .blank-grid-item {
+        background-color: transparent; /* Transparent background for blank grid items */
+    }
+</style>
+</head>
+<body>
+<!-- Top Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    
+    <!-- 17 medium grid items with content -->
+   
+    <div class="grid-item">A16</div>
+    <div class="grid-item">A15</div>
+    <div class="grid-item">A14</div>
+    <div class="grid-item">A13</div>
+    <div class="grid-item">A12</div>
+    <div class="grid-item">A11</div>
+    <div class="grid-item">A10</div>
+    <div class="grid-item">A9</div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item">A8</div>
+    <div class="grid-item">A7</div>
+    <div class="grid-item">A6</div>
+    <div class="grid-item">A5</div>
+    <div class="grid-item">A4</div>
+    <div class="grid-item">A3</div>
+    <div class="grid-item">A2</div>
+    <div class="grid-item">A1</div>
+    <!-- Blank grid item 
+    <div class="grid-item"></div>-->
+</div>
+
+<!-- First New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item">A17</div>
+    <div class="grid-item">A32</div>
+    <div class="grid-item">A31</div>
+    <div class="grid-item">A30</div>
+    <div class="grid-item">A29</div>
+    <div class="grid-item">A28</div>
+    <div class="grid-item">A27</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">H</div>-->
+    <div class="grid-item">A26</div>
+    <div class="grid-item">A25</div>
+    <div class="grid-item">A24</div>
+    <div class="grid-item">A23</div>
+    <div class="grid-item">A22</div>
+    <div class="grid-item">A21</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- Second New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item">A18</div>
+    <div class="grid-item">A47</div>
+    <div class="grid-item">A46</div>
+    <div class="grid-item">A45</div>
+    <div class="grid-item">A44</div>
+    <div class="grid-item">A43</div>
+    <div class="grid-item">A42</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">4</div>-->
+    <div class="grid-item">A41</div>
+    <div class="grid-item">A40</div>
+    <div class="grid-item">A39</div>
+    <div class="grid-item">A38</div>
+    <div class="grid-item">A37</div>
+    <div class="grid-item">A36</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- Third New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item ">STAIRS</div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+<div class="grid-container">
+    <!-- 7 normal grid items in the first column -->
+    <div class="grid-item"></div>
+    <div class="grid-item">A20</div>
+    <div class="grid-item">A60</div>
+    <div class="grid-item">A59</div>
+    <div class="grid-item">A58</div>
+    <div class="grid-item">A57</div>
+    <div class="grid-item">A56</div>
+    <div class="grid-item">A55</div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item">A54</div>
+    <div class="grid-item">A53</div>
+    <div class="grid-item">A52</div>
+    <div class="grid-item">A51</div>
+    <div class="grid-item">A50</div>
+    <div class="grid-item">A49</div>
+    <!-- Other grid items can be placed in subsequent columns -->
+</div>
+
+<!-- First New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item">A48</div>
+    <div class="grid-item">A75</div>
+    <div class="grid-item">A74</div>
+    <div class="grid-item">A73</div>
+    <div class="grid-item">A72</div>
+    <div class="grid-item">A71</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">H</div>-->
+    <div class="grid-item">A70</div>
+    <div class="grid-item">A69</div>
+    <div class="grid-item">A68</div>
+    <div class="grid-item">A67</div>
+    <div class="grid-item">A66</div>
+    <div class="grid-item">A65</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- Second New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item"></div>
+    <div class="grid-item">A76</div>
+    <div class="grid-item">A77</div>
+    <div class="grid-item">A78</div>
+    <div class="grid-item">A79</div>
+    <div class="grid-item">A80</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">4</div>-->
+    <div class="grid-item">A81</div>
+    <div class="grid-item">A82</div>
+    <div class="grid-item">A83</div>
+    <div class="grid-item">A84</div>
+    <div class="grid-item">A85</div>
+    <div class="grid-item">A86</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item">Gate</div>
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item ">STAIRS</div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <div class="grid-item blank-grid-item"></div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item">A98</div>
+    <div class="grid-item">A97</div>
+    <div class="grid-item">A96</div>
+    <div class="grid-item">A95</div>
+    <div class="grid-item">A94</div>
+    <div class="grid-item">A93</div>
+    <div class="grid-item">A92</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">4</div>-->
+    <div class="grid-item">A91</div>
+    <div class="grid-item">A90</div>
+    <div class="grid-item">A89</div>
+    <div class="grid-item">A88</div>
+    <div class="grid-item">A87</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- Second New Grid -->
+<div class="grid-container">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+
+    <!-- 17 medium grid items with content -->
+    <div class="grid-item"></div>
+    <div class="grid-item">A100</div>
+    <div class="grid-item">A101</div>
+    <div class="grid-item">A102</div>
+    <div class="grid-item">A103</div>
+    <div class="grid-item">A104</div>
+    <div class="grid-item">A105</div>
+    <!-- Blank grid item with transparent background -->
+    <div class="grid-item blank-grid-item"></div>
+    <!--<div class="grid-item">4</div>-->
+    <div class="grid-item">A106</div>
+    <div class="grid-item">A107</div>
+    <div class="grid-item">A108</div>
+    <div class="grid-item">A109</div>
+    <div class="grid-item">A110</div>
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+</body>
+
+{% endblock %}

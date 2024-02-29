@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- <a href="{% url 'login' %}">Login</a> -->
+<form method="post">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="{{ form.owner.id_for_label }}">Owner Name</label>
+                {{ form.owner }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Mobile Number</label>
+                <input type="text" class="form-control" placeholder="Mobile Number" name="mobile">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="id_floor">Floor:<span class="text-red">*</span></label>
+                <select name="floor" id="id_floor" class="form-control custom-select select2">
+                    <option value="">--Select--</option>
+                    {% for choice in form.floor.field.choices %}
+                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="id_room">Room Number:<span class="text-red">*</span></label>
+                <select name="room" id="id_room" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <button type="submit" value="Submit" class="btn btn-primary mt-4 mb-0">Submit</button>
+        </div>
+    </div>
+    {% if form.room.errors %}
+    <div class="alert alert-danger mt-3">
+        <ul>
+            {% for error in form.room.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_floor').change(function () {
+            var selectedFloor = $(this).val();
+            $.ajax({
+                url: "{% url 'get_rooms_by_floor' %}",
+                data: { 'floor': selectedFloor },
+                dataType: 'json',
+                success: function (data) {
+                    var roomDropdown = $('#id_room');
+                    roomDropdown.empty();
+                    roomDropdown.append($('<option>', {
+                        value: '',
+                        text: '--Select--'
+                    }));
+                    $.each(data.rooms, function (index, room) {
+                        roomDropdown.append($('<option>', {
+                            value: room.id,
+                            text: room.room_number
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

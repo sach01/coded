@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles5.css">
+    <title>xyz</title>
+</head>
+<body>
+    <div class="main-container">
+    <div id="header" class="header-container">
+        <div class='logo_left'>
+            <img src="/static/images/brand/logo2.jpeg" alt="Logo">
+        </div>
+        <div class="header-head">
+            <h1>Marsabit Municipality</h1>
+        </div>
+        <div class='logo_right'>
+            <img src="/static/images/brand/logo3.jpeg" alt="Logo">
+        </div>
+    </div>
+    <div id="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <div class="dropdown">
+            <a href="#">Services</a>
+            <div class="dropdown-content">
+                <a href="#">Service 1</a>
+                <a href="#">Service 2</a>
+                <a href="#">Service 3</a>
+            </div>
+        </div>
+        <a href="#">Contact</a>
+    </div>
+    <div id="body" class="body-container">
+       
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            
+            <!-- 17 medium grid items with content -->
+           
+            <div class="grid-item"><a href="#">A16</a></div>
+            <div class="grid-item">A15</div>
+            <div class="grid-item">A14</div>
+            <div class="grid-item">A13</div>
+            <div class="grid-item">A12</div>
+            <div class="grid-item">A11</div>
+            <div class="grid-item">A10</div>
+            <div class="grid-item">A9</div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item">A8</div>
+            <div class="grid-item">A7</div>
+            <div class="grid-item">A6</div>
+            <div class="grid-item">A5</div>
+            {% for room in grounds %}
+        {% if room.id == 1 %}
+            <div class="grid-item{% if room.status %} green{% else %} blue{% endif %}">A1</div>
+        {% elif room.id == 2 %}
+            <div class="grid-item{% if room.status %} green{% else %} blue{% endif %}">A2</div>
+        {% elif room.id == 3 %}
+            <!-- Continue this pattern for other IDs -->
+            <div class="grid-item{% if room.status %} green{% else %} blue{% endif %}">A3</div>
+        {% else %}
+            <!-- Handle other cases if needed -->
+        {% endif %}
+    {% endfor %}
+           
+        </div>
+        
+        <!-- First New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item">A17</div>
+            <div class="grid-item">A32</div>
+            <div class="grid-item">A31</div>
+            <div class="grid-item">A30</div>
+            <div class="grid-item">A29</div>
+            <div class="grid-item">A28</div>
+            <div class="grid-item">A27</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">H</div>-->
+            <div class="grid-item">A26</div>
+            <div class="grid-item">A25</div>
+            <div class="grid-item">A24</div>
+            <div class="grid-item">A23</div>
+            <div class="grid-item">A22</div>
+            <div class="grid-item">A21</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        
+        <!-- Second New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item">A18</div>
+            <div class="grid-item">A47</div>
+            <div class="grid-item">A46</div>
+            <div class="grid-item">A45</div>
+            <div class="grid-item">A44</div>
+            <div class="grid-item">A43</div>
+            <div class="grid-item">A42</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">4</div>-->
+            <div class="grid-item">A41</div>
+            <div class="grid-item">A40</div>
+            <div class="grid-item">A39</div>
+            <div class="grid-item">A38</div>
+            <div class="grid-item">A37</div>
+            <div class="grid-item">A36</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        
+        <!-- Third New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item ">STAIRS</div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        <div class="grid-container">
+            <!-- 7 normal grid items in the first column -->
+            <div class="grid-item"></div>
+            <div class="grid-item">A20</div>
+            <div class="grid-item">A60</div>
+            <div class="grid-item">A59</div>
+            <div class="grid-item">A58</div>
+            <div class="grid-item">A57</div>
+            <div class="grid-item">A56</div>
+            <div class="grid-item">A55</div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item">A54</div>
+            <div class="grid-item">A53</div>
+            <div class="grid-item">A52</div>
+            <div class="grid-item">A51</div>
+            <div class="grid-item">A50</div>
+            <div class="grid-item">A49</div>
+            <!-- Other grid items can be placed in subsequent columns -->
+        </div>
+        
+        <!-- First New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item">A48</div>
+            <div class="grid-item">A75</div>
+            <div class="grid-item">A74</div>
+            <div class="grid-item">A73</div>
+            <div class="grid-item">A72</div>
+            <div class="grid-item">A71</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">H</div>-->
+            <div class="grid-item">A70</div>
+            <div class="grid-item">A69</div>
+            <div class="grid-item">A68</div>
+            <div class="grid-item">A67</div>
+            <div class="grid-item">A66</div>
+            <div class="grid-item">A65</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        
+        <!-- Second New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item"></div>
+            <div class="grid-item">A76</div>
+            <div class="grid-item">A77</div>
+            <div class="grid-item">A78</div>
+            <div class="grid-item">A79</div>
+            <div class="grid-item">A80</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">4</div>-->
+            <div class="grid-item">A81</div>
+            <div class="grid-item">A82</div>
+            <div class="grid-item">A83</div>
+            <div class="grid-item">A84</div>
+            <div class="grid-item">A85</div>
+            <div class="grid-item">A86</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item">Gate</div>
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item ">STAIRS</div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <div class="grid-item blank-grid-item"></div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item">A98</div>
+            <div class="grid-item">A97</div>
+            <div class="grid-item">A96</div>
+            <div class="grid-item">A95</div>
+            <div class="grid-item">A94</div>
+            <div class="grid-item">A93</div>
+            <div class="grid-item">A92</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">4</div>-->
+            <div class="grid-item">A91</div>
+            <div class="grid-item">A90</div>
+            <div class="grid-item">A89</div>
+            <div class="grid-item">A88</div>
+            <div class="grid-item">A87</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div>
+        
+        <!-- Second New Grid -->
+        <div class="grid-container">
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        
+            <!-- 17 medium grid items with content -->
+            <div class="grid-item"></div>
+            <div class="grid-item">A100</div>
+            <div class="grid-item">A101</div>
+            <div class="grid-item">A102</div>
+            <div class="grid-item">A103</div>
+            <div class="grid-item">A104</div>
+            <div class="grid-item">A105</div>
+            <!-- Blank grid item with transparent background -->
+            <div class="grid-item blank-grid-item"></div>
+            <!--<div class="grid-item">4</div>-->
+            <div class="grid-item">A106</div>
+            <div class="grid-item">A107</div>
+            <div class="grid-item">A108</div>
+            <div class="grid-item">A109</div>
+            <div class="grid-item">A110</div>
+            <!-- Blank grid item -->
+            <div class="grid-item"></div>
+        </div> 
+        {% for room in grounds %}
+    {% if room.id == 2 %}
+        {% if room.id == 2 and room.status %}
+            {% with background_color='green' %}
+                <div class="grid-item room-3" style="background-color: {{ background_color }}">
+                    {{ room.room_number }}
+                </div>
+            {% endwith %}
+        {% else %}
+            {% with background_color='blue' %}
+                <div class="grid-item room-3" style="background-color: {{ background_color }}">
+                    {{ room.room_number }}
+                </div>
+            {% endwith %}
+        {% endif %}
+    {% endif %}
+    <!-- Add more conditions as needed -->
+{% endfor %}
+
+
+
+        {% for room in grounds %}
+    {% if room.id == 3 %}
+        {% if room.status %}
+            {% with background_color='green' %}
+                <div class="grid-item room-3" style="background-color: {{ background_color }}">
+                    {{ room.room_number }}
+                    {{ room.status }}
+                </div>
+            {% endwith %}
+        {% else %}
+            {% with background_color='blue' %}
+                <div class="grid-item room-3" style="background-color: {{ background_color }}">
+                    {{ room.room_number }}
+                    {{ room.status }}
+                </div>
+            {% endwith %}
+        {% endif %}
+    {% endif %}
+    <!-- Add more conditions as needed -->
+{% endfor %}
+
+        {% if grounds.3 %}
+        
+    <div style="background-color: {% if grounds.status %} green {% else %}blue{% endif %};">
+        {{ grounds.3.room_number }}
+        {{ grounds.3.status }}
+    </div>
+{% else %}
+    
+{% endif %}
+
+    </div>
+
+
+
+    <div id="footer">Copyright © 2023 Marsabit Municipaly. Designed by Sach All rights reserved. </div>
+</div>
+    
+</body>
+</html>
+<!--
+#header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+<--

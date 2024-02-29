@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<html>
+<!-- create_payment.html 
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Payment</button>
+</form>
+-->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+
+<form method="post">
+    {% csrf_token %}
+    <label for="id_owner">Owner:</label>
+    {{ form.owner }}
+    <br>
+    <label for="id_room">Room:</label>
+    <select name="room" id="id_room">
+        <option value="">---------</option>
+    </select>
+    <br>
+    <label for="id_floor">Floor:</label>
+    <input type="text" id="id_floor" name="floor" readonly>
+    <br>
+    <label for="id_room_number">Room Number:</label>
+    <input type="text" id="id_room_number" name="room_number" readonly>
+    <br>
+    <label for="id_owner_name">Owner Name:</label>
+    <input type="text" id="id_owner_name" name="owner_name" readonly>
+    <br>
+    <label for="id_month_paid">Month Paid:</label>
+    {{ form.month_paid }}
+    <br>
+    <label for="id_pay_status">Pay Status:</label>
+    {{ form.pay_status }}
+    <br>
+    <label for="id_status">Status:</label>
+    {{ form.status }}
+    <br>
+    <label for="id_due_months">Due Months:</label>
+    {{ form.due_months }}
+    <br>
+    <label for="id_balance">Balance:</label>
+    {{ form.balance }}
+    <br>
+    <label for="id_collected_by">Collected By:</label>
+    {{ form.collected_by }}
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ownerDropdown = document.getElementById('id_owner');
+        const roomDropdown = document.getElementById('id_room');
+        const floorField = document.getElementById('id_floor');
+        const roomNumberField = document.getElementById('id_room_number');
+        const ownerNameField = document.getElementById('id_owner_name');
+
+        ownerDropdown.addEventListener('change', function() {
+            const ownerId = ownerDropdown.value;
+            
+            fetch(`/get_owner_data/?owner_id=${ownerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    roomDropdown.innerHTML = '<option value="">---------</option>';
+                    data.rooms.forEach(room => {
+                        roomDropdown.innerHTML += `<option value="${room.id}">${room.room_number}</option>`;
+                    });
+                    floorField.value = data.floor;
+                    roomNumberField.value = data.room_number;
+                    ownerNameField.value = data.owner_name;
+                });
+        });
+    });
+</script>
+
+
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<!-- your_template.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* ... Your existing styles ... */
+.green-bg {
+    background-color: green;
+}
+
+.blue-bg {
+    background-color: blue;
+}
+</style>
+
+<!-- Div class for rooms with id=1 -->
+<div class="grid-container" id="rooms-id-1">
+    <!-- Blank grid item -->
+    <div class="blank-grid-item"></div>
+
+    <!-- 17 medium grid items with content -->
+    {% for obj in queryset_objects %}
+        {% if obj.id == 1 %}
+            <div class="grid-item {% if obj.room_status %}green-bg{% else %}blue-bg{% endif %}">
+                {{ obj.room_number }} <!-- Replace with the actual attribute you want to display -->
+                
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- Div class for rooms with id=3 -->
+<div class="grid-container" id="rooms-id-3">
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+
+    <!-- 17 medium grid items with content -->
+    {% for obj in queryset_objects %}
+        {% if obj.id == 3 %}
+            <div class="grid-item" style="background-color: {% if obj.room_status %}green{% else %}blue{% endif %}">
+                {{ obj.room_number }} <!-- Replace with the actual attribute you want to display -->
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Blank grid item -->
+    <div class="grid-item"></div>
+</div>
+
+<!-- ... Other div classes ... -->
+
+{% endblock %}

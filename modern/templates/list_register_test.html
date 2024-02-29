@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- list_register_test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Rows</title>
+</head>
+<body>
+    <h1>Payment Rows</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Floor</th>
+                <th>Room Number</th>
+                <th>Balance</th>
+                <th>Due Months</th>
+                <th>Ouw Us</th>
+                <th>Month Paid</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in all_new_payment_rows %}
+            <tr>
+                <td>{{ row.owner }}</td>
+                <td>{{ row.floor }}</td>
+                <td>{{ row.room_number }}</td>
+                <td>{{ row.balance }}</td>
+                <td>{{ row.due_months }}</td>
+                <td>{{ row.ouw_us }}</td>
+                <td>{{ row.month_paid }}</td>
+                <td>{{ row.start_date }}</td>
+                <td>{{ row.end_date }}</td>
+                <td>{{ row.pay_status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock %}

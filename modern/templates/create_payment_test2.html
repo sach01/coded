@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- create_payment.html -->
+<!---
+<form method="post">
+    {% csrf_token %}
+    <label for="register">Select Register:</label>
+    <select name="register_id" id="register">
+        {% for register in registers %}
+            <option value="{{ register.id }}">{{ register }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Create Payment</button>
+</form>
+--->
+
+
+<ul>
+    {% for register in registers %}
+      <li>
+        Register ID: {{ register.id }} - Owner: {{ register.owner.name }} - Room: {{ register.room.room_number }}
+        <!-- Link to create payment for this register -->
+        <a href="{% url 'create_payment_test2' register.id %}">Create Payment</a>
+        <td><a href="{% url 'create_payment_test2' register.pk %}">Edit</a></td>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="register_id" value="{{ register.id }}">
+    <!-- Include other form fields here -->
+    {{ form.as_p }}
+    <button type="submit">Create Payment</button>
+  </form>
+
+{% endblock %}

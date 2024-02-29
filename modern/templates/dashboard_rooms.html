@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Count Occupied Rooms Per Floor:</h3>
+    <ul>
+        {% for item in occupied_rooms_per_floor %}
+            <li>Floor: {{ item.floor__name }}, Occupied Rooms: {{ item.occupied_count }}</li>
+        {% endfor %}
+    </ul>
+
+<h3>Count Vacant Rooms Per Floor:</h3>
+    <ul>
+        {% for item in vacant_rooms_per_floor %}
+            <li>Floor: {{ item.floor__name }}, Vacant Rooms: {{ item.vacant_count }}</li>
+        {% endfor %}
+    </ul>
+
+<h3>All Vacant Rooms:</h3>
+    <ul>
+        {% for room in vacant_rooms %}
+            <li>Room Number: {{ room.room_number }}, Floor: {{ room.floor }}, Amount: {{ room.amount }}</li>
+        {% endfor %}
+    </ul>
+
+<h2>Vacant Rooms per floor:</h2>
+    <h3>Vacant Rooms on Floor "Ground":</h3>
+    <ul>
+        {% for room in vacant_rooms_ground %}
+            <li>Room Number: {{ room.room_number }}, Floor: {{ room.floor__name }}, Amount: {{ room.amount }}</li>
+        {% empty %}
+            <li>No occupied rooms found on this floor.</li>
+        {% endfor %}
+    </ul>
+    <h3>Vacant Rooms on Floor "First":</h3>
+      <ul>
+          {% for room in vacant_rooms_first %}
+              <li>Room Number: {{ room.room_number }}, Floor: {{ room.floor__name }}, Amount: {{ room.amount }}</li>
+          {% empty %}
+              <li>No occupied rooms found on this floor.</li>
+          {% endfor %}
+      </ul>
+      <h3>Vacant Rooms on Floor "Second":</h3>
+            <ul>
+                {% for room in vacant_rooms_second %}
+                    <li>Room Number: {{ room.room_number }}, Floor: {{ room.floor__name }}, Amount: {{ room.amount }}</li>
+                {% empty %}
+                    <li>No occupied rooms found on this floor.</li>
+                {% endfor %}
+            </ul>
+
+<h3>List Rooms with Details</h3>
+{% for room in rooms %}
+      <ol>
+        Room ID: {{ room.id }} -
+        Floor: {{ room.floor.name }} -
+        Room Number: {{ room.room_number }} 
+        Amount: {{ room.amount }} 
+        Room Status: {{ room.room_status }} 
+
+      </ol>
+      {% endfor %}
+
+     
+
+      {% endblock %}

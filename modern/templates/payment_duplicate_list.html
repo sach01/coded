@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Duplicated Payments List</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Owner</th>
+            <th>Floor</th>
+            <th>Room</th>
+            <th>Floor Sum</th>
+            <th>Date Paid</th>
+            <th>Month Paid</th>
+            <th>Pay Status</th>
+            <th>Due Months</th>
+            <th>Amount</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payment_data %}
+            <tr>
+                <td>{{ payment.owner }}</td>
+                <td>{{ payment.floor }}</td>
+                <td>{{ payment.room }}</td>
+                <td>{{ payment.floor_sum }}</td>
+                <td>{{ payment.date_paid }}</td>
+                <td>{{ payment.month_paid }}</td>
+                <td>{{ payment.new_month_paid_list }}</td>
+                <td>{{ payment.pay_status }}</td>
+                <td>{{ payment.due_months }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.balance }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

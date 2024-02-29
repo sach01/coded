@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Details</title>
+</head>
+<body>
+    <h1>Payment Details</h1>
+    <table border="1">
+        <tr>
+            <th>Room Number</th>
+            <th>Owner</th>
+            <th>Floor</th>
+            <th>Room</th>
+            <th>Start Date</th>
+            <th>Pay Status</th>
+            <th>Month Paid</th>
+            <th>Balance</th>
+            <th>Due Months</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <td>{{ entry.owner__room__room_number }}</td>
+            <td>{{ entry.owner__owner__name }}</td>
+            <td>{{ entry.owner__room__floor }}</td>
+            <td>{{ entry.owner__room__room_number }}</td>
+            <td>{{ entry.owner__start_date }}</td>
+            <td>{{ entry.pay_status }}</td>
+            <td>{{ entry.month_paid }}</td>
+            <td>{{ entry.balance }}</td>
+            <td>{{ entry.due_months }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

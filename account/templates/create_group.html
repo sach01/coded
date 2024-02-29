@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Group</title>
+</head>
+<body>
+    <h1>Create Group</h1>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+    <form method="post" action="{% url 'create_group' %}">
+        {% csrf_token %}
+        <label for="group_name">Group Name:</label>
+        <input type="text" id="group_name" name="group_name">
+        <button type="submit">Create Group</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}

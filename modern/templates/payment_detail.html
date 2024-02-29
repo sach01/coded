@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Detail</title>
+</head>
+<body>
+    <h1>Payment Detail</h1>
+    <ul>
+        <li><strong>Owner:</strong> {{ payment.owner }}</li>
+        <li><strong>Date Paid:</strong> {{ payment.date_paid }}</li>
+        <li><strong>Month Paid:</strong> {{ payment.month_paid }}</li>
+        <li><strong>Pay Status:</strong> {{ payment.pay_status }}</li>
+        <li><strong>Status:</strong> {{ payment.status }}</li>
+        <li><strong>Due Months:</strong> {{ payment.due_months }}</li>
+        <li><strong>Balance:</strong> {{ payment.balance }}</li>
+        <li><strong>Collected By:</strong> {{ payment.collected_by }}</li>
+        <li><strong>Invoice Number:</strong> {{ payment.invoice_number }}</li>
+    </ul>
+</body>
+</html>
+{% endblock %}

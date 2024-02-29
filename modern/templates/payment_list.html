@@ -1,0 +1,27 @@
+<!-- your_template.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Payment List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Owner</th>
+        <th>Next Month to Paid</th>
+        <th>Due Months</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in payment_data %}
+        <tr>
+          <td>{{ data.owner }}</td>
+          <td>{{ data.month_paid }}</td>
+          <td>{{ data.due_months }}</td>
+          <td>{{ data.balance }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

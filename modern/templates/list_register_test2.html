@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+</head>
+<body>
+
+{% for data_object in registers_in_payment %}
+    <div class="data-container" onclick="displayData({{ data_object.id }})">
+        ID: {{ data_object.id }} - {{ data_object.data }}
+    </div>
+{% endfor %}
+
+<!-- Display area for selected data -->
+<div id="displayArea"></div>
+
+<script>
+    // Function to display data based on ID
+    function displayData(id) {
+        // You can fetch data from a server using AJAX or use preloaded data
+        // For simplicity, using a predefined object here
+        const data = {
+            {% for data_object in data_objects %}
+                {{ data_object.id }}: "{{ data_object.data }}",
+            {% endfor %}
+        };
+
+        // Display data in the specified area
+        document.getElementById('displayArea').innerHTML = data[id];
+    }
+</script>
+
+</body>
+</html>

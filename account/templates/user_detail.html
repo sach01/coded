@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Detail</title>
+</head>
+<body>
+    <h1>User Detail</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Age: {{ user.age }}</p>
+    <a href="{% url 'user_update' user.pk %}">Update</a>
+    <a href="{% url 'user_delete' user.pk %}">Delete</a>
+</body>
+</html>
+
+{% endblock %}

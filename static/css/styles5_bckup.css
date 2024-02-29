@@ -1,0 +1,81 @@
+
+.main-container{
+    display: grid;
+    max-width: 900px;
+    position: relative;
+    margin: auto;
+    grid-template-areas: 
+    "header header header"
+    "nav body" 
+    "footer footer";
+    grid-template-rows: 300px 120px 800px 120px;
+    grid-template-columns: 1fr 3fr; 
+}
+
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 10px;
+}
+#body{
+
+}
+#navbar{
+
+}
+#footer{
+
+}
+#header .header-2 h1{
+    font-size: larger;
+    font-weight: 400;
+}
+#header .logo_left img {
+    height: 100%;
+    width: 50%; 
+    float: left;
+}
+
+#header .logo_right img {
+    height: 100%;
+    width: 50%;
+    float: right;
+}
+#navbar {
+    height: 100vh;
+    width: 200px;
+    background-color: hsl(0, 43%, 99%);
+    position: fixed;
+    left: 0;
+    top: 80px;
+    overflow-y: auto;
+    padding-top: 20px;
+  
+}
+
+#navbar a {
+    padding: 15px;
+    text-decoration: none;
+    color: #050505;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+#navbar a:hover {
+    background-color: #555;
+}
+
+.dropdown {
+    padding-left: 15px;
+}
+
+.dropdown-content {
+    display: none;
+    padding-left: 15px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

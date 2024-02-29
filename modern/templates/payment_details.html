@@ -1,0 +1,27 @@
+{% for payment in payments %}
+
+    <tr>
+
+        <td>{{ payment.owner }}</td>
+
+        <td>{{ payment.floor }}</td>
+
+        <td>{{ payment.room }}</td>
+
+        <td>{{ payment.start_date }}</td>
+
+        <td>{{ payment.pay_status }}</td>
+
+        <td>{{ payment.month_paid }}</td>
+
+        <td>{{ payment.balance }}</td>
+
+        <td>{{ payment.sum_paid }}</td>
+
+        <td>{{ payment.sum_unpaid }}</td>
+
+        <td>{{ payment.sum_pending }}</td>
+
+    </tr>
+
+{% endfor %}

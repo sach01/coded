@@ -1,0 +1,11 @@
+
+<h2>Update Registration</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Accept">
+  <a href="{% url 'list_registers' %}">Decline</a>
+  <li>{{ register.id }} - <a href="{% url 'create_payment_test' register.id %}">Create Payment</a></li>
+</form>
+

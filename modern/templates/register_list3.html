@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register List</title>
+</head>
+<body>
+    <h1>Registers in Payment</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Register ID</th>
+                <th>Due Months</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for register in registers_in_payment %}
+                <tr>
+                    <td>{{ register.register_id }}</td>
+                    <td>{{ register.due_months }}</td>
+                    <td>{{ register.balance }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Registers Not in Payment</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Register ID</th>
+                <th>Due Months</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for register in registers_not_in_payment %}
+                <tr>
+                    <td>{{ register.register_id }}</td>
+                    <td>{{ register.due_months }}</td>
+                    <td>{{ register.balance }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!-- edit_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Payment</title>
+</head>
+<body>
+    <h1>Edit Payment</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

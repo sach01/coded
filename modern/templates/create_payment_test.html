@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<!-- list_registers.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Registers</title>
+</head>
+<body>
+    <h1>List of Registers</h1>
+    <ul>
+        {% for register in registers %}
+            <li>{{ register.id }} - <a href="{% url 'create_payment_test' register.id %}">Create Payment</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

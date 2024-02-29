@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+</head>
+<body>
+    <h1>Payment Details</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Owner Name</th>
+                <th>Floor Name</th>
+                <th>Room Number</th>
+                <th>Balance</th>
+                <th>Month Paid</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in all_new_payment_rows %}
+            <tr>
+                <td>{{ row.owner }}</td>
+                <td>{{ row.floor }}</td>
+                <td>{{ row.room_number }}</td>
+                <td>{{ row.balance }}</td>
+                <td>{{ row.month_paid }}</td>
+                <td>{{ row.start_date }}</td>
+                <td>{{ row.end_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Summed Balance per Combination</h2>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Owner Name</th>
+                <th>Floor Name</th>
+                <th>Room Number</th>
+                <th>Summed Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for owner, balance in owner_total_balance.items %}
+            <tr>
+                <td>{{ owner.0 }}</td>
+                <td>{{ owner.1 }}</td>
+                <td>{{ owner.2 }}</td>
+                <td>{{ balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+{% endblock %}

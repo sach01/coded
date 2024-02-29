@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">List of Payments</div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example" class="table table-bordered text-nowrap key-buttons">
+                <thead>
+                    <tr>
+                        <th class="border-bottom-0">Owner</th>
+                        <th class="border-bottom-0">Room</th>
+                        <th class="border-bottom-0">Start Date</th>
+                        <th class="border-bottom-0">Months Difference</th>
+                        <th class="border-bottom-0">Monthly Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for register in registers %}
+                    <tr>
+                        <td>{{ register.owner.name }}</td>
+                        <td>{{ register.room }}</td>
+                        <td>{{ register.start_date }}</td>
+                        <td>{{ register.months_difference }}</td>
+                        <td>{{ register.monthly_fee }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No payments found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

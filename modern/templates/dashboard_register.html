@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<body>
+    <h1>Payment Data with Balance</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Floor </th>
+                <th>Room Number </th>
+                <th>Month Paid</th>
+                <th>Due Months</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in payment_data %}
+            <tr>
+                <td>{{ data.owner.name }}</td>
+                <td>{{ data.floor.name }}</td>
+                <td>{{ data.room_number.room_number }}</td>
+                <td>{{ data.month_paid }}</td>
+                <td>{{ data.due_months }}</td>
+                <td>{{ data.balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+{% endblock %}

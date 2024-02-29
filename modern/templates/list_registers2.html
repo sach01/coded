@@ -1,0 +1,55 @@
+
+{%  extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!--div-->
+<div class="card">
+	<div class="card-header">
+		<div class="card-title">List of Payments</div>
+	</div>
+	<div class="card-body">
+		<div class="">
+			<div class="table-responsive">
+				<table id="example" class="table table-bordered text-nowrap key-buttons">
+					<thead>
+						<tr>
+							<th class="border-bottom-0">Name</th>
+							<th class="border-bottom-0">due_months</th>
+							<th class="border-bottom-0">balance</th>
+							<th class="border-bottom-0">month_paid</th>
+							<th class="border-bottom-0">date_paid</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						{% for register in registers_in_payment %}
+						<tr>
+						  <td>{{ register.register_id }}</td>
+						  <td>{{ register.due_months }}</td>
+						  <td>{{ register.balance }}</td>
+						  <td>{{ register.reg_status }}</td>
+						  <td>{{ data.balance }}</td>
+						  
+						</tr>
+					  {% endfor %}
+					  {% for register in registers_not_in_payment %}
+						<tr>
+						  <td>{{ register.register_id }}</td>
+						  <td>{{ register.due_months }}</td>
+						  <td>{{ register.balance }}</td>
+						  <td>{{ register.reg_status }}</td>
+						  <td>{{ data.balance }}</td>
+						</tr>
+					  {% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/div-->
+
+
+{% endblock %}

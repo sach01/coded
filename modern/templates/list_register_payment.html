@@ -1,0 +1,10 @@
+
+<ul>
+    {% for register in registers %}
+      <li>
+        Register ID: {{ register.id }} - Owner: {{ register.owner.name }} - Room: {{ register.room.room_number }}
+        <!-- Link to create payment for this register -->
+        <a href="{% url 'create_payment_test2' register.id %}">Create Payment</a>
+      </li>
+    {% endfor %}
+  </ul>
