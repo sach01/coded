@@ -205,9 +205,9 @@
 										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">register</a>
 											<ul class="sub-menu">
 												<li><a href="{% url 'register' %}" class="slide-item">register</a></li>
-												<li><a href="list_registers" class="slide-item"> list registered</a></li>
-												<li><a href="payment_list" class="slide-item"> list balance</a></li>
-											
+												<li><a href="{% url 'list_registers' %}" class="slide-item"> list registered</a></li>
+												<li><a href="{% url 'payment_list' %}" class="slide-item"> list balance</a></li>
+												
 											</ul>
 										</li>
 
@@ -231,15 +231,15 @@
 											<ul class="sub-menu">
 												<li><a href="list_payment" class="slide-item">list Payment registered</a></li>
 												<li><a href="payment_list" class="slide-item">list balance</a></li>
+												<li><a href="list_register_test1" class="slide-item"> balance</a></li>
 												<li><a href="create_payment" class="slide-item"> make payment</a></li>
 												<li><a href="calc_payment" class="slide-item"> calc payment</a></li>
 											</ul>
 										</li>
 										<li aria-haspopup="true" class="sub-menu-sub"><a href="#">balance</a>
 											<ul class="sub-menu">
-												<li><a href="list_register_test" class="slide-item">list balance registered</a></li>
+												<li><a href="{% url 'list_register_test' %}" class="slide-item">list balance registered</a></li>
 												<li><a href="calc_payment" class="slide-item"> list balance deregistered</a></li>
-												
 												<li><a href="list_registers2" class="slide-item"> list_registers2</a></li>
 												<li><a href="register_list3" class="slide-item"> register_list3</a></li>
 											</ul>
@@ -283,7 +283,7 @@
 
 				<div class="app-content page-body">
 					<div class="container">
-						<a href="{% url 'login' %}">Login</a>
+						<!---<a href="{% url 'login' %}">Login</a>--->
 
 						<!--Page header-->
 

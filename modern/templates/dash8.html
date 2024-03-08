@@ -1,12 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/styles7.css">
     <title>Marsabit Municipality</title>
+
+    <style>
+        .button-container {
+            text-align: center;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
+    <!--
     <div class="main-container">
     <div id="header" class="header-container">
         <div class='logo_left'>
@@ -31,9 +50,14 @@
             </div>
         </div>
         <a href="#">Contact</a>
-    </div>
+    </div>-->
     <div id="body" class="body-container">
-       
+        <br></br>
+        <div class="button-container">
+            <button class="button">Button 1</button>
+            <button class="button">Button 2</button>
+            <button class="button">Button 3</button>
+        </div>
         <div class="grid-container">
             <!-- Blank grid item -->
             
@@ -296,20 +320,16 @@
             <div class="grid-item"></div>
         </div> 
         
+        
     </div>
 
 
 
-    <div id="footer">Copyright © 2023 Marsabit Municipaly. Designed by Sach All rights reserved. </div>
 </div>
+<br></br>
+</body>
     
 </body>
 </html>
-<!--
-#header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-<--
+
+{% endblock %}

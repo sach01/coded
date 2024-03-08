@@ -8,7 +8,11 @@ from . import views
 
 urlpatterns = [
     path("", modern_views.index, name="index"),
-    #path("dashboard", views.dashboard, name="dashboard"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
+
+    path("ground", views.ground, name="ground"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
     #path("display_details", views.display_details, name="display_details"),
     #path("display_payment_details", views.display_payment_details, name="display_payment_details"),
     #path("payment_details", views.payment_details, name="payment_details"),

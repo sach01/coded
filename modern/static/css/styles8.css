@@ -136,7 +136,7 @@
 /* Add a margin to the top of the third row */
 .grid-container:nth-child(3) {
     /* margin-top: 15px; /* Adjust the margin as needed */ 
-    margin-bottom: 2px; /* Adjust the margin as needed */
+    margin-bottom: 15px; /* Adjust the margin as needed */
 }
 /* Add a margin to the top of the third row */
 .grid-container:nth-child(4) {
@@ -145,18 +145,22 @@
 /* Add a margin to the top of the third row */
 .grid-container:nth-child(5) {
     margin-bottom: 2px; /* Adjust the margin as needed */
+    background-color: aquamarine;
 }
 .grid-container:nth-child(6) {
     margin-bottom: 15px; /* Adjust the margin as needed */
+   
 }
 .grid-container:nth-child(7) {
-    margin-bottom: 2px; /* Adjust the margin as needed */
+    margin-bottom: 15px; /* Adjust the margin as needed */
+    background-color: aquamarine;
 }
 .grid-container:nth-child(8) {
     margin-bottom: 2px; /* Adjust the margin as needed */
 }
 .grid-container:nth-child(9) {
     margin-bottom: 2px; /* Adjust the margin as needed */
+   
 }
 .grid-container:nth-child(10) {
     margin-bottom: 2px; /* Adjust the margin as needed */
@@ -165,22 +169,36 @@
     margin-bottom: 2px; /* Adjust the margin as needed */
 }
 .grid-container:nth-child(12) {
-    margin-bottom: 2px; /* Adjust the margin as needed */
+    margin-bottom: 15px; /* Adjust the margin as needed */
+    background-color: aquamarine;
 }
 .grid-container:nth-child(13) {
-    margin-bottom: 2px; /* Adjust the margin as needed */
+    margin-bottom: 2px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(14) {
+    margin-bottom: 2px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(15) {
+    margin-bottom: 2px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(16) {
+    margin-bottom: 2px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(17) {
+    margin-bottom: 2px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(18) {
+    margin-bottom: 30px; /* Adjust the margin as needed */  
+}
+.grid-container:nth-child(19) {
+    margin-bottom: 30px; /* Adjust the margin as needed */  
 }
 /* */
 .blank-grid-item {
     background-color: transparent; /* Transparent background for blank grid items */
 }
 
-#footer{
-    grid-area: 6 / 1 / 7 / 3;
-    text-align: center;
-    background-color: azure;
-    height: 80%;
-}
+
 .green-bg {
     background-color: green;
 }

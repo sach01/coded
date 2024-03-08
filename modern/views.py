@@ -46,14 +46,39 @@ def stalls(n):
     g = Floor.objects.get(pk=1)
     room = []
     for i in range(1, 176):
-        x = 'C' + str(i)
+        x = 'A' + str(i)
         room.append(x)
     for i in room:
         r = Room.objects.create(floor=g, room = i)
     #g.room = x
         r.save()
-    for i in r:
         print(r)
+    #for i in r:
+        print(r)
+
+def dashboard1(request):
+    return render(request, 'base1.html')
+
+def ground(request):
+    grounds = Room.objects.filter(floor=1)
+    context = {
+        'grounds': grounds,
+    }
+    return render(request, 'ground.html', context)
+
+def first(request):
+    first = Room.objects.filter(floor=2)
+    context = {
+        'first': first,
+    }
+    return render(request, 'ground.html', context)
+
+def second(request):
+    second = Room.objects.filter(floor=3)
+    context = {
+        'second': second,
+    }
+    return render(request, 'second.html', context)
 
 def index(request):
     from django.contrib.admin.models import LogEntry
@@ -81,7 +106,7 @@ def index(request):
         'second': second,  
     }
 
-    return render(request, 'dash7.html', context)
+    return render(request, 'dash8.html', context)
     #return render(request, 'dash5.html')
     #return HttpResponse("Hello, world. You're at the polls index.")
 
