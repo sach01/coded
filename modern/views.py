@@ -38,10 +38,6 @@ import datetime
 import random
 import string
 
-#St@11s@4321
-#modern
-#market1@54321
-#mbarak
 def stalls(n):
     g = Floor.objects.get(pk=1)
     room = []
