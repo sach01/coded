@@ -1,0 +1,15 @@
+
+Error: No application module specified.
+[2024-03-01 19:55:08 +0000] [15917] [INFO] Starting gunicorn 21.2.0
+[2024-03-01 19:55:08 +0000] [15917] [INFO] Listening at: unix:/home/bob/code/coded.sock (15917)
+[2024-03-01 19:55:08 +0000] [15917] [INFO] Using worker: sync
+[2024-03-01 19:55:08 +0000] [15918] [INFO] Booting worker with pid: 15918
+[2024-03-01 19:55:08 +0000] [15919] [INFO] Booting worker with pid: 15919
+[2024-03-01 19:55:08 +0000] [15920] [INFO] Booting worker with pid: 15920
+[2024-03-01 19:56:22 +0000] [15917] [INFO] Handling signal: winch
+[2024-03-01 19:56:23 +0000] [15917] [INFO] Handling signal: winch
+[2024-03-01 19:56:27 +0000] [15917] [INFO] Handling signal: int
+[2024-03-01 19:56:28 +0000] [15919] [INFO] Worker exiting (pid: 15919)
+[2024-03-01 19:56:28 +0000] [15920] [INFO] Worker exiting (pid: 15920)
+[2024-03-01 19:56:28 +0000] [15918] [INFO] Worker exiting (pid: 15918)
+[2024-03-01 19:56:28 +0000] [15917] [INFO] Shutting down: Master

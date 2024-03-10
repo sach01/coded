@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut aw
 #DEBUG = True
 DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.223.75.33', 'stalls.sakuserene.co.ke']
 
 
 # Application definition
