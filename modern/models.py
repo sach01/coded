@@ -37,7 +37,7 @@ class Room(models.Model):
         return '%s %s %s %s %s'% (self.floor, self.room_number, self.amount, self.room_status, self.date_created)
     
 class Owner(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=10, blank=True, null=True)
     id_number = models.CharField(max_length=10, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)

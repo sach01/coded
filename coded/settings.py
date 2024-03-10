@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'modern',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,9 @@ AUTH_USER_MODEL = 'account.CustomUser'
 # Configure CSRF middleware to handle CSRF protection
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is secure (recommended for production)
 CSRF_FAILURE_VIEW = 'account.views.csrf_failure'  # Specify custom view for CSRF failures
+
+LOGIN_URL = '/account/login/'
+
+LOGIN_REDIRECT_URL = '/dashboard1/'
+# Set session timeout to 30 minutes (1800 seconds)
+SESSION_COOKIE_AGE = 1800
