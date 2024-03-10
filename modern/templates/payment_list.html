@@ -1,8 +1,8 @@
-<!-- your_template.html -->
-
-{% extends "base.html" %}
+{%  extends 'base2.html' %}
+{% load static %}
 
 {% block content %}
+
   <h1>Payment List</h1>
   <table>
     <thead>
@@ -24,4 +24,5 @@
       {% endfor %}
     </tbody>
   </table>
+  
 {% endblock %}

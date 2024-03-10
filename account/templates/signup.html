@@ -1,47 +1,5 @@
-Certainly! The UserCreationForm and AuthenticationForm are Django's built-in forms for user signup and login, respectively. We can use them directly or customize them according to our needs.
 
-Here's how you can utilize them in your Django application:
-
-1. User Signup (using UserCreationForm):
-
-python
-
-# views.py
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')  # Redirect to login page after successful signup
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-
-2. User Login (using AuthenticationForm):
-
-python
-
-# views.py
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')  # Redirect to home or any other page after successful login
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
-
-3. Templates:
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 {% load static %}
 
 {% block content %}

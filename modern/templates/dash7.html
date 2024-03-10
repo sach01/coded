@@ -62,20 +62,20 @@
         {% endfor %}
 
             {% for room in grounds %}
-            {% if room.id == 2 %}
+            {% if room.room_number == "A2" %}
             <div class="grid-item {% if room.room_status %}green-bg{% else %}blue-bg{% endif %}">
                 {{ room.room_number }} <!-- Replace with the actual attribute you want to display -->
             </div>
         {% endif %}
         {% endfor %}
 
-            {% for room in grounds %}
-            {% if room.id == 1 %}
+        {% for room in grounds %}
+        {% if room.room_number == "A1" %}
             <div class="grid-item {% if room.room_status %}green-bg{% else %}blue-bg{% endif %}">
                 {{ room.room_number }} <!-- Replace with the actual attribute you want to display -->
             </div>
         {% endif %}
-        {% endfor %}
+    {% endfor %}
             
            
         </div>

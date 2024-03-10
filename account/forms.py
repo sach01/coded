@@ -20,6 +20,10 @@ class CustomUserForm(forms.ModelForm):
             'password': forms.PasswordInput(),
         }
 
+class CustomUserLoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
+
 # class CustomUserForm(UserCreationForm):
 #     class Meta(UserCreationForm.Meta):
 #         model = CustomUser

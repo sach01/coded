@@ -8,7 +8,11 @@ from . import views
 
 urlpatterns = [
     path("", modern_views.index, name="index"),
-    #path("dashboard", views.dashboard, name="dashboard"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
+
+    path("ground", views.ground, name="ground"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
+    path("dashboard1", views.dashboard1, name="dashboard1"),
     #path("display_details", views.display_details, name="display_details"),
     #path("display_payment_details", views.display_payment_details, name="display_payment_details"),
     #path("payment_details", views.payment_details, name="payment_details"),
@@ -19,8 +23,8 @@ urlpatterns = [
     path('edit_register/<int:register_id>/', modern_views.edit_register, name='edit_register'),
     path("list_registers", modern_views.list_registers, name="list_registers"),
     path("list_register_test", modern_views.list_register_test, name="list_register_test"),
-    path("list_registers2", modern_views.list_registers2, name="list_registers2"),
-    path("register_list3", modern_views.register_list3, name="register_list3"),
+    #path("list_registers2", modern_views.list_registers2, name="list_registers2"),
+    #path("register_list3", modern_views.register_list3, name="register_list3"),
     path("get_rooms_by_floor", modern_views.get_rooms_by_floor, name="get_rooms_by_floor"),
     
 

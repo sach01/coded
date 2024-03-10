@@ -4,6 +4,7 @@ This is a Stalls Management System created for learning purposes.
 
 ## Installation
 1. Create a folder 
+
     `mkdir <folder_name>`
 
 2. Inside the folder create a virtual environment

@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser, Group
 class CustomUser(AbstractUser):
     name = models.CharField(max_length=50, blank=True)
     mobile = models.CharField(max_length=10, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     groups = models.ManyToManyField(Group, related_name='users', blank=True)
     date_created = models.DateTimeField(null=True, blank=True)
     #user_group = models.ManyToManyField(CustomGroup, blank=True)
