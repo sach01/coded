@@ -149,8 +149,7 @@ AUTH_USER_MODEL = 'account.CustomUser'
 
 # Configure CSRF middleware to handle CSRF protection
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is secure (recommended for production)
-#CSRF_FAILURE_VIEW = 'account.views.csrf_failure'  # Specify custom view for CSRF failures
-
+CSRF_FAILURE_VIEW = 'account.views.csrf_failure'  # Specify custom view for CSRF failures
 
 LOGIN_URL = '/account/login/'
 
