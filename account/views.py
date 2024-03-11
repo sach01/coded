@@ -75,6 +75,7 @@ def csrf_failure(request, reason=""):
     # You can customize this function to handle CSRF failures as needed
     return render(request, 'error403.html', status=403)
 
+
 def user_login(request):
     if request.method == 'POST':
         form = CustomUserLoginForm(request.POST)
@@ -84,19 +85,36 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                # Redirect to a fixed URL after login (replace 'index' with your desired URL)
-                return redirect('index')
+                return redirect('ground')  # Assuming 'dashboard' is the name of your dashboard URL
             else:
-                # Handle invalid credentials
-                error_message = "Invalid username or password."
-        else:
-            # Handle form validation errors
-            error_message = "Form is not valid. Please check the input."
+                error_message = 'Invalid username or password'
+                return render(request, 'login3.html', {'form': form, 'error_message': error_message})
     else:
         form = CustomUserLoginForm()
-        error_message = None
+    return render(request, 'login3.html', {'form': form})
 
-    return render(request, 'login.html', {'form': form, 'error_message': error_message})
+# # def user_login(request):
+# #     if request.method == 'POST':
+# #         form = CustomUserLoginForm(request.POST)
+# #         if form.is_valid():
+# #             username = form.cleaned_data['username']
+# #             password = form.cleaned_data['password']
+# #             user = authenticate(request, username=username, password=password)
+# #             if user is not None:
+# #                 login(request, user)
+# #                 # Redirect to a fixed URL after login (replace 'index' with your desired URL)
+# #                 return redirect('index')
+# #             else:
+# #                 # Handle invalid credentials
+# #                 error_message = "Invalid username or password."
+# #         else:
+# #             # Handle form validation errors
+# #             error_message = "Form is not valid. Please check the input."
+# #     else:
+# #         form = CustomUserLoginForm()
+# #         error_message = None
+
+# #     return render(request, 'login.html', {'form': form, 'error_message': error_message})
 
 
 # def user_login(request):

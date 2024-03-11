@@ -60,15 +60,15 @@ def dashboard1(request):
 
 @login_required(login_url="/account/login")
 def ground(request):
-    g = Floor.objects.get(pk=3)
-    room = []
-    for i in range(1, 156):
-        x = 'C' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
+    # g = Floor.objects.get(pk=3)
+    # room = []
+    # for i in range(1, 156):
+    #     x = 'C' + str(i)
+    #     room.append(x)
+    # for i in room:
+    #     r = Room.objects.create(floor=g, room_number=i, amount=1500)
+    #     r.save()
+    #     print(r)
 
     grounds = Room.objects.filter(floor=1)
     context = {
@@ -544,6 +544,7 @@ def edit_register(request, register_id):
 ####################################################################################################
 
 ################## BEGINING OF PAYMENT FUNCTIONS #######################################
+from datetime import datetime
 def generate_invoice_number():
     now = datetime.now()
     year = now.year
