@@ -71,9 +71,9 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-def csrf_failure(request, reason=""):
-    # You can customize this function to handle CSRF failures as needed
-    return render(request, 'error403.html', status=403)
+# def csrf_failure(request, reason=""):
+#     # You can customize this function to handle CSRF failures as needed
+#     return render(request, 'error403.html', status=403)
 
 
 def user_login(request):
