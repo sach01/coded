@@ -149,13 +149,12 @@ AUTH_USER_MODEL = 'account.CustomUser'
 
 # Configure CSRF middleware to handle CSRF protection
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is secure (recommended for production)
-CSRF_FAILURE_VIEW = 'account.views.csrf_failure'  # Specify custom view for CSRF failures
-<<<<<<< HEAD
-=======
+#CSRF_FAILURE_VIEW = 'account.views.csrf_failure'  # Specify custom view for CSRF failures
+
 
 LOGIN_URL = '/account/login/'
 
-LOGIN_REDIRECT_URL = '/dashboard1/'
+LOGIN_REDIRECT_URL = '/ground/'
 # Set session timeout to 30 minutes (1800 seconds)
 SESSION_COOKIE_AGE = 1800
->>>>>>> f9aba315f37542e9f127a76c723dd98cd0ab8eda
+#f9aba315f37542e9f127a76c723dd98cd0ab8eda
