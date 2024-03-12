@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut aw
 #DEBUG = True
 DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = ['3.223.75.33', 'stalls.sakuserene.co.ke', '127.0.0.1']
+ALLOWED_HOSTS = ['3.223.75.33', 'stalls.sakuserene.co.ke']
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES = {
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),  # or the hostname where your MySQL server is running
-        'PORT': '',      # or the port on which your MySQL server is listening
+        'PORT': config("DB_PORT"),      # or the port on which your MySQL server is listening
     }
 }
 
@@ -157,3 +157,30 @@ LOGIN_REDIRECT_URL = '/ground/'
 # Set session timeout to 30 minutes (1800 seconds)
 SESSION_COOKIE_AGE = 1800
 #f9aba315f37542e9f127a76c723dd98cd0ab8eda
+
+
+####################
+# settings.py
+
+# Import necessary modules
+import os
+from django.utils.log import DEFAULT_LOGGING
+
+# Define the base directory for your project
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Add a 'logs' directory in your project's base directory
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# Configure logging to include a file handler for 500 errors
+LOGGING = DEFAULT_LOGGING.copy()
+LOGGING['handlers']['500_error_file'] = {
+    'level': 'ERROR',
+    'class': 'logging.FileHandler',
+    'filename': os.path.join(LOG_DIR, '500_errors.log'),
+}
+
+LOGGING['loggers']['django.server']['handlers'].append('500_error_file')
+
+#########$$#####$#####
