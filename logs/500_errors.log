@@ -1,0 +1,5 @@
+[35;1m"POST /create_receiver/ HTTP/1.1" 500 97682[0m
+[35;1m"GET /dashboard_payment/ HTTP/1.1" 500 78933[0m
+[35;1m"GET /list_receivers/ HTTP/1.1" 500 88047[0m
+[35;1m"GET /list_receivers/ HTTP/1.1" 500 87890[0m
+[35;1m"GET /list_receivers/ HTTP/1.1" 500 87890[0m

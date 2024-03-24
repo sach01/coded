@@ -1,0 +1,42 @@
+{%  extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Receivers</title>
+</head>
+<body>
+    <h1>List Receivers</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Reference Number</th>
+                <th>Collector</th>
+                <th>Amount Received</th>
+                <th>Note</th>
+                <th>Received By</th>
+                <th>Date Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receiver in receivers %}
+                <tr>
+                    <td>{{ receiver.reference_number }}</td>
+                    <td>{{ receiver.collector }}</td>
+                    <td>{{ receiver.amount_received }}</td>
+                    <td>{{ receiver.note }}</td>
+                    <td>{{ receiver.received_by }}</td>
+                    <td>{{ receiver.date_received }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+{% endblock %}

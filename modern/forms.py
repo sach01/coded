@@ -96,7 +96,7 @@ from .models import Receiver
 class ReceiverForm(forms.ModelForm):
     class Meta:
         model = Receiver
-        fields = ['collector', 'amount_received', 'note', 'reference_number', 'received_by']
+        fields = ['collector', 'amount_received', 'note']
 
     def __init__(self, *args, **kwargs):
         super(ReceiverForm, self).__init__(*args, **kwargs)

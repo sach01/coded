@@ -49,6 +49,7 @@ def unauthenticated_user(view_func):
             raise PermissionDenied("You do not have permission to access this resource.")
     return wrapper_func
 
+
 # def group_required(group_name):
 #     """
 #     Decorator for views that checks whether a user belongs to a specific group.

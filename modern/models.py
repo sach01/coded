@@ -137,12 +137,29 @@ class Receiver(models.Model):
     date_received = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):
-        return '%s %s %s'% (self.collector, self.note, self.received_by, self.date_received) 
-    
+        return '%s %s %s'% (self.collector, self.note, self.received_by, self.date_received)
+     
     def save(self, *args, **kwargs):
+        # Generate a unique reference number before saving
         if not self.reference_number:
-            self.reference_number = get_random_string(length=10).upper()
+            self.reference_number = self.generate_reference_number()
         super().save(*args, **kwargs)
+
+    def generate_reference_number(self):
+        # Implement your logic to generate a unique reference number
+        now = datetime.datetime.now()
+        year = now.year
+        month = now.month
+        day = now.day
+        random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+        #invoice_number = f"{year}{month:02d}{day:02d}-{random_part}"
+        reference_number = f"{day:02d}{month:02d}{year}{random_part}"
+        return reference_number
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.reference_number:
+    #         self.reference_number = get_random_string(length=10).upper()
+    #     super().save(*args, **kwargs)
 
 class Arreas(models.Model):
     pass

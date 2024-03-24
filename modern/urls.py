@@ -55,8 +55,11 @@ urlpatterns = [
     path('dashboard_payment/<int:payment_id>/', views.payment_detail, name='payment_detail'),
     #path('dashboard_payment/<int:payment_id>/', views.edit_payment, name='edit_payment'),
     path('dashboard_payment/<int:payment_id>/edit/', views.edit_payment, name='edit_payment'),
+    path('dashboard03/', modern_views.dashboard03, name='dashboard03'),
+    path('dashboard04/', modern_views.dashboard04, name='dashboard04'),
 
     path('create_receiver/', modern_views.create_receiver, name='create_receiver'),
+    path('list_receivers/', modern_views.list_receivers, name='list_receivers'),
     
 
     
