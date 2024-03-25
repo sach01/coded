@@ -32,7 +32,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="received_by" value="{{ request.user.id }}">
-        <!-- Use request.user.id instead of user.id -->
+       
         <button type="submit">Submit</button>
     </form>
 </body>

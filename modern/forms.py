@@ -1,5 +1,5 @@
 from django import forms
-from .models import Register, Payment, Room, Floor, Owner, Receiver
+from .models import Register, Payment, Room, Floor, Owner, Receiver, OwnerType
 from datetime import datetime, date, timedelta
 from django.forms import widgets
 from django.core.exceptions import ValidationError
@@ -103,7 +103,12 @@ class ReceiverForm(forms.ModelForm):
         # If you want to customize form widgets or add additional validation,
         # you can do so here.
 
+class OwnerTypeForm(forms.ModelForm):
+    class Meta:
+        model = OwnerType
+        fields = ['name']
 
+        
 # class ReceiverForm(forms.ModelForm):
 #     class Meta:
 #         model = Receiver

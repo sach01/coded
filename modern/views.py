@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 #from datetime import datetime, date, timedelta
 from .models import Register, Payment, Room, Owner, Floor, Receiver
-from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm
+from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm
 from django.http import JsonResponse
 from django.utils import timezone
 from django.db import models
@@ -434,10 +434,21 @@ def list_receivers(request):
     receivers = Receiver.objects.all()
     return render(request, 'list_receivers.html', {'receivers': receivers})
 
+def list_owner_type(request):
+    owners = Owner.objects.all()
+    return render(request, 'list_owner_type.html', {'owners': owners})
 
+def create_owner_type(request):
+    if request.method == 'POST':
+        form = OwnerTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_owner_type')  # Redirect to a success page or URL
+    else:
+        form = OwnerTypeForm()
+    return render(request, 'owner_type.html', {'form': form})
 
 from collections import defaultdict
-
 def calculate_fields(register):
     today = date.today()
     new_payment_rows = []

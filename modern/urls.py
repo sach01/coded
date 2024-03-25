@@ -61,8 +61,9 @@ urlpatterns = [
     path('create_receiver/', modern_views.create_receiver, name='create_receiver'),
     path('list_receivers/', modern_views.list_receivers, name='list_receivers'),
     
+    path('create_owner_type/', modern_views.create_owner_type, name='create_owner_type'),
+    path('list_owner_type/', modern_views.list_owner_type, name='list_owner_type'),
 
-    
     path('list_register_test1/', modern_views.list_register_test1, name='list_register_test1'),
 
 

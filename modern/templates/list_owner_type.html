@@ -1,0 +1,14 @@
+<!-- list_owner_type.html -->
+{% extends "base2.html" %}
+
+{% block content %}
+    <h2>List of Owner Types</h2>
+    <ul>
+        {% for owner in owners %}
+            <li>{{ owner.name }}</li>
+            <!-- Add more fields as needed -->
+        {% empty %}
+            <li>No owner types available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

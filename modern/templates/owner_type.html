@@ -1,0 +1,30 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<!-- owner_type_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Owner Type</title>
+</head>
+<body>
+    <h2>Create Owner Type</h2>
+    <form method="post" action="{% url 'create_owner_type' %}">
+        {% csrf_token %}
+        
+        <!-- Render each field individually -->
+        <div>
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+        </div>
+        
+        <!-- You can customize each field's HTML as needed -->
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}

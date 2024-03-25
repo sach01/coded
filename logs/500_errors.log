@@ -3,3 +3,7 @@
 [35;1m"GET /list_receivers/ HTTP/1.1" 500 88047[0m
 [35;1m"GET /list_receivers/ HTTP/1.1" 500 87890[0m
 [35;1m"GET /list_receivers/ HTTP/1.1" 500 87890[0m
+[35;1m"POST /create_owner_type/ HTTP/1.1" 500 180497[0m
+[35;1m"GET /admin/modern/owner/ HTTP/1.1" 500 233832[0m
+[35;1m"POST /create_owner_type/ HTTP/1.1" 500 91719[0m
+[35;1m"GET /list_owner_type/ HTTP/1.1" 500 245797[0m
