@@ -91,7 +91,7 @@ def user_login(request):
                 return render(request, 'login3.html', {'form': form, 'error_message': error_message})
     else:
         form = CustomUserLoginForm()
-    return render(request, 'login3.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 # # def user_login(request):
 # #     if request.method == 'POST':

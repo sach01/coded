@@ -7,14 +7,19 @@ from django.core.exceptions import ValidationError
 from django import forms
 from .models import Owner, Room
 
+class OwnerTypeForm(forms.ModelForm):
+    class Meta:
+        model = OwnerType
+        fields = ['name']
 class OwnerForm(forms.ModelForm):
     class Meta:
         model = Owner
-        fields = ['name', 'mobile', 'id_number']
+        #fields = '__all__'
+        fields = ['name', 'mobile', 'id_number', 'owner_type']
 
-    name = forms.CharField(max_length=255)
-    mobile = forms.CharField(max_length=15, required=False)
-    id_number = forms.CharField(max_length=20, required=False)
+    # name = forms.CharField(max_length=255)
+    # mobile = forms.CharField(max_length=15, required=False)
+    # id_number = forms.CharField(max_length=20, required=False)
 
 class OwnerChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, room):
@@ -103,12 +108,12 @@ class ReceiverForm(forms.ModelForm):
         # If you want to customize form widgets or add additional validation,
         # you can do so here.
 
-class OwnerTypeForm(forms.ModelForm):
-    class Meta:
-        model = OwnerType
-        fields = ['name']
+# class OwnerTypeForm(forms.ModelForm):
+#     class Meta:
+#         model = OwnerType
+#         fields = ['name']
 
-        
+
 # class ReceiverForm(forms.ModelForm):
 #     class Meta:
 #         model = Receiver

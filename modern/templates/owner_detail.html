@@ -1,0 +1,22 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner Detail</title>
+</head>
+<body>
+    <h1>Owner Detail: {{ owner.name }}</h1>
+    <p>Mobile: {{ owner.mobile }}</p>
+    <p>ID Number: {{ owner.id_number }}</p>
+    <p>Owner Type: {{ owner.owner_type }}</p>
+    <a href="{% url 'owner_update' owner.id %}">Edit</a>
+    <form action="{% url 'owner_delete' owner.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>
+{% endblock %}

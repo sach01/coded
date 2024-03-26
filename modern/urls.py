@@ -13,10 +13,6 @@ urlpatterns = [
     path("ground", views.ground, name="ground"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
-    #path("display_details", views.display_details, name="display_details"),
-    #path("display_payment_details", views.display_payment_details, name="display_payment_details"),
-    #path("payment_details", views.payment_details, name="payment_details"),
-    ##path('payment_details/<int:owner_id>/', views.payment_details, name='payment_details'),
 
     path("register", modern_views.register, name="register"),
     path("edited_registers", modern_views.edited_registers, name="edited_registers"),
@@ -31,10 +27,6 @@ urlpatterns = [
     path("create_payment", modern_views.create_payment, name="create_payment"),
     #path('success_page', views.success_page, name='success_page'),
     path("payment_list", modern_views.payment_list, name="payment_list"),
-    #path("display_payment_details", views.display_payment_details, name="display_payment_details"),
-    #path("payment_details", views.payment_details, name="payment_details"),
-    #path("list_details", views.list_details, name="list_details"),
-
     
     path("list_registers_part1", modern_views.list_registers_part1, name="list_registers_part1"),
     path("duplicate_payment_rows", modern_views.duplicate_payment_rows, name="duplicate_payment_rows"),
@@ -60,12 +52,18 @@ urlpatterns = [
 
     path('create_receiver/', modern_views.create_receiver, name='create_receiver'),
     path('list_receivers/', modern_views.list_receivers, name='list_receivers'),
-    
+
     path('create_owner_type/', modern_views.create_owner_type, name='create_owner_type'),
     path('list_owner_type/', modern_views.list_owner_type, name='list_owner_type'),
-
+    
+    path('create_owner/', modern_views.create_owner, name='create_owner'),
+    path('list_owner/', modern_views.list_owner, name='list_owner'),
+    path('owner_detail/<int:pk>/', views.owner_detail, name='owner_detail'),
+    path('owner_update/', modern_views.owner_update, name='owner_update'),
+    path('owner_update/<int:pk>/', views.owner_update, name='owner_update'),
+    path('owner_delete/<int:pk>/', views.owner_delete, name='owner_delete'),
+    
     path('list_register_test1/', modern_views.list_register_test1, name='list_register_test1'),
-
 
 ]
 

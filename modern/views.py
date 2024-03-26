@@ -11,7 +11,7 @@ from django.contrib import messages
 #from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 #from datetime import datetime, date, timedelta
-from .models import Register, Payment, Room, Owner, Floor, Receiver
+from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType
 from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm
 from django.http import JsonResponse
 from django.utils import timezone
@@ -329,7 +329,14 @@ def dashboard_register(request):
     register = Register.objects.all()
     # Call the calculate_payment_data function
     payment_data = calculate_payment_data()
+    amounts_by_month = defaultdict(float)
 
+    for register in Register.objects.all():
+        new_payment_rows = calculate_fields(register)
+        for payment_row in new_payment_rows:
+            amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+    
+    amounts_by_month = dict(amounts_by_month)
     # Now you can use the payment data as needed
     #for data in payment_data:
         #print(data)
@@ -340,6 +347,8 @@ def dashboard_register(request):
     context = {
         'payment': payment,
         'payment_data': payment_data,
+        'amounts_by_month': amounts_by_month,
+
         #'all_new_payment_rows': all_new_payment_rows,
         #'vacant_rooms_per_floor': vacant_rooms_per_floor,
 
@@ -430,13 +439,62 @@ def create_receiver(request):
     
     return render(request, 'receiver.html', {'form': form})
 
+@login_required(login_url="/account/login")
 def list_receivers(request):
     receivers = Receiver.objects.all()
     return render(request, 'list_receivers.html', {'receivers': receivers})
 
-def list_owner_type(request):
+@login_required(login_url="/account/login")
+def list_owner(request):
     owners = Owner.objects.all()
-    return render(request, 'list_owner_type.html', {'owners': owners})
+    return render(request, 'list_owner.html', {'owners': owners})
+
+@login_required(login_url="/account/login")
+def create_owner(request):
+    if request.method == 'POST':
+        form = OwnerForm(request.POST)
+        if form.is_valid():
+            # Set created_by field to the currently logged-in user
+            owner = form.save(commit=False)
+            owner.created_by = request.user
+            owner.save()
+            return redirect('list_owner')
+    else:
+        form = OwnerForm()
+    return render(request, 'create_owner.html', {'form': form})
+  
+def owner_detail(request, pk):
+    owner = Owner.objects.get(pk=pk)
+    return render(request, 'owner_detail.html', {'owner': owner})
+
+def owner_update(request, pk):
+    owner = Owner.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = OwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            form.save()
+            return redirect('owner_list')
+    else:
+        form = OwnerForm(instance=owner)
+    return render(request, 'owner_form.html', {'form': form})
+
+def owner_delete(request, pk):
+    owner = Owner.objects.get(pk=pk)
+    owner.delete()
+    messages.success(request, 'Owner deleted successfully.')
+    return redirect('list_owner')
+
+# def owner_delete(request, pk):
+#     owner = Owner.objects.get(pk=pk)
+#     if request.method == 'POST':
+#         owner.delete()
+#         return redirect('owner_list')
+#     return render(request, 'owner_confirm_delete.html', {'owner': owner})
+
+
+def list_owner_type(request):
+    owner_type = OwnerType.objects.all()
+    return render(request, 'list_owner_type.html', {'owner_type': owner_type})
 
 def create_owner_type(request):
     if request.method == 'POST':
@@ -609,11 +667,6 @@ def get_rooms(request):
 
     return JsonResponse(data)
 
-@login_required(login_url="/account/login")
-def list_registers(request):
-    registers = Register.objects.filter(reg_status=True)  # Get registered models
-    return render(request, 'list_registers.html', {'registers': registers})
-
 # def list_register(request):
 #     registers = Register.objects.all()  # Query all Register objects from the database
 #     return render(request, 'register_list.html', {'registers': registers})
@@ -770,7 +823,12 @@ def create_payment_test2(request, register_id):
 def list_registers(request):
     registers = Register.objects.all()  # Fetch all register IDs
     return render(request, 'list_registers.html', {'registers': registers})
-
+##########
+@login_required(login_url="/account/login")
+def list_registers(request):
+    registers = Register.objects.filter(reg_status=True)  # Get registered models
+    return render(request, 'list_registers.html', {'registers': registers})
+##############
 def create_payment_test(request, register_id):
     register = Register.objects.get(pk=register_id)
 
@@ -1025,6 +1083,7 @@ def calculate_fields(register):
                     'owner': register.owner.name,
                     'floor': register.room.floor,
                     'room_number': register.room.room_number,
+                    'amount': register.room.amount,
                     'balance': balance,
                     'due_months': due_months,
                     'ouw_us': ouw_us,
@@ -1051,6 +1110,7 @@ def calculate_fields(register):
                     'owner': register.owner.name,
                     'floor': register.room.floor,
                     'room_number': register.room.room_number,
+                    'amount': register.room.amount,
                     'balance': balance,
                     'due_months': due_months,
                     'month_paid': new_month_paid,
@@ -1062,6 +1122,15 @@ def calculate_fields(register):
 
 @login_required(login_url="/account/login")
 def list_register_test(request):
+    amounts_by_month = defaultdict(float)
+
+    for register in Register.objects.all():
+        new_payment_rows = calculate_fields(register)
+        for payment_row in new_payment_rows:
+            amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+    
+    amounts_by_month = dict(amounts_by_month)
+
     all_new_payment_rows = []
 
     for register in Register.objects.all():
@@ -1070,6 +1139,8 @@ def list_register_test(request):
     
     context = {
         'all_new_payment_rows': all_new_payment_rows,
+        'amounts_by_month': amounts_by_month,
+        
     }
 
     return render(request, 'list_register_test.html', context)

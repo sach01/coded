@@ -95,7 +95,7 @@ admin.site.register(Register, RegisterAdmin)
 
 admin.site.register(Floor)
 admin.site.register(Room)
-#admin.site.register(Owner)
+
 admin.site.register(Receiver)
 admin.site.register(Arreas)
 #admin.site.register(Deregister)

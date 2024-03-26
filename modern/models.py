@@ -35,10 +35,12 @@ class Room(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return '%s %s %s %s %s'% (self.floor, self.room_number, self.amount, self.room_status, self.date_created)
-
+    
 class OwnerType(models.Model):
-    name = models.CharField(max_length=200)
-
+    name = models.CharField(max_length=200, unique=True)
+    def __str__(self):
+        return '%s '% (self.name)
+    
 class Owner(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=10, blank=True, null=True)
@@ -49,14 +51,14 @@ class Owner(models.Model):
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default='')
 
     def __str__(self):
-        return '%s %s %s %s'% (self.name, self.mobile, self.date_created, self.date_edited)
+        return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
     
-    def save(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Remove 'user' from kwargs
-        if user and not self.pk and not self.created_by_id:
-            self.created_by = user
-        super().save(*args, **kwargs)
-
+    
+# def save(self, *args, **kwargs):
+#         user = kwargs.pop('user', None)  # Remove 'user' from kwargs
+#         if user and not self.pk and not self.created_by_id:
+#             self.created_by = user
+#         super().save(*args, **kwargs)
 class Register(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
