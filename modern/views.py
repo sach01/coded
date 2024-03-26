@@ -438,6 +438,10 @@ def list_owner(request):
     owners = Owner.objects.all()
     return render(request, 'list_owner.html', {'owners': owners})
 
+def about(request):
+    owners = Owner.objects.all()
+    return render(request, 'list_owner.html', {'owners': owners})
+
 def create_owner(request):
     if request.method == 'POST':
         form = OwnerForm(request.POST)
@@ -450,20 +454,12 @@ def create_owner(request):
     else:
         form = OwnerForm()
     return render(request, 'create_owner.html', {'form': form})
-    # if request.method == 'POST':
-    #     form = OwnerForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('list_owner')  # Redirect to a success page or URL
-    # else:
-    #     form = OwnerTypeForm()
-    # return render(request, 'create_owner.html', {'form': form})
-
-def owner_detail(request, owner_id):
-    owner = Owner.objects.get(pk=owner_id)
+    
+def owner_detail(request, pk):
+    owner = Owner.objects.get(pk=pk)
     return render(request, 'owner_detail.html', {'owner': owner})
 
-def owner_update(request, owner_id):
+def owner_update(request, pk):
     owner = Owner.objects.get(pk=owner_id)
     if request.method == 'POST':
         form = OwnerForm(request.POST, instance=owner)
@@ -474,12 +470,18 @@ def owner_update(request, owner_id):
         form = OwnerForm(instance=owner)
     return render(request, 'owner_form.html', {'form': form})
 
-def owner_delete(request, owner_id):
-    owner = Owner.objects.get(pk=owner_id)
-    if request.method == 'POST':
-        owner.delete()
-        return redirect('owner_list')
-    return render(request, 'owner_confirm_delete.html', {'owner': owner})
+def owner_delete(request, pk):
+    owner = Owner.objects.get(pk=pk)
+    owner.delete()
+    messages.success(request, 'Owner deleted successfully.')
+    return redirect('list_owner')
+
+# def owner_delete(request, pk):
+#     owner = Owner.objects.get(pk=pk)
+#     if request.method == 'POST':
+#         owner.delete()
+#         return redirect('owner_list')
+#     return render(request, 'owner_confirm_delete.html', {'owner': owner})
 
 
 def list_owner_type(request):

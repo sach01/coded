@@ -13,7 +13,7 @@
     <p>ID Number: {{ owner.id_number }}</p>
     <p>Owner Type: {{ owner.owner_type }}</p>
     <a href="{% url 'owner_update' owner.id %}">Edit</a>
-    <form action="{% url 'owner_delete' owner.id %}" method="post">
+    <form action="{% url 'owner_delete' owner.pk %}" method="post">
         {% csrf_token %}
         <input type="submit" value="Delete">
     </form>

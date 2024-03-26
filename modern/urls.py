@@ -61,16 +61,24 @@ urlpatterns = [
     path('create_receiver/', modern_views.create_receiver, name='create_receiver'),
     path('list_receivers/', modern_views.list_receivers, name='list_receivers'),
     
-    path('create_owner/', modern_views.create_owner, name='create_owner'),
-    path('list_owner/', modern_views.list_owner, name='list_owner'),
+    #path('create_owner/', modern_views.create_owner, name='create_owner'),
     path('create_owner_type/', modern_views.create_owner_type, name='create_owner_type'),
     path('list_owner_type/', modern_views.list_owner_type, name='list_owner_type'),
-    path('owner_update/<int:owner_id>/', modern_views.owner_detail, name='owner_detail'),
+    # path('owner_update/<int:owner_id>/', modern_views.owner_detail, name='owner_detail'),
+    path('owner_update/<int:pk>/', views.owner_update, name='owner_update'),
+    path('owner_delete/<int:pk>/', views.owner_delete, name='owner_delete'),
+    path('create_owner/', modern_views.create_owner, name='create_owner'),
+    # path('list_owner/', modern_views.list_owner, name='list_owner'),
     path('owner_update/', modern_views.owner_update, name='owner_update'),
-    path('owner_delete/', modern_views.owner_delete, name='owner_delete'),
+    # path('owner_delete/', modern_views.owner_delete, name='owner_delete'),
 
     path('list_register_test1/', modern_views.list_register_test1, name='list_register_test1'),
 
+    #path('create_owner/', modern_views.create_owner, name='create_owner'),
+    path('list_owner/', modern_views.list_owner, name='list_owner'),
 
+    path('about/', views.about, name='about'),
+    #path('owner_detail/<int:pk>/', views.owner_detail, name='owner_detail'),
+    path('owner_detail/<int:pk>/', views.owner_detail, name='owner_detail'),
 ]
 
