@@ -35,6 +35,7 @@
                 <th>Owner</th>
                 <th>Floor</th>
                 <th>Room Number</th>
+                <th>Amount</th>
                 <th>Balance</th>
                 <th>Due Months</th>
                 <th>Ouw Us</th>
@@ -50,6 +51,7 @@
                 <td>{{ row.owner }}</td>
                 <td>{{ row.floor }}</td>
                 <td>{{ row.room_number }}</td>
+                <td>{{ row.amount }}</td>
                 <td>{{ row.balance }}</td>
                 <td>{{ row.due_months }}</td>
                 <td>{{ row.ouw_us }}</td>
@@ -58,6 +60,19 @@
                 <td>{{ row.end_date }}</td>
                 <td>{{ row.pay_status }}</td>
             </tr>
+            {% endfor %}
+           
+            <tr>
+                <th>Months</th>
+                <th>Sum of Amounts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for month, amount in amounts_by_month.items %}
+                <tr>
+                    <td>{{ month|date:"F Y" }}</td>
+                    <td>{{ amount }}</td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>

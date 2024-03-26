@@ -152,8 +152,8 @@
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Receiver</span><i class="sub-angle fe fe-chevron-down"></i></a>
 									<ul class="sub-slide-menu">
-										<li><a class="sub-slide-item" href="create_receiver">Create Receive</a></li>
-										<li><a class="sub-slide-item" href="list_receivers">List Received</a></li>
+										<li><a class="sub-slide-item" href="{% url 'create_receiver' %}">Create Receive</a></li>
+										<li><a class="sub-slide-item" href="{% url 'list_receivers' %}">List Received</a></li>
 										
 									</ul>
 								</li>
@@ -178,10 +178,9 @@
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owners</span><i class="sub-angle fe fe-chevron-down"></i></a>
 									<ul class="sub-slide-menu">
-										<li><a class="sub-slide-item" href="create_owner">Create Owners</a></li>
-										<li><a class="sub-slide-item" href="list_owner">List Owners</a></li>
-										<li><a class="sub-slide-item" href="owner_update">List Update</a></li>
-										<li><a class="sub-slide-item" href="owner_delete">List Delete</a></li>
+										<li><a class="sub-slide-item" href="{% url 'create_owner' %}">Create Owners</a></li>
+										<li><a class="sub-slide-item" href="{% url 'list_owner' %}">List Owners</a></li>
+										
 									</ul>
 								</li>
 							</ul>
@@ -189,8 +188,8 @@
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owner Types</span><i class="sub-angle fe fe-chevron-down"></i></a>
 									<ul class="sub-slide-menu">
-										<li><a class="sub-slide-item" href="create_owner_type">Create Owner Type</a></li>
-										<li><a class="sub-slide-item" href="list_owner_type">List Owner Types</a></li>
+										<li><a class="sub-slide-item" href="{% url 'create_owner_type' %}">Create Owner Type</a></li>
+										<li><a class="sub-slide-item" href="{% url 'list_owner_type' %}">List Owner Types</a></li>
 									</ul>
 								</li>
 							</ul>

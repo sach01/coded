@@ -14,8 +14,8 @@ class OwnerTypeForm(forms.ModelForm):
 class OwnerForm(forms.ModelForm):
     class Meta:
         model = Owner
-        fields = '__all__'
-        #fields = ['name', 'mobile', 'id_number', 'owner_type']
+        #fields = '__all__'
+        fields = ['name', 'mobile', 'id_number', 'owner_type']
 
     # name = forms.CharField(max_length=255)
     # mobile = forms.CharField(max_length=15, required=False)
