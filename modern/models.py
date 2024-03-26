@@ -43,10 +43,10 @@ class Owner(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=10, blank=True, null=True)
     id_number = models.CharField(max_length=10, blank=True, null=True)
-    owner_type = models.ForeignKey(OwnerType, on_delete=models.CASCADE)
+    owner_type = models.ForeignKey(OwnerType, on_delete=models.CASCADE, default='')
     date_created = models.DateTimeField(auto_now_add=True)
     date_edited = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default='')
 
     def __str__(self):
         return '%s %s %s %s'% (self.name, self.mobile, self.date_created, self.date_edited)
