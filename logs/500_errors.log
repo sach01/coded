@@ -7,3 +7,10 @@
 [35;1m"GET /admin/modern/owner/ HTTP/1.1" 500 233832[0m
 [35;1m"POST /create_owner_type/ HTTP/1.1" 500 91719[0m
 [35;1m"GET /list_owner_type/ HTTP/1.1" 500 245797[0m
+[35;1m"GET /list_owner_type/ HTTP/1.1" 500 245954[0m
+[35;1m"GET /admin/modern/owner/ HTTP/1.1" 500 234041[0m
+[35;1m"POST /admin/modern/ownertype/ HTTP/1.1" 500 240715[0m
+[35;1m"GET /admin/modern/owner/ HTTP/1.1" 500 234058[0m
+[35;1m"GET /list_owner/ HTTP/1.1" 500 169898[0m
+[35;1m"GET /list_owner/ HTTP/1.1" 500 169898[0m
+[35;1m"GET /owner_detail/1/ HTTP/1.1" 500 176420[0m

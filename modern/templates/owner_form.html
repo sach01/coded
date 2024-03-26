@@ -1,0 +1,21 @@
+
+{% extends "base2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Edit Owner{% else %}Add Owner{% endif %}</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit Owner{% else %}Add Owner{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>
+
+{% endblock %}

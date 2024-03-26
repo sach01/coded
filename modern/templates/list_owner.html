@@ -1,0 +1,26 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner List</title>
+</head>
+<body>
+    <h1>Owner List</h1>
+    <ul>
+        {% for owner in owners %}
+            <li>
+                <a href="{% url 'owner_detail' owner_id %}">
+                    {{ owner.name }} - {{ owner.mobile }} - {{ owner.id_number }} - {{ owner.owner_type }} - {{ owner.date_created }} - {{ owner.date_edited }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_owner' %}">Add Owner</a>
+</body>
+</html>
+
+
+{% endblock %}

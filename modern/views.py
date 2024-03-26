@@ -11,7 +11,7 @@ from django.contrib import messages
 #from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 #from datetime import datetime, date, timedelta
-from .models import Register, Payment, Room, Owner, Floor, Receiver
+from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType
 from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm
 from django.http import JsonResponse
 from django.utils import timezone
@@ -434,9 +434,57 @@ def list_receivers(request):
     receivers = Receiver.objects.all()
     return render(request, 'list_receivers.html', {'receivers': receivers})
 
-def list_owner_type(request):
+def list_owner(request):
     owners = Owner.objects.all()
-    return render(request, 'list_owner_type.html', {'owners': owners})
+    return render(request, 'list_owner.html', {'owners': owners})
+
+def create_owner(request):
+    if request.method == 'POST':
+        form = OwnerForm(request.POST)
+        if form.is_valid():
+            # Set created_by field to the currently logged-in user
+            owner = form.save(commit=False)
+            owner.created_by = request.user
+            owner.save()
+            return redirect('list_owner')
+    else:
+        form = OwnerForm()
+    return render(request, 'create_owner.html', {'form': form})
+    # if request.method == 'POST':
+    #     form = OwnerForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('list_owner')  # Redirect to a success page or URL
+    # else:
+    #     form = OwnerTypeForm()
+    # return render(request, 'create_owner.html', {'form': form})
+
+def owner_detail(request, owner_id):
+    owner = Owner.objects.get(pk=owner_id)
+    return render(request, 'owner_detail.html', {'owner': owner})
+
+def owner_update(request, owner_id):
+    owner = Owner.objects.get(pk=owner_id)
+    if request.method == 'POST':
+        form = OwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            form.save()
+            return redirect('owner_list')
+    else:
+        form = OwnerForm(instance=owner)
+    return render(request, 'owner_form.html', {'form': form})
+
+def owner_delete(request, owner_id):
+    owner = Owner.objects.get(pk=owner_id)
+    if request.method == 'POST':
+        owner.delete()
+        return redirect('owner_list')
+    return render(request, 'owner_confirm_delete.html', {'owner': owner})
+
+
+def list_owner_type(request):
+    owner_type = OwnerType.objects.all()
+    return render(request, 'list_owner_type.html', {'owner_type': owner_type})
 
 def create_owner_type(request):
     if request.method == 'POST':

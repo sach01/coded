@@ -1,0 +1,21 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Owner</title>
+</head>
+<body>
+    <h1>Delete Owner</h1>
+    <p>Are you sure you want to delete {{ owner.name }}?</p>
+    <form action="{% url 'owner_delete' owner.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>
+
+{% endblock %}
