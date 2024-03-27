@@ -10,15 +10,26 @@ class CustomGroupForm(forms.ModelForm):
         model = Group
         fields = ['name']  # Add or remove fields as needed
 
-class CustomUserForm(forms.ModelForm):
-    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+# class CustomUserForm(forms.ModelForm):
+#     groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+
+#     class Meta:
+#         model = CustomUser
+#         fields = ('username', 'email', 'password', 'groups')
+#         widgets = {
+#             'password': forms.PasswordInput(),
+#         }
+
+class CustomUserForm(UserCreationForm):
+    groups = forms.ModelMultipleChoiceField(queryset=None, required=False)
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password', 'groups')
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+        fields = ('username', 'password1', 'password2', 'groups')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['groups'].queryset = Group.objects.all() 
 
 class CustomUserLoginForm(forms.Form):
     username = forms.CharField(max_length=150)

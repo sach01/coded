@@ -54,13 +54,13 @@ def create_group(request):
     return render(request, 'create_group.html', {'form': form})
 
 @login_required(login_url="/account/login")
-@allowed_users(allowed_roles=['Collector'])
-@group_required('Collector')
+#@allowed_users(allowed_roles=['Collector'])
+#@group_required('Collector')
 def group_list(request):
     groups = Group.objects.all()
     return render(request, 'group_list.html', {'groups': groups})
 
-
+@login_required(login_url="/account/login")
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -155,43 +155,41 @@ def user_login(request):
 #     # Render the login page with a login form
 #     return render(request, 'login2.html')
 
-@login_required
-@group_required('Collector')
+# @login_required
+# @group_required('Collector')
+@login_required(login_url="/account/login")
 def user_logout(request):
     logout(request)
     return redirect('login')
 
 
-def group_required(group_name):
-    def decorator(view_func):
-        @wraps(view_func)
-        def wrapped_view(request, *args, **kwargs):
-            if request.user.groups.filter(name=group_name).exists():
-                content_type = ContentType.objects.get_for_model(CustomUser)
-                permission_codename = f'view_{CustomUser._meta.model_name}'
-                if request.user.has_perm(permission_codename, content_type):
-                    return view_func(request, *args, **kwargs)
-                else:
-                    return redirect('unauthorized_page')
-            else:
-                return redirect('unauthorized_page')
-        return wrapped_view
-    return decorator
+# def group_required(group_name):
+#     def decorator(view_func):
+#         @wraps(view_func)
+#         def wrapped_view(request, *args, **kwargs):
+#             if request.user.groups.filter(name=group_name).exists():
+#                 content_type = ContentType.objects.get_for_model(CustomUser)
+#                 permission_codename = f'view_{CustomUser._meta.model_name}'
+#                 if request.user.has_perm(permission_codename, content_type):
+#                     return view_func(request, *args, **kwargs)
+#                 else:
+#                     return redirect('unauthorized_page')
+#             else:
+#                 return redirect('unauthorized_page')
+#         return wrapped_view
+#     return decorator
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def user_list(request):
     users = CustomUser.objects.all()
     return render(request, 'user_list.html', {'users': users})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def user_detail(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     return render(request, 'user_detail.html', {'user': user})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def user_create(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
@@ -206,8 +204,7 @@ def user_create(request):
         form = CustomUserForm()
     return render(request, 'user_form.html', {'form': form})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def user_update(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
@@ -219,8 +216,7 @@ def user_update(request, pk):
         form = CustomUserForm(instance=user)
     return render(request, 'user_form.html', {'form': form})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def user_delete(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
@@ -228,20 +224,17 @@ def user_delete(request, pk):
         return redirect('user_list')
     return render(request, 'user_confirm_delete.html', {'user': user})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def group_list(request):
     groups = Group.objects.all()
     return render(request, 'group_list.html', {'groups': groups})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def group_detail(request, pk):
     group = get_object_or_404(Group, pk=pk)
     return render(request, 'group_detail.html', {'group': group})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def group_create(request):
     if request.method == 'POST':
         form = CustomGroupForm(request.POST)
@@ -252,8 +245,7 @@ def group_create(request):
         form = CustomGroupForm()
     return render(request, 'group_form.html', {'form': form})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def group_update(request, pk):
     group = get_object_or_404(Group, pk=pk)
     if request.method == 'POST':
@@ -265,8 +257,7 @@ def group_update(request, pk):
         form = CustomGroupForm(instance=group)
     return render(request, 'group_form.html', {'form': form})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def group_delete(request, pk):
     group = get_object_or_404(Group, pk=pk)
     if request.method == 'POST':
@@ -274,8 +265,7 @@ def group_delete(request, pk):
         return redirect('group_list')
     return render(request, 'group_confirm_delete.html', {'group': group})
 
-@login_required
-@group_required('Collector')
+@login_required(login_url="/account/login")
 def list_and_add_permissions(request):
     groups = Group.objects.all()
     permissions = Permission.objects.all()
