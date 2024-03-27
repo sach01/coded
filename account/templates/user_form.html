@@ -10,12 +10,42 @@
     <title>User Form</title>
 </head>
 <body>
-    <h1>User Form</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    
+    <!-- End Row-->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Create User</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'user_create' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_username">Username</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password1">Password</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password2">Password Confirmation</label>
+                                {{ form.password2 }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_groups">User Groups</label>
+                                {{ form.groups }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
 

@@ -53,3 +53,9 @@
 [35;1m"GET /get_owner_data/?owner_id=1 HTTP/1.1" 500 81323[0m
 [35;1m"GET /account/unauthorized/ HTTP/1.1" 500 87770[0m
 [35;1m"POST /account/user_create/ HTTP/1.1" 500 102750[0m
+[35;1m"GET /get_owner_data/?owner_id=2 HTTP/1.1" 500 72887[0m
+[35;1m"GET /get_owner_data/?owner_id=2 HTTP/1.1" 500 72887[0m
+[35;1m"GET /admin/modern/receiver/ HTTP/1.1" 500 463452[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 201272[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 201103[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 200545[0m
