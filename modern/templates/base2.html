@@ -97,6 +97,20 @@
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="#">
+							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+							<span class="side-menu__label">Owners</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li class="sub-slide">
+									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owners</span><i class="sub-angle fe fe-chevron-down"></i></a>
+									<ul class="sub-slide-menu">
+										<li><a class="sub-slide-item" href="{% url 'create_owner' %}">Create Owners</a></li>
+										<li><a class="sub-slide-item" href="{% url 'list_owner' %}">List Owners</a></li>
+										
+									</ul>
+								</li>
+							</ul>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
 							<span class="side-menu__label">Registration</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
@@ -170,20 +184,7 @@
 								--->
 							</ul>
 						</li>
-						<li class="slide">
-							<a class="side-menu__item" data-toggle="slide" href="#">
-							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-							<span class="side-menu__label">Owners</span><i class="angle fa fa-angle-right"></i></a>
-							<ul class="slide-menu">
-								<li class="sub-slide">
-									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owners</span><i class="sub-angle fe fe-chevron-down"></i></a>
-									<ul class="sub-slide-menu">
-										<li><a class="sub-slide-item" href="{% url 'create_owner' %}">Create Owners</a></li>
-										<li><a class="sub-slide-item" href="{% url 'list_owner' %}">List Owners</a></li>
-										
-									</ul>
-								</li>
-							</ul>
+						
 							<ul class="slide-menu">
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owner Types</span><i class="sub-angle fe fe-chevron-down"></i></a>
