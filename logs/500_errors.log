@@ -59,3 +59,6 @@
 [35;1m"GET /dashboard_register/ HTTP/1.1" 500 201272[0m
 [35;1m"GET /dashboard_register/ HTTP/1.1" 500 201103[0m
 [35;1m"GET /dashboard_register/ HTTP/1.1" 500 200545[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 81548[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 81391[0m
+[35;1m"GET /dashboard_register/ HTTP/1.1" 500 81441[0m
