@@ -337,24 +337,21 @@ def dashboard_register(request):
             amounts_by_month[payment_row['month_paid']] += payment_row['amount']
     
     amounts_by_month = dict(amounts_by_month)
-    # Now you can use the payment data as needed
-    #for data in payment_data:
-        #print(data)
+    today = date.today()
+    amount_this_month = amounts_by_month.get(today, 0)
 
-    #payments_with_sum = Payment.objects.values(
-        #'owner__owner__name').annotate(total_sum=Sum('balance'))
+    amount_this_month_per_floor = defaultdict(float)
+    for data in payment_data:
+        amount_this_month_per_floor[data['floor']] += data.get('amount_for_current_month', 0)
 
     context = {
         'payment': payment,
         'payment_data': payment_data,
         'amounts_by_month': amounts_by_month,
+        'amount_this_month': amount_this_month,
+        
 
-        #'all_new_payment_rows': all_new_payment_rows,
-        #'vacant_rooms_per_floor': vacant_rooms_per_floor,
-
-        #'room_count_per_floor': room_count_per_floor,
-        #'reg_status1': reg_status1, 
-        #'room_status_floor_True': room_status_floor_True, 
+       
     }
     return render(request, 'dashboard_register.html', context)
 

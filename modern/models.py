@@ -149,7 +149,7 @@ class Receiver(models.Model):
     date_received = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):
-        return '%s %s %s'% (self.collector, self.note, self.received_by, self.date_received)
+        return '%s %s %s %s'% (self.collector, self.note, self.received_by, self.date_received)
      
     def save(self, *args, **kwargs):
         # Generate a unique reference number before saving
