@@ -125,55 +125,116 @@ def index(request):
 
 
 ###################################################################################################
+
+from django.db.models import Count
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Room
+
 @login_required(login_url="/account/login")
 def dashboard_rooms(request):
-    #list all rooms
+    # List all rooms
     rooms = Room.objects.all()
-    #list room count per floor with room_status = true(occupied) #and the once with room_status = false(vacant)
-    #Get counts of occupied rooms per floor
-    occupied_rooms_per_floor = Room.objects.filter(room_status=True).values('floor__name').annotate(occupied_count=Count('floor'))
-    #print(occupied_rooms_per_floor)
+
+    # Get counts of occupied rooms per floor
+    occupied_rooms_per_floor = Room.objects.filter(room_status=True).values('floor__name').annotate(occupied_count=Count('id'))
+
     # Get counts of vacant rooms per floor
-    vacant_rooms_per_floor = Room.objects.filter(room_status=False).values('floor__name').annotate(vacant_count=Count('floor'))
-    print(vacant_rooms_per_floor)
-    # List vacant rooms
-    vacant_rooms = Room.objects.filter(room_status=False)
-    # list occupied rooms
-    occupied_rooms = Room.objects.filter(room_status=True)
-    #print(occupied_rooms)
+    vacant_rooms_per_floor = Room.objects.filter(room_status=False).values('floor__name').annotate(vacant_count=Count('id'))
+    total_vacant_count = sum(floor_data['vacant_count'] for floor_data in vacant_rooms_per_floor)
 
-    #List vacant rooms by floor
-    floor_name_ground = 'Ground'  # Specify the floor name here
-    floor_name_first = 'First'
-    floor_name_second = 'Second'
-    vacant_rooms_ground = Room.objects.filter(room_status=False, floor__name=floor_name_ground)
-    vacant_rooms_first = Room.objects.filter(room_status=False, floor__name=floor_name_first)
-    vacant_rooms_second = Room.objects.filter(room_status=False, floor__name=floor_name_second)
-    print(vacant_rooms_second)
-    
+    # Calculate the total rooms per floor
+    total_rooms_per_floor = {}
+    for floor in occupied_rooms_per_floor:
+        floor_name = floor['floor__name']
+        occupied_count = floor.get('occupied_count', 0)
+        vacant_count = next((item.get('vacant_count', 0)) for item in vacant_rooms_per_floor if item['floor__name'] == floor_name)
+        total_rooms_per_floor[floor_name] = occupied_count + vacant_count
 
-    #print(reg_status1_count)
+    # Calculate the percentage of occupied rooms per floor
+    occupied_percentage_per_floor = {}
+    for floor_name, occupied_count in total_rooms_per_floor.items():
+        total_rooms = total_rooms_per_floor.get(floor_name, 0)
+        occupied_percentage_per_floor[floor_name] = (occupied_count / total_rooms) * 100 if total_rooms != 0 else 0
+
+    # Calculate the percentage of vacant rooms per floor
+    vacant_percentage_per_floor = {}
+    for floor_name, vacant_count in total_rooms_per_floor.items():
+        total_rooms = total_rooms_per_floor.get(floor_name, 0)
+        vacant_percentage_per_floor[floor_name] = (vacant_count / total_rooms) * 100 if total_rooms != 0 else 0
+
+    # Filter the percentage for the 'Ground' floor
+    ground_floor_occupied_percentage = occupied_percentage_per_floor.get('Ground', 0)
+    ground_floor_vacant_percentage = vacant_percentage_per_floor.get('Ground', 0)
+
     context = {
         'rooms': rooms,
         'occupied_rooms_per_floor': occupied_rooms_per_floor,
         'vacant_rooms_per_floor': vacant_rooms_per_floor,
+        'total_vacant_count': total_vacant_count,
+        'ground_floor_occupied_percentage': ground_floor_occupied_percentage,
+        'ground_floor_vacant_percentage': ground_floor_vacant_percentage,
+        
 
-        'vacant_rooms': vacant_rooms,
-        'occupied_rooms': occupied_rooms,
-
-        'floor_name_ground': floor_name_ground,
-        'floor_name_first': floor_name_first,
-        'floor_name_second': floor_name_second,
-        'vacant_rooms_ground': vacant_rooms_ground,
-        'vacant_rooms_first': vacant_rooms_first,
-        'vacant_rooms_second': vacant_rooms_second,
-
-        #'room_count_per_floor': room_count_per_floor,
-        #'reg_status1': reg_status1, 
-        #'room_status_floor_True': room_status_floor_True, 
     }
 
     return render(request, 'dashboard_rooms.html', context)
+
+# # @login_required(login_url="/account/login")
+# # def dashboard_rooms(request):
+# #     #list all rooms
+# #     rooms = Room.objects.all()
+# #     #list room count per floor with room_status = true(occupied) #and the once with room_status = false(vacant)
+# #     #Get counts of occupied rooms per floor
+# #     occupied_rooms_per_floor = Room.objects.filter(room_status=True).values('floor__name').annotate(occupied_count=Count('floor'))
+# #     #print(occupied_rooms_per_floor)
+# #     # Get counts of vacant rooms per floor
+# #     vacant_rooms_per_floor = Room.objects.filter(room_status=False).values('floor__name').annotate(vacant_count=Count('floor'))
+# #     print(vacant_rooms_per_floor)
+# #     # Calculate the sum of all vacant_count values
+# #     total_vacant_count = sum(floor_data['vacant_count'] for floor_data in vacant_rooms_per_floor)
+
+
+# #     # List vacant rooms
+# #     vacant_rooms = Room.objects.filter(room_status=False)
+# #     # list occupied rooms
+# #     occupied_rooms = Room.objects.filter(room_status=True)
+# #     #print(occupied_rooms)
+
+# #     #List vacant rooms by floor
+# #     floor_name_ground = 'Ground'  # Specify the floor name here
+# #     floor_name_first = 'First'
+# #     floor_name_second = 'Second'
+# #     vacant_rooms_ground = Room.objects.filter(room_status=False, floor__name=floor_name_ground)
+# #     vacant_rooms_first = Room.objects.filter(room_status=False, floor__name=floor_name_first)
+# #     vacant_rooms_second = Room.objects.filter(room_status=False, floor__name=floor_name_second)
+# #     print(vacant_rooms_second)
+    
+
+# #     #print(reg_status1_count)
+# #     context = {
+# #         'rooms': rooms,
+# #         'occupied_rooms_per_floor': occupied_rooms_per_floor,
+# #         'vacant_rooms_per_floor': vacant_rooms_per_floor,
+
+# #         'vacant_rooms': vacant_rooms,
+# #         'occupied_rooms': occupied_rooms,
+
+# #         'floor_name_ground': floor_name_ground,
+# #         'floor_name_first': floor_name_first,
+# #         'floor_name_second': floor_name_second,
+# #         'vacant_rooms_ground': vacant_rooms_ground,
+# #         'vacant_rooms_first': vacant_rooms_first,
+# #         'vacant_rooms_second': vacant_rooms_second,
+
+# #         'total_vacant_count': total_vacant_count,
+        
+# #         #'room_count_per_floor': room_count_per_floor,
+# #         #'reg_status1': reg_status1, 
+# #         #'room_status_floor_True': room_status_floor_True, 
+# #     }
+
+# #     return render(request, 'dashboard_rooms.html', context)
 
 # @login_required(login_url="/account/login")
 # def dashboard_payment(request):
