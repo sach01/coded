@@ -11,12 +11,22 @@ class OwnerTypeForm(forms.ModelForm):
     class Meta:
         model = OwnerType
         fields = ['name']
+# class OwnerForm(forms.ModelForm):
+#     class Meta:
+#         model = Owner
+#         #fields = '__all__'
+#         fields = ['name', 'mobile', 'id_number', 'owner_type']
 class OwnerForm(forms.ModelForm):
     class Meta:
         model = Owner
-        #fields = '__all__'
-        fields = ['name', 'mobile', 'id_number', 'owner_type']
+        fields = ['name',  'mobile', 'id_number', 'owner_type']
+        widgets = {
+            'owner_type': forms.Select(attrs={'class': 'form-control select2'})
+        }
 
+    def __init__(self, *args, **kwargs):
+        super(OwnerForm, self).__init__(*args, **kwargs)
+        self.fields['owner_type'].queryset = OwnerType.objects.all()
     # name = forms.CharField(max_length=255)
     # mobile = forms.CharField(max_length=15, required=False)
     # id_number = forms.CharField(max_length=20, required=False)

@@ -76,22 +76,45 @@ def signup(request):
  #   return render(request, 'error403.html', status=403)
 
 
+
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
     if request.method == 'POST':
-        form = CustomUserLoginForm(request.POST)
+        form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('ground')  # Assuming 'dashboard' is the name of your dashboard URL
-            else:
-                error_message = 'Invalid username or password'
-                return render(request, 'login3.html', {'form': form, 'error_message': error_message})
+                next_url = request.GET.get('next', '')
+                if next_url and next_url.startswith('/'):
+                    return redirect(next_url)
+                else:
+                    return redirect('index')
     else:
-        form = CustomUserLoginForm()
+        form = AuthenticationForm()
+    
     return render(request, 'login.html', {'form': form})
+
+# # def user_login(request):
+# #     if request.method == 'POST':
+# #         form = CustomUserLoginForm(request.POST)
+# #         if form.is_valid():
+# #             username = form.cleaned_data['username']
+# #             password = form.cleaned_data['password']
+# #             user = authenticate(request, username=username, password=password)
+# #             if user is not None:
+# #                 login(request, user)
+# #                 return redirect('ground')  # Assuming 'dashboard' is the name of your dashboard URL
+# #             else:
+# #                 error_message = 'Invalid username or password'
+# #                 return render(request, 'login3.html', {'form': form, 'error_message': error_message})
+# #     else:
+# #         form = CustomUserLoginForm()
+# #     return render(request, 'login.html', {'form': form})
 
 # # def user_login(request):
 # #     if request.method == 'POST':

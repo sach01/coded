@@ -383,38 +383,92 @@ def calculate_payment_data():
 
     return payment_data
 
+from django.shortcuts import render
+from collections import defaultdict
+from datetime import date
+import pandas as pd
+import matplotlib.pyplot as plt
+from io import BytesIO
+from .models import Payment, Register
+
 @login_required(login_url="/account/login")
 def dashboard_register(request):
-    #list payment
+    # List payments and registers
     payment = Payment.objects.all()
     register = Register.objects.all()
+
     # Call the calculate_payment_data function
     payment_data = calculate_payment_data()
-    amounts_by_month = defaultdict(float)
 
-    for register in Register.objects.all():
-        new_payment_rows = calculate_fields(register)
+    # Calculate total amounts paid per month
+    amounts_by_month = defaultdict(float)
+    for reg in register:
+        new_payment_rows = calculate_fields(reg)
         for payment_row in new_payment_rows:
             amounts_by_month[payment_row['month_paid']] += payment_row['amount']
-    
+
     amounts_by_month = dict(amounts_by_month)
     today = date.today()
-    amount_this_month = amounts_by_month.get(today, 0)
+    amount_this_month = amounts_by_month.get(today.strftime('%Y-%m'), 0)
 
-    amount_this_month_per_floor = defaultdict(float)
-    for data in payment_data:
-        amount_this_month_per_floor[data['floor']] += data.get('amount_for_current_month', 0)
+    # Plot the bar graph
+    df = pd.DataFrame(list(amounts_by_month.items()), columns=['Month', 'Total Amount'])
+    plt.figure(figsize=(10, 6))
+    plt.bar(df['Month'], df['Total Amount'])
+    plt.xlabel('Month')
+    plt.ylabel('Total Amount')
+    plt.title('Total Amount Paid per Month')
+    plt.xticks(rotation=45, ha='right')
+    plt.grid(True)
 
+    # Save the plot to a memory buffer
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plt.close()
+
+    # Pass the plot to the template along with other context data
     context = {
         'payment': payment,
         'payment_data': payment_data,
         'amounts_by_month': amounts_by_month,
         'amount_this_month': amount_this_month,
+        'graph': buffer,
+    }
+    return render(request, 'dashboard_register.html', context)
+
+# @login_required(login_url="/account/login")
+# def dashboard_register(request):
+#     #list payment
+#     payment = Payment.objects.all()
+#     register = Register.objects.all()
+#     # Call the calculate_payment_data function
+#     payment_data = calculate_payment_data()
+#     amounts_by_month = defaultdict(float)
+
+#     for register in Register.objects.all():
+#         new_payment_rows = calculate_fields(register)
+#         for payment_row in new_payment_rows:
+#             amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+    
+#     amounts_by_month = dict(amounts_by_month)
+#     today = date.today()
+#     amount_this_month = amounts_by_month.get(today, 0)
+
+#     amount_this_month_per_floor = defaultdict(float)
+#     for data in payment_data:
+#         amount_this_month_per_floor[data['floor']] += data.get('amount_for_current_month', 0)
+
+#     context = {
+#         'payment': payment,
+#         'payment_data': payment_data,
+#         'amounts_by_month': amounts_by_month,
+#         'amount_this_month': amount_this_month,
         
 
        
-    }
-    return render(request, 'dashboard_register.html', context)
+#     }
+#     return render(request, 'dashboard_register.html', context)
 
 @login_required(login_url="/account/login")
 def dashboard03(request):
