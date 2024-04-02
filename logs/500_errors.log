@@ -63,3 +63,6 @@
 [35;1m"GET /dashboard_register/ HTTP/1.1" 500 81391[0m
 [35;1m"GET /dashboard_register/ HTTP/1.1" 500 81441[0m
 [35;1m"GET /create_owner/ HTTP/1.1" 500 190648[0m
+[35;1m"GET /admin/modern/changelog/ HTTP/1.1" 500 225253[0m
+[35;1m"POST /create_owner/ HTTP/1.1" 500 82944[0m
+[35;1m"POST /create_owner/ HTTP/1.1" 500 206896[0m

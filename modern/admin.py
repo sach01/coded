@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from modern.models import Floor, Room, Owner, Register, Arreas, Payment, Receiver, OwnerType
+from modern.models import Floor, Room, Owner, Register, Arreas, Payment, Receiver, OwnerType, ChangeLog
 from django.contrib import admin
 #from django.contrib.admin import AdminSite
 from import_export.admin import ImportExportModelAdmin
@@ -101,3 +101,4 @@ admin.site.register(Arreas)
 #admin.site.register(Deregister)
 admin.site.register(Payment)
 admin.site.register(OwnerType)
+admin.site.register(ChangeLog)

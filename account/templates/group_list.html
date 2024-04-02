@@ -18,25 +18,25 @@
         <li><a href="{% url 'group_detail' group.pk %}">{{ group.name }}</a></li>
     {% endfor %}
     </ul>
-    <a href="{% url 'group_create' %}">Create Group</a>
+    <!---<a href="{% url 'group_create' %}">Create Group</a>--->
 </body>
 
 <!-- create_group.html -->
 {% if error_message %}
   <p>{{ error_message }}</p>
 {% endif %}
-<form method="post">
+<!---<form method="post">
   {% csrf_token %}
   <input type="text" name="group_name" placeholder="Group Name" required>
   <button type="submit">Create Group</button>
-</form>
+</form>--->
 
 <!-- group_list.html -->
-<ul>
+<!---<ul>
   {% for group in groups %}
     <li>{{ group.name }}</li>
   {% endfor %}
-</ul>
+</ul>--->
 
 </html>
 

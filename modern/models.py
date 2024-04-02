@@ -53,7 +53,56 @@ class Owner(models.Model):
     def __str__(self):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
     
-    
+    def save(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
+        
+        if not self.pk:
+            action = 'CREATE'
+        else:
+            action = 'UPDATE'
+        
+        ip_address = None  # Initialize ip_address variable
+        
+        if request:
+            ip_address = get_client_ip(request)
+        
+        super().save(*args, **kwargs)
+
+        ChangeLog.objects.create(
+            user=self.created_by,
+            action=action,
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+        )
+
+    def delete(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
+        action = 'DELETE'
+
+        ip_address = None  # Initialize ip_address variable
+        
+        if request:
+            ip_address = get_client_ip(request)
+        
+        super().delete(*args, **kwargs)
+
+        ChangeLog.objects.create(
+            user=self.created_by,
+            action=action,
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+        )
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 # def save(self, *args, **kwargs):
 #         user = kwargs.pop('user', None)  # Remove 'user' from kwargs
 #         if user and not self.pk and not self.created_by_id:
@@ -175,3 +224,18 @@ class Receiver(models.Model):
 
 class Arreas(models.Model):
     pass
+
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
+class ChangeLog(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    action = models.CharField(max_length=10)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    ip_address = models.CharField(max_length=100)  # For storing IP address
+
+    class Meta:
+        ordering = ['-timestamp']
