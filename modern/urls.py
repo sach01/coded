@@ -63,6 +63,8 @@ urlpatterns = [
     path('owner_update/<int:pk>/', views.owner_update, name='owner_update'),
     path('owner_delete/<int:pk>/', views.owner_delete, name='owner_delete'),
     
+    path('changelog/', modern_views.changelog, name='changelog'),
+
     path('list_register_test1/', modern_views.list_register_test1, name='list_register_test1'),
 
 ]

@@ -40,6 +40,14 @@ import string
 from django.contrib.auth.decorators import login_required
 from account.decorators import group_required, unauthenticated_user, allowed_users
 
+from django.shortcuts import render
+from .models import ChangeLog
+
+def changelog(request):
+    change_logs = ChangeLog.objects.all()
+    return render(request, 'changelog.html', {'change_logs': change_logs})
+
+
 def stalls(n):
     g = Floor.objects.get(pk=1)
     room = []

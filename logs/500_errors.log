@@ -66,3 +66,13 @@
 [35;1m"GET /admin/modern/changelog/ HTTP/1.1" 500 225253[0m
 [35;1m"POST /create_owner/ HTTP/1.1" 500 82944[0m
 [35;1m"POST /create_owner/ HTTP/1.1" 500 206896[0m
+[35;1m"GET /account/logout/ HTTP/1.1" 500 214131[0m
+[35;1m"GET /account/logout/ HTTP/1.1" 500 214131[0m
+[35;1m"GET /admin/modern/changelog/ HTTP/1.1" 500 472177[0m
+[35;1m"GET /account/logout/ HTTP/1.1" 500 215444[0m
+[35;1m"POST /account/login/?next=/account/logout/ HTTP/1.1" 500 213337[0m
+[35;1m"POST /account/login/ HTTP/1.1" 500 212816[0m
+[35;1m"POST /account/login/ HTTP/1.1" 500 212859[0m
+[35;1m"POST /account/login/ HTTP/1.1" 500 212810[0m
+[35;1m"POST /create_owner/ HTTP/1.1" 500 82695[0m
+[35;1m"POST /create_owner/ HTTP/1.1" 500 83025[0m

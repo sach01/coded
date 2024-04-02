@@ -1,0 +1,31 @@
+<!-- change_log_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Log</title>
+</head>
+<body>
+    <h1>Change Log</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>IP Address</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log_entry in change_logs %}
+            <tr>
+                <td>{{ log_entry.user.username }}</td> <!-- Display the username of the user -->
+                <td>{{ log_entry.ip_address }}</td> <!-- Display the IP address -->
+                <td>{{ log_entry.action }}</td>
+                <td>{{ log_entry.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

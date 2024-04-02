@@ -239,3 +239,28 @@ class ChangeLog(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+    def __str__(self):
+        return '%s %s %s %s %s %s %s'% (self.user, self.timestamp, self.action, self.content_type, self.object_id, self.content_object, self.ip_address)
+    
+# from django.dispatch import receiver
+# from django.contrib.auth.signals import user_logged_in, user_logged_out
+
+# # Signal handler to log user logins
+# @receiver(user_logged_in)
+# def log_user_login(sender, request, user, **kwargs):
+#     ip_address = get_client_ip(request)
+#     ChangeLog.objects.create(
+#         user=user,
+#         action='logged in',
+#         ip_address=ip_address
+#     )
+
+# # Signal handler to log user logouts
+# @receiver(user_logged_out)
+# def log_user_logout(sender, request, user, **kwargs):
+#     ip_address = get_client_ip(request)
+#     ChangeLog.objects.create(
+#         user=user,
+#         action='logged out',
+#         ip_address=ip_address
+#     )
