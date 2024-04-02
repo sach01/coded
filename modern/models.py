@@ -16,6 +16,13 @@ from dateutil.relativedelta import relativedelta
 from datetime import date
 import random
 import string
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+#from django.contrib.auth.models import User as CustomUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
 
 # Create your models here.
 
@@ -53,46 +60,66 @@ class Owner(models.Model):
     def __str__(self):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
     
+    # def save(self, *args, **kwargs):
+    #     request = kwargs.pop('request', None)
+        
+    #     if not self.pk:
+    #         action = 'CREATE'
+    #     else:
+    #         action = 'UPDATE'
+        
+    #     ip_address = None  # Initialize ip_address variable
+        
+    #     if request:
+    #         ip_address = get_client_ip(request)
+        
+    #     super().save(*args, **kwargs)
+
+    #     ChangeLog.objects.create(
+    #         user=self.created_by,
+    #         action=action,
+    #         content_type=ContentType.objects.get_for_model(self),
+    #         object_id=self.pk,
+    #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    #     )
+
+    # def delete(self, *args, **kwargs):
+    #     request = kwargs.pop('request', None)
+    #     action = 'DELETE'
+
+    #     ip_address = None  # Initialize ip_address variable
+        
+    #     if request:
+    #         ip_address = get_client_ip(request)
+        
+    #     super().delete(*args, **kwargs)
+
+    #     ChangeLog.objects.create(
+    #         user=self.created_by,
+    #         action=action,
+    #         content_type=ContentType.objects.get_for_model(self),
+    #         object_id=self.pk,
+    #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    #     )
     def save(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
+        request = kwargs.pop('request', None)  # Extract 'request' from kwargs
+
+        # Determine action (CREATE or UPDATE)
+        action = 'CREATE' if not self.pk else 'UPDATE'
         
-        if not self.pk:
-            action = 'CREATE'
-        else:
-            action = 'UPDATE'
+        # Get IP address from request, if available
+        ip_address = request.META.get('REMOTE_ADDR')
         
-        ip_address = None  # Initialize ip_address variable
-        
-        if request:
-            ip_address = get_client_ip(request)
-        
+        # Call super().save() to save the object
         super().save(*args, **kwargs)
 
+        # Create ChangeLog entry
         ChangeLog.objects.create(
             user=self.created_by,
             action=action,
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-        )
-
-    def delete(self, *args, **kwargs):
-        request = kwargs.pop('request', None)
-        action = 'DELETE'
-
-        ip_address = None  # Initialize ip_address variable
-        
-        if request:
-            ip_address = get_client_ip(request)
-        
-        super().delete(*args, **kwargs)
-
-        ChangeLog.objects.create(
-            user=self.created_by,
-            action=action,
-            content_type=ContentType.objects.get_for_model(self),
-            object_id=self.pk,
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+            ip_address=ip_address
         )
 
 def get_client_ip(request):
@@ -225,8 +252,6 @@ class Receiver(models.Model):
 class Arreas(models.Model):
     pass
 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 
 class ChangeLog(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)

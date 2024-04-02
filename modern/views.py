@@ -577,8 +577,9 @@ def create_owner(request):
             # Set created_by field to the currently logged-in user
             owner = form.save(commit=False)
             owner.created_by = request.user
-            owner.save()
-            return redirect('list_owner')
+            owner.save(request=request)
+            #owner.save()
+            return redirect('list_owner')#return redirect('owner_detail', pk=owner.pk)
     else:
         form = OwnerForm()
     return render(request, 'create_owner.html', {'form': form})
