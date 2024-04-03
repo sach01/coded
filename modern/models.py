@@ -47,6 +47,22 @@ class OwnerType(models.Model):
     name = models.CharField(max_length=200, unique=True)
     def __str__(self):
         return '%s '% (self.name)
+import requests
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
+
+def get_external_ip():
+    try:
+        response = requests.get('https://api.ipify.org')
+        if response.status_code == 200:
+            return response.text
+        else:
+            print("Failed to retrieve external IP:", response.status_code)
+            return None
+    except Exception as e:
+        print("Error:", e)
+        return None
     
 class Owner(models.Model):
     name = models.CharField(max_length=200)
@@ -102,24 +118,35 @@ class Owner(models.Model):
     #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
     #     )
     def save(self, *args, **kwargs):
-        request = kwargs.pop('request', None)  # Extract 'request' from kwargs
-
-        # Determine action (CREATE or UPDATE)
-        action = 'CREATE' if not self.pk else 'UPDATE'
-        
-        # Get IP address from request, if available
-        ip_address = request.META.get('REMOTE_ADDR')
-        
-        # Call super().save() to save the object
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
         super().save(*args, **kwargs)
 
-        # Create ChangeLog entry
+        # Create ChangeLog entry after saving the Owner instance
         ChangeLog.objects.create(
             user=self.created_by,
-            action=action,
+            timestamp=self.date_created,
+            action='CREATE' if not self.pk else 'UPDATE',
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address
+            ip_address=ip_address or 'Unknown'
+        )
+
+    def delete(self, *args, **kwargs):
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
+        super().delete(*args, **kwargs)
+
+        # Create ChangeLog entry after deleting the Owner instance
+        ChangeLog.objects.create(
+            user=self.created_by,
+            timestamp=timezone.now(),
+            action='DELETE',
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+            ip_address=ip_address or 'Unknown'
         )
 
 def get_client_ip(request):
