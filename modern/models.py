@@ -22,6 +22,9 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 #from django.contrib.auth.models import User as CustomUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+import requests
+from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -64,6 +67,17 @@ def get_external_ip():
         print("Error:", e)
         return None
     
+def get_external_ip():
+    try:
+        response = requests.get('https://api.ipify.org')
+        if response.status_code == 200:
+            return response.text
+        else:
+            print("Failed to retrieve external IP:", response.status_code)
+            return None
+    except Exception as e:
+        print("Error:", e)
+        return None   
 class Owner(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=10, blank=True, null=True)
@@ -76,60 +90,80 @@ class Owner(models.Model):
     def __str__(self):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
     
-    # def save(self, *args, **kwargs):
-    #     request = kwargs.pop('request', None)
+    # # def save(self, *args, **kwargs):
+    # #     request = kwargs.pop('request', None)
         
-    #     if not self.pk:
-    #         action = 'CREATE'
-    #     else:
-    #         action = 'UPDATE'
+    # #     if not self.pk:
+    # #         action = 'CREATE'
+    # #     else:
+    # #         action = 'UPDATE'
         
-    #     ip_address = None  # Initialize ip_address variable
+    # #     ip_address = None  # Initialize ip_address variable
         
-    #     if request:
-    #         ip_address = get_client_ip(request)
+    # #     if request:
+    # #         ip_address = get_client_ip(request)
         
-    #     super().save(*args, **kwargs)
+    # #     super().save(*args, **kwargs)
 
-    #     ChangeLog.objects.create(
-    #         user=self.created_by,
-    #         action=action,
-    #         content_type=ContentType.objects.get_for_model(self),
-    #         object_id=self.pk,
-    #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-    #     )
+    # #     ChangeLog.objects.create(
+    # #         user=self.created_by,
+    # #         action=action,
+    # #         content_type=ContentType.objects.get_for_model(self),
+    # #         object_id=self.pk,
+    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    # #     )
 
-    # def delete(self, *args, **kwargs):
-    #     request = kwargs.pop('request', None)
-    #     action = 'DELETE'
+    # # def delete(self, *args, **kwargs):
+    # #     request = kwargs.pop('request', None)
+    # #     action = 'DELETE'
 
-    #     ip_address = None  # Initialize ip_address variable
+    # #     ip_address = None  # Initialize ip_address variable
         
-    #     if request:
-    #         ip_address = get_client_ip(request)
+    # #     if request:
+    # #         ip_address = get_client_ip(request)
         
-    #     super().delete(*args, **kwargs)
+    # #     super().delete(*args, **kwargs)
 
-    #     ChangeLog.objects.create(
-    #         user=self.created_by,
-    #         action=action,
-    #         content_type=ContentType.objects.get_for_model(self),
-    #         object_id=self.pk,
-    #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-    #     )
+    # #     ChangeLog.objects.create(
+    # #         user=self.created_by,
+    # #         action=action,
+    # #         content_type=ContentType.objects.get_for_model(self),
+    # #         object_id=self.pk,
+    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    # #     )
+
+
+
     def save(self, *args, **kwargs):
+<<<<<<< HEAD
         ip_address = get_external_ip()  # Fetch external IP address
         if ip_address:
             self.ip_address = ip_address  # Set the IP address in the model
         super().save(*args, **kwargs)
 
         # Create ChangeLog entry after saving the Owner instance
+=======
+        request = kwargs.pop('request', None)
+
+        if not self.pk:
+            action = 'CREATE'
+        else:
+            action = 'UPDATE'
+
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
+
+        super().save(*args, **kwargs)
+
+>>>>>>> 80f71a68ee08886fc13e0621f82969ee69b4c678
         ChangeLog.objects.create(
             user=self.created_by,
             timestamp=self.date_created,
             action='CREATE' if not self.pk else 'UPDATE',
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
+<<<<<<< HEAD
             ip_address=ip_address or 'Unknown'
         )
 
@@ -147,7 +181,47 @@ class Owner(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
             ip_address=ip_address or 'Unknown'
+=======
+            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+>>>>>>> 80f71a68ee08886fc13e0621f82969ee69b4c678
         )
+
+    def delete(self, *args, **kwargs):
+        request = kwargs.pop('request', None)
+        action = 'DELETE'
+
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
+        super().delete(*args, **kwargs)
+
+        ChangeLog.objects.create(
+            user=self.created_by,
+            action=action,
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.pk,
+            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+        )
+    # def save(self, *args, **kwargs):
+    #     request = kwargs.pop('request', None)  # Extract 'request' from kwargs
+
+    #     # Determine action (CREATE or UPDATE)
+    #     action = 'CREATE' if not self.pk else 'UPDATE'
+        
+    #     # Get IP address from request, if available
+    #     ip_address = request.META.get('REMOTE_ADDR')
+        
+    #     # Call super().save() to save the object
+    #     super().save(*args, **kwargs)
+
+    #     # Create ChangeLog entry
+    #     ChangeLog.objects.create(
+    #         user=self.created_by,
+    #         action=action,
+    #         content_type=ContentType.objects.get_for_model(self),
+    #         object_id=self.pk,
+    #         ip_address=ip_address
+    #     )
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
