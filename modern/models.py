@@ -154,7 +154,7 @@ class Owner(models.Model):
             action=action,
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+            ip_address=ip_address   # Provide a default value if ip_address is None
         )
     # def save(self, *args, **kwargs):
     #     request = kwargs.pop('request', None)  # Extract 'request' from kwargs
