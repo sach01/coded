@@ -76,28 +76,126 @@ def signup(request):
  #   return render(request, 'error403.html', status=403)
 
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+from django.shortcuts import redirect, render
+from django.utils import timezone
+from modern.models import ChangeLog
+import requests
+from django.contrib.auth import login as auth_login, authenticate
+
+def get_external_ip():
+    try:
+        # Use a service like ipify.org to fetch the external IP
+        response = requests.get('https://api.ipify.org?format=json')
+        if response.status_code == 200:
+            return response.json().get('ip')
+        else:
+            # If fetching fails, return None or handle the error accordingly
+            return None
+    except Exception as e:
+        # Handle exceptions
+        print("Error fetching external IP:", e)
+        return None
+    
+# def user_login(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+
+#         if user is not None:
+#             auth_login(request, user)
+#             # Log the login event
+#             ip_address = get_external_ip()
+#             content_type = ContentType.objects.get_for_model(user.__class__)
+#             ChangeLog.objects.create(user=user, action='LOGIN', ip_address=ip_address or 'Unknown', content_type=content_type)
+#             return redirect('index')
+#         else:
+#             # Invalid login
+#             error_message = "Invalid username or password. Please try again."
+#             return render(request, 'login.html', {'error_message': error_message})
+
+#     return render(request, 'login.html')
 
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('index')
-
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                next_url = request.GET.get('next', '')
-                if next_url and next_url.startswith('/'):
-                    return redirect(next_url)
-                else:
-                    return redirect('index')
-    else:
-        form = AuthenticationForm()
+        # Handle login form submission
+        # Use Django's authentication mechanisms
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            # Log login action
+            try:
+                content_type = ContentType.objects.get_for_model(CustomUser)
+                ip_address = get_external_ip()
+                ChangeLog.objects.create(
+                    user=user,
+                    timestamp=timezone.now(),
+                    action='LOGIN',
+                    content_type=content_type,
+                    object_id=user.pk,
+                    ip_address=ip_address
+                    #request.META.get('REMOTE_ADDR')
+                )
+            except ContentType.DoesNotExist:
+                # Handle the case where ContentType for CustomUser does not exist
+                content_type = None
+                
+            # Redirect to the 'next' parameter if provided, otherwise redirect to 'index'
+            next_url = request.GET.get('next', '')
+            if next_url and next_url.startswith('/'):
+                return redirect(next_url)
+            else:
+                return redirect('index')  # Redirect to your index page
+    return render(request, 'login.html')
+
+@login_required
+def user_logout(request):
+    # Log logout action
+    try:
+        content_type = ContentType.objects.get_for_model(CustomUser)
+        ip_address = get_external_ip()
+        ChangeLog.objects.create(
+            user=request.user,
+            timestamp=timezone.now(),
+            action='LOGOUT',
+            content_type=content_type,
+            object_id=request.user.pk,
+            ip_address=ip_address
+            #request.META.get('REMOTE_ADDR')
+        )
+    except ContentType.DoesNotExist:
+        # Handle the case where ContentType for CustomUser does not exist
+        pass
     
-    return render(request, 'login.html', {'form': form})
+    logout(request)
+    return redirect('login')
+
+# def user_login(request):
+#     if request.user.is_authenticated:
+#         return redirect('index')
+
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             user = authenticate(username=username, password=password)
+#             if user is not None:
+#                 login(request, user)
+#                 next_url = request.GET.get('next', '')
+#                 if next_url and next_url.startswith('/'):
+#                     return redirect(next_url)
+#                 else:
+#                     return redirect('index')
+#     else:
+#         form = AuthenticationForm()
+    
+#     return render(request, 'login.html', {'form': form})
 
 # # def user_login(request):
 # #     if request.method == 'POST':

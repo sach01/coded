@@ -16,6 +16,16 @@ from dateutil.relativedelta import relativedelta
 from datetime import date
 import random
 import string
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+#from django.contrib.auth.models import User as CustomUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+import requests
+from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -41,6 +51,17 @@ class OwnerType(models.Model):
     def __str__(self):
         return '%s '% (self.name)
     
+def get_external_ip():
+    try:
+        response = requests.get('https://api.ipify.org')
+        if response.status_code == 200:
+            return response.text
+        else:
+            print("Failed to retrieve external IP:", response.status_code)
+            return None
+    except Exception as e:
+        print("Error:", e)
+        return None   
 class Owner(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=10, blank=True, null=True)
@@ -53,19 +74,62 @@ class Owner(models.Model):
     def __str__(self):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
     
+    # # def save(self, *args, **kwargs):
+    # #     request = kwargs.pop('request', None)
+        
+    # #     if not self.pk:
+    # #         action = 'CREATE'
+    # #     else:
+    # #         action = 'UPDATE'
+        
+    # #     ip_address = None  # Initialize ip_address variable
+        
+    # #     if request:
+    # #         ip_address = get_client_ip(request)
+        
+    # #     super().save(*args, **kwargs)
+
+    # #     ChangeLog.objects.create(
+    # #         user=self.created_by,
+    # #         action=action,
+    # #         content_type=ContentType.objects.get_for_model(self),
+    # #         object_id=self.pk,
+    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    # #     )
+
+    # # def delete(self, *args, **kwargs):
+    # #     request = kwargs.pop('request', None)
+    # #     action = 'DELETE'
+
+    # #     ip_address = None  # Initialize ip_address variable
+        
+    # #     if request:
+    # #         ip_address = get_client_ip(request)
+        
+    # #     super().delete(*args, **kwargs)
+
+    # #     ChangeLog.objects.create(
+    # #         user=self.created_by,
+    # #         action=action,
+    # #         content_type=ContentType.objects.get_for_model(self),
+    # #         object_id=self.pk,
+    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+    # #     )
+
+
+
     def save(self, *args, **kwargs):
         request = kwargs.pop('request', None)
-        
+
         if not self.pk:
             action = 'CREATE'
         else:
             action = 'UPDATE'
-        
-        ip_address = None  # Initialize ip_address variable
-        
-        if request:
-            ip_address = get_client_ip(request)
-        
+
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
+
         super().save(*args, **kwargs)
 
         ChangeLog.objects.create(
@@ -80,11 +144,9 @@ class Owner(models.Model):
         request = kwargs.pop('request', None)
         action = 'DELETE'
 
-        ip_address = None  # Initialize ip_address variable
-        
-        if request:
-            ip_address = get_client_ip(request)
-        
+        ip_address = get_external_ip()  # Fetch external IP address
+        if ip_address:
+            self.ip_address = ip_address  # Set the IP address in the model
         super().delete(*args, **kwargs)
 
         ChangeLog.objects.create(
@@ -92,8 +154,28 @@ class Owner(models.Model):
             action=action,
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+            ip_address=ip_address   # Provide a default value if ip_address is None
         )
+    # def save(self, *args, **kwargs):
+    #     request = kwargs.pop('request', None)  # Extract 'request' from kwargs
+
+    #     # Determine action (CREATE or UPDATE)
+    #     action = 'CREATE' if not self.pk else 'UPDATE'
+        
+    #     # Get IP address from request, if available
+    #     ip_address = request.META.get('REMOTE_ADDR')
+        
+    #     # Call super().save() to save the object
+    #     super().save(*args, **kwargs)
+
+    #     # Create ChangeLog entry
+    #     ChangeLog.objects.create(
+    #         user=self.created_by,
+    #         action=action,
+    #         content_type=ContentType.objects.get_for_model(self),
+    #         object_id=self.pk,
+    #         ip_address=ip_address
+    #     )
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -225,8 +307,6 @@ class Receiver(models.Model):
 class Arreas(models.Model):
     pass
 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 
 class ChangeLog(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
@@ -239,3 +319,28 @@ class ChangeLog(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+    def __str__(self):
+        return '%s %s %s %s %s %s %s'% (self.user, self.timestamp, self.action, self.content_type, self.object_id, self.content_object, self.ip_address)
+    
+# from django.dispatch import receiver
+# from django.contrib.auth.signals import user_logged_in, user_logged_out
+
+# # Signal handler to log user logins
+# @receiver(user_logged_in)
+# def log_user_login(sender, request, user, **kwargs):
+#     ip_address = get_client_ip(request)
+#     ChangeLog.objects.create(
+#         user=user,
+#         action='logged in',
+#         ip_address=ip_address
+#     )
+
+# # Signal handler to log user logouts
+# @receiver(user_logged_out)
+# def log_user_logout(sender, request, user, **kwargs):
+#     ip_address = get_client_ip(request)
+#     ChangeLog.objects.create(
+#         user=user,
+#         action='logged out',
+#         ip_address=ip_address
+#     )
