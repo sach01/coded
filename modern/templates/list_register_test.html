@@ -36,6 +36,7 @@
             <tr>
                 <th>Owner</th>
                 <th>Floor</th>
+                <th>Mobile</th>
                 <th>Room Number</th>
                 <th>Amount</th>
                 <th>Balance</th>
@@ -52,6 +53,7 @@
             <tr>
                 <td>{{ row.owner }}</td>
                 <td>{{ row.floor }}</td>
+                <td>{{ row.number }}</td>
                 <td>{{ row.room_number }}</td>
                 <td>{{ row.amount }}</td>
                 <td>{{ row.balance }}</td>
@@ -74,11 +76,17 @@
         </thead>
         <tbody>
             {% for month, amount in amounts_by_month.items %}
-                <tr>
-                    <td>{{ month|date:"F Y" }}</td>
-                    <td>{{ amount }}</td>
-                </tr>
-            {% endfor %}
+    {% with year=month|slice:":4" %}
+    {% with month_num=month|slice:"-2:" %}
+    {% with month_name=month_num|date:"F" %}
+    <tr>
+        <td>{{ month_name }} {{ year }}</td>
+        <td>{{ amount }}</td>
+    </tr>
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+{% endfor %}
         </tbody>
     </table>
 </body>

@@ -28,6 +28,7 @@ urlpatterns = [
     #path('success_page', views.success_page, name='success_page'),
     path("payment_list", modern_views.payment_list, name="payment_list"),
     
+    path("register_balance", modern_views.register_balance, name="register_balance"),
     path("list_registers_part1", modern_views.list_registers_part1, name="list_registers_part1"),
     path("duplicate_payment_rows", modern_views.duplicate_payment_rows, name="duplicate_payment_rows"),
     path('get_rooms_and_floor', modern_views.get_rooms_and_floor, name='get_rooms_and_floor'),

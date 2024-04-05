@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Balances</title>
+</head>
+<body>
+    <h1>Register Balances</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Amount</th>
+                <th>Balance</th>
+                <th>Month Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment_row in all_new_payment_rows %}
+            <tr>
+                <td>{{ payment_row.owner }}</td>
+                <td>{{ payment_row.amount }}</td>
+                <td>{{ payment_row.balance }}</td>
+                <td>
+                    {% for month_paid in payment_row.month_paid %}
+                        {{ month_paid|date:"F Y" }}
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Amounts by Month</h2>
+    <ul>
+        {% for month, amount in amounts_by_month.items %}
+            <li>{{ month|date:"F Y" }}: {{ amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
