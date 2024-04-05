@@ -64,7 +64,7 @@ def get_external_ip():
         return None   
 class Owner(models.Model):
     name = models.CharField(max_length=200)
-    mobile = models.CharField(max_length=10, blank=True, null=True)
+    mobile = models.CharField(max_length=13, blank=True, null=True)
     id_number = models.CharField(max_length=10, blank=True, null=True)
     owner_type = models.ForeignKey(OwnerType, on_delete=models.CASCADE, default='')
     date_created = models.DateTimeField(auto_now_add=True)
@@ -73,50 +73,6 @@ class Owner(models.Model):
 
     def __str__(self):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
-    
-    # # def save(self, *args, **kwargs):
-    # #     request = kwargs.pop('request', None)
-        
-    # #     if not self.pk:
-    # #         action = 'CREATE'
-    # #     else:
-    # #         action = 'UPDATE'
-        
-    # #     ip_address = None  # Initialize ip_address variable
-        
-    # #     if request:
-    # #         ip_address = get_client_ip(request)
-        
-    # #     super().save(*args, **kwargs)
-
-    # #     ChangeLog.objects.create(
-    # #         user=self.created_by,
-    # #         action=action,
-    # #         content_type=ContentType.objects.get_for_model(self),
-    # #         object_id=self.pk,
-    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-    # #     )
-
-    # # def delete(self, *args, **kwargs):
-    # #     request = kwargs.pop('request', None)
-    # #     action = 'DELETE'
-
-    # #     ip_address = None  # Initialize ip_address variable
-        
-    # #     if request:
-    # #         ip_address = get_client_ip(request)
-        
-    # #     super().delete(*args, **kwargs)
-
-    # #     ChangeLog.objects.create(
-    # #         user=self.created_by,
-    # #         action=action,
-    # #         content_type=ContentType.objects.get_for_model(self),
-    # #         object_id=self.pk,
-    # #         ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-    # #     )
-
-
 
     def save(self, *args, **kwargs):
         request = kwargs.pop('request', None)
@@ -156,26 +112,6 @@ class Owner(models.Model):
             object_id=self.pk,
             ip_address=ip_address   # Provide a default value if ip_address is None
         )
-    # def save(self, *args, **kwargs):
-    #     request = kwargs.pop('request', None)  # Extract 'request' from kwargs
-
-    #     # Determine action (CREATE or UPDATE)
-    #     action = 'CREATE' if not self.pk else 'UPDATE'
-        
-    #     # Get IP address from request, if available
-    #     ip_address = request.META.get('REMOTE_ADDR')
-        
-    #     # Call super().save() to save the object
-    #     super().save(*args, **kwargs)
-
-    #     # Create ChangeLog entry
-    #     ChangeLog.objects.create(
-    #         user=self.created_by,
-    #         action=action,
-    #         content_type=ContentType.objects.get_for_model(self),
-    #         object_id=self.pk,
-    #         ip_address=ip_address
-    #     )
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -185,11 +121,6 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
-# def save(self, *args, **kwargs):
-#         user = kwargs.pop('user', None)  # Remove 'user' from kwargs
-#         if user and not self.pk and not self.created_by_id:
-#             self.created_by = user
-#         super().save(*args, **kwargs)
 class Register(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)

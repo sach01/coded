@@ -1,0 +1,57 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Owner Balance Statements</div>
+    </div>
+    <div class="card-body">
+        <div class="">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered text-nowrap key-buttons">
+                    <thead>
+                        <tr>
+                            
+                            <th class="border-bottom-0">Owner</th>
+                            <th class="border-bottom-0">Floor</th>
+                            <th class="border-bottom-0">Mobile</th>
+                            <th class="border-bottom-0">Room Number</th>
+                            <th class="border-bottom-0">Balance</th>
+                            <th class="border-bottom-0">Due Months</th>
+                            <th class="border-bottom-0">Month Paid</th>
+                            <th class="border-bottom-0">New Month Paid List</th>
+                            <th class="border-bottom-0">Start Date</th>
+                            <th class="border-bottom-0">Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for register in all_registers %}
+                <tr>
+                    <td>{{ register.owner.name }}</td>
+                    <td>{{ register.floor }}</td>
+                    <td>{{ register.owner.mobile }}</td>
+                    <td>{{ register.room_number }}</td>
+                    <td>{{ register.balance }}</td>
+                    <td>{{ register.due_months }}</td>
+                    <td>{{ register.month_paid }}</td>
+                    <td>
+                            {% for month in register.new_month_paid_list %}
+                                {{ month }} ||
+                            {% endfor %}
+                    </td>
+                    <td>{{ register.start_date }}</td>
+                    <td>{{ register.end_date }}</td>
+                    <td>{{ register.pay_status }}</td>
+                </tr>
+            {% endfor %}
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
