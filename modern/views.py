@@ -1186,13 +1186,132 @@ def calculate_month_difference(start_date, end_date):
     print("months:",months)
     return months
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from collections import defaultdict
-from datetime import date
-from dateutil.relativedelta import relativedelta
-from .models import Register, Payment
-from .africastalking_utils import send_sms  # Import resolved
+# # from django.shortcuts import render
+# # from django.contrib.auth.decorators import login_required
+# # from collections import defaultdict
+# # from datetime import date
+# # from dateutil.relativedelta import relativedelta
+# # from .models import Register, Payment
+# # from .africastalking_utils import send_sms  # Import resolved
+
+# # def calculate_fields(register):
+# #     today = date.today()
+# #     new_payment_rows = []
+
+# #     if Payment.objects.filter(owner=register).exists():
+# #         payment = Payment.objects.filter(owner=register).order_by('-date_paid')
+# #         last_payment = payment.first()
+# #         counts = payment.count()
+# #         ouw_us = 0
+# #         total_ouw_us = 0
+# #         if register.reg_status:
+# #             due_months = calculate_month_difference(last_payment.month_paid, today) 
+# #             if due_months < 0:
+# #                 ouw_us1 = abs(due_months)
+# #                 ouw_us = ouw_us1
+# #             print("ouw_us:",ouw_us)
+# #             month_paid = last_payment.month_paid + relativedelta(months=1)
+# #             balance = register.room.amount * due_months
+# #             total_ouw_us = register.room.amount * ouw_us
+# #         else:
+# #             due_months = calculate_month_difference(last_payment.month_paid, register.end_date)
+# #             month_paid = last_payment.month_paid - relativedelta(months=1)
+# #             balance = register.room.amount * due_months
+# #             total_ouw_us = register.room.amount * ouw_us
+
+# #         for i in range(due_months):
+# #             new_month_paid = last_payment.month_paid + relativedelta(months=i)
+# #             if new_month_paid <= today:  # Skip adding rows for past months
+# #                 new_payment_rows.append({
+# #                     'owner': register.owner.name,
+# #                     'floor': register.room.floor,
+# #                     'number': register.owner.number,
+# #                     'room_number': register.room.room_number,
+# #                     'amount': register.room.amount,
+# #                     'balance': balance,
+# #                     'due_months': due_months,
+# #                     'ouw_us': ouw_us,
+# #                     'total_ouw_us': total_ouw_us,
+# #                     'month_paid': new_month_paid,
+# #                     'start_date': register.start_date,
+# #                     'end_date': register.end_date,
+# #                 })
+        
+# #     else:
+# #         if register.reg_status:
+# #             due_months = calculate_month_difference(register.start_date, today)
+# #             month_paid = register.start_date
+# #             balance = register.room.amount * due_months
+# #         else:
+# #             due_months = calculate_month_difference(register.start_date, register.end_date)
+# #             month_paid = register.start_date
+# #             balance = register.room.amount * due_months
+        
+# #         for i in range(due_months):
+# #             new_month_paid = register.start_date + relativedelta(months=i)
+# #             if new_month_paid <= today:  # Skip adding rows for past months
+# #                 new_payment_rows.append({
+# #                     'owner': register.owner.name,
+# #                     'floor': register.room.floor,
+# #                     'number': register.owner.number,
+# #                     'room_number': register.room.room_number,
+# #                     'amount': register.room.amount,
+# #                     'balance': balance,
+# #                     'due_months': due_months,
+# #                     'month_paid': new_month_paid,
+# #                     'start_date': register.start_date,
+# #                     'end_date': register.end_date,
+# #                 })
+
+# #     return new_payment_rows
+
+# # # Define a decorator for retrying the API request
+# # @retry(stop_max_attempt_number=3, wait_fixed=2000)  # Retry for a maximum of 3 attempts with a fixed delay of 2 seconds between retries
+# # def send_sms_retry(message, recipients):
+# #     try:
+# #         send_sms(message, recipients)  # Call your send_sms function from africastalking_utils
+# #         print("SMS sent successfully.")
+# #     except Exception as e:
+# #         print(f"Failed to send SMS: {e}")
+
+# # @login_required(login_url="/account/login")
+# # def list_register_test(request):
+# #     amounts_by_month = defaultdict(float)
+# #     all_new_payment_rows = []
+
+# #     for register in Register.objects.all():
+# #         new_payment_rows = calculate_fields(register)
+# #         all_new_payment_rows.extend(new_payment_rows)
+# #         for payment_row in new_payment_rows:
+# #             if isinstance(payment_row['month_paid'], list):
+# #                 # If 'month_paid' is a list, handle it appropriately (e.g., iterate over each date)
+# #                 for month_paid_date in payment_row['month_paid']:
+# #                     month_paid_key = month_paid_date.strftime('%Y-%m')  # Convert to string for hashability
+# #                     amounts_by_month[month_paid_key] += payment_row['amount']
+# #             else:
+# #                 # If 'month_paid' is a single date, convert it to a string for hashability
+# #                 month_paid_key = payment_row['month_paid'].strftime('%Y-%m')  # Convert to string for hashability
+# #                 amounts_by_month[month_paid_key] += payment_row['amount']
+
+# #     for payment_row in all_new_payment_rows:
+# #         message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid']} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
+# #         try:
+# #             send_sms(message, [payment_row['number']])
+# #             print(f"SMS sent successfully to: {payment_row['number']}")
+# #         except Exception as e:
+# #             print(f"Failed to send SMS to: {payment_row['number']}")
+# #             print(f"Error: {e}")
+
+# #     context = {
+# #         'all_new_payment_rows': all_new_payment_rows,
+# #         'amounts_by_month': dict(amounts_by_month),  # Convert to dict for rendering
+# #     }
+
+# #     return render(request, 'list_register_test.html', context)
+
+
+
+
 
 def calculate_fields(register):
     today = date.today()
@@ -1225,7 +1344,7 @@ def calculate_fields(register):
                 new_payment_rows.append({
                     'owner': register.owner.name,
                     'floor': register.room.floor,
-                    'number': register.owner.number,
+                    'number': register.owner.mobile,
                     'room_number': register.room.room_number,
                     'amount': register.room.amount,
                     'balance': balance,
@@ -1253,7 +1372,7 @@ def calculate_fields(register):
                 new_payment_rows.append({
                     'owner': register.owner.name,
                     'floor': register.room.floor,
-                    'number': register.owner.number,
+                    'number': register.owner.mobile,
                     'room_number': register.room.room_number,
                     'amount': register.room.amount,
                     'balance': balance,
@@ -1264,6 +1383,13 @@ def calculate_fields(register):
                 })
 
     return new_payment_rows
+import requests
+from retrying import retry
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from collections import defaultdict
+from .models import Register
+from .africastalking_utils import send_sms
 
 # Define a decorator for retrying the API request
 @retry(stop_max_attempt_number=3, wait_fixed=2000)  # Retry for a maximum of 3 attempts with a fixed delay of 2 seconds between retries
@@ -1277,287 +1403,161 @@ def send_sms_retry(message, recipients):
 @login_required(login_url="/account/login")
 def list_register_test(request):
     amounts_by_month = defaultdict(float)
+
+    for register in Register.objects.all():
+        new_payment_rows = calculate_fields(register)
+        for payment_row in new_payment_rows:
+            if isinstance(payment_row['month_paid'], list):
+                # If month_paid is a list of dates
+                for month_paid_date in payment_row['month_paid']:
+                    month_key = (month_paid_date.year, month_paid_date.month)
+                    amounts_by_month[month_key] += payment_row['amount']
+            elif isinstance(payment_row['month_paid'], datetime):
+                # If month_paid is a single date
+                month_key = (payment_row['month_paid'].year, payment_row['month_paid'].month)
+                amounts_by_month[month_key] += payment_row['amount']
+
     all_new_payment_rows = []
 
     for register in Register.objects.all():
         new_payment_rows = calculate_fields(register)
         all_new_payment_rows.extend(new_payment_rows)
-        for payment_row in new_payment_rows:
-            # Check if payment_row['month_paid'] is a list
-            if isinstance(payment_row['month_paid'], list):
-                # Handle list of dates accordingly (for example, iterate over each date)
-                for month_paid_date in payment_row['month_paid']:
-                    month_paid_key = month_paid_date.strftime('%Y-%m')  # Convert to string for hashability
-                    amounts_by_month[month_paid_key] += payment_row['amount']
-            else:
-                # If it's a single date, convert it to string for hashability
-                month_paid_key = payment_row['month_paid'].strftime('%Y-%m')  # Convert to string for hashability
-                amounts_by_month[month_paid_key] += payment_row['amount']
 
-    # for payment_row in all_new_payment_rows:
-    #     message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid']} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-    #     send_sms(message, [payment_row['number']])
     for payment_row in all_new_payment_rows:
-        message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid']} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-        try:
-            send_sms(message, [payment_row['number']])
-            print("SMS sent successfully to:", payment_row['number'])
-        except Exception as e:
-            print("Failed to send SMS to:", payment_row['number'])
-            print("Error:", e)
+        if isinstance(payment_row['month_paid'], list):
+            # If month_paid is a list of dates
+            month_paid_str = ", ".join([date.strftime('%B %Y') for date in payment_row['month_paid']])
+        elif isinstance(payment_row['month_paid'], datetime):
+            # If month_paid is a single date
+            month_paid_str = payment_row['month_paid'].strftime('%B %Y')
+        else:
+            month_paid_str = "Unknown Date"
+
+        message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that your monthly payment for {month_paid_str} for stall number {payment_row['room_number']} is Ksh.{payment_row['amount']}. Your current balance is ${payment_row['balance']}."
+        send_sms_retry(message, [payment_row['number']]) # Use the retrying version of send_sms function
+        print(send_sms_retry(message, [payment_row['number']]))
+
     context = {
         'all_new_payment_rows': all_new_payment_rows,
-        'amounts_by_month': dict(amounts_by_month),  # Convert to dict for rendering
+        'amounts_by_month': dict(amounts_by_month),
     }
 
     return render(request, 'list_register_test.html', context)
 
 
+@login_required(login_url="/account/login")
+def list_register_test(request):
+    amounts_by_month = defaultdict(float)
 
-
-
-# def calculate_fields(register):
-#     today = date.today()
-#     new_payment_rows = []
-
-#     if Payment.objects.filter(owner=register).exists():
-#         payment = Payment.objects.filter(owner=register).order_by('-date_paid')
-#         last_payment = payment.first()
-#         counts = payment.count()
-#         ouw_us = 0
-#         total_ouw_us = 0
-#         if register.reg_status:
-#             due_months = calculate_month_difference(last_payment.month_paid, today) 
-#             if due_months < 0:
-#                 ouw_us1 = abs(due_months)
-#                 ouw_us = ouw_us1
-#             print("ouw_us:",ouw_us)
-#             month_paid = last_payment.month_paid + relativedelta(months=1)
-#             balance = register.room.amount * due_months
-#             total_ouw_us = register.room.amount * ouw_us
-#         else:
-#             due_months = calculate_month_difference(last_payment.month_paid, register.end_date)
-#             month_paid = last_payment.month_paid - relativedelta(months=1)
-#             balance = register.room.amount * due_months
-#             total_ouw_us = register.room.amount * ouw_us
-
-#         for i in range(due_months):
-#             new_month_paid = last_payment.month_paid + relativedelta(months=i)
-#             if new_month_paid <= today:  # Skip adding rows for past months
-#                 new_payment_rows.append({
-#                     'owner': register.owner.name,
-#                     'floor': register.room.floor,
-#                     'number': register.owner.mobile,
-#                     'room_number': register.room.room_number,
-#                     'amount': register.room.amount,
-#                     'balance': balance,
-#                     'due_months': due_months,
-#                     'ouw_us': ouw_us,
-#                     'total_ouw_us': total_ouw_us,
-#                     'month_paid': new_month_paid,
-#                     'start_date': register.start_date,
-#                     'end_date': register.end_date,
-#                 })
-        
-#     else:
-#         if register.reg_status:
-#             due_months = calculate_month_difference(register.start_date, today)
-#             month_paid = register.start_date
-#             balance = register.room.amount * due_months
-#         else:
-#             due_months = calculate_month_difference(register.start_date, register.end_date)
-#             month_paid = register.start_date
-#             balance = register.room.amount * due_months
-        
-#         for i in range(due_months):
-#             new_month_paid = register.start_date + relativedelta(months=i)
-#             if new_month_paid <= today:  # Skip adding rows for past months
-#                 new_payment_rows.append({
-#                     'owner': register.owner.name,
-#                     'floor': register.room.floor,
-#                     'number': register.owner.mobile,
-#                     'room_number': register.room.room_number,
-#                     'amount': register.room.amount,
-#                     'balance': balance,
-#                     'due_months': due_months,
-#                     'month_paid': new_month_paid,
-#                     'start_date': register.start_date,
-#                     'end_date': register.end_date,
-#                 })
-
-#     return new_payment_rows
-# import requests
-# from retrying import retry
-# from django.shortcuts import render
-# from django.contrib.auth.decorators import login_required
-# from collections import defaultdict
-# from .models import Register
-# from .africastalking_utils import send_sms
-
-# # Define a decorator for retrying the API request
-# @retry(stop_max_attempt_number=3, wait_fixed=2000)  # Retry for a maximum of 3 attempts with a fixed delay of 2 seconds between retries
-# def send_sms_retry(message, recipients):
-#     try:
-#         send_sms(message, recipients)  # Call your send_sms function from africastalking_utils
-#         print("SMS sent successfully.")
-#     except Exception as e:
-#         print(f"Failed to send SMS: {e}")
-
-# @login_required(login_url="/account/login")
-# def list_register_test(request):
-#     amounts_by_month = defaultdict(float)
-
-#     for register in Register.objects.all():
-#         new_payment_rows = calculate_fields(register)
-#         for payment_row in new_payment_rows:
-#             if isinstance(payment_row['month_paid'], list):
-#                 # If month_paid is a list of dates
-#                 for month_paid_date in payment_row['month_paid']:
-#                     month_key = (month_paid_date.year, month_paid_date.month)
-#                     amounts_by_month[month_key] += payment_row['amount']
-#             elif isinstance(payment_row['month_paid'], datetime):
-#                 # If month_paid is a single date
-#                 month_key = (payment_row['month_paid'].year, payment_row['month_paid'].month)
-#                 amounts_by_month[month_key] += payment_row['amount']
-
-#     all_new_payment_rows = []
-
-#     for register in Register.objects.all():
-#         new_payment_rows = calculate_fields(register)
-#         all_new_payment_rows.extend(new_payment_rows)
-
-#     for payment_row in all_new_payment_rows:
-#         if isinstance(payment_row['month_paid'], list):
-#             # If month_paid is a list of dates
-#             month_paid_str = ", ".join([date.strftime('%B %Y') for date in payment_row['month_paid']])
-#         elif isinstance(payment_row['month_paid'], datetime):
-#             # If month_paid is a single date
-#             month_paid_str = payment_row['month_paid'].strftime('%B %Y')
-#         else:
-#             month_paid_str = "Unknown Date"
-
-#         message = f"Hello {payment_row['owner']}, your monthly payment for {month_paid_str} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-#         send_sms_retry(message, [payment_row['number']]) # Use the retrying version of send_sms function
-#         print(send_sms_retry(message, [payment_row['number']]))
-
-#     context = {
-#         'all_new_payment_rows': all_new_payment_rows,
-#         'amounts_by_month': dict(amounts_by_month),
-#     }
-
-#     return render(request, 'list_register_test.html', context)
-
-
-# @login_required(login_url="/account/login")
-# def list_register_test(request):
-#     amounts_by_month = defaultdict(float)
-
-#     for register in Register.objects.all():
-#         new_payment_rows = calculate_fields(register)
-#         for payment_row in new_payment_rows:
-#             amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+    for register in Register.objects.all():
+        new_payment_rows = calculate_fields(register)
+        for payment_row in new_payment_rows:
+            amounts_by_month[payment_row['month_paid']] += payment_row['amount']
     
-#     amounts_by_month = dict(amounts_by_month)
+    amounts_by_month = dict(amounts_by_month)
 
-#     all_new_payment_rows = []
+    all_new_payment_rows = []
 
-#     for register in Register.objects.all():
-#         new_payment_rows = calculate_fields(register)
-#         all_new_payment_rows.extend(new_payment_rows)
-    
-#     for payment_row in all_new_payment_rows:
-#         message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid'].strftime('%B %Y')} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-#         send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
+    for register in Register.objects.all():
+        new_payment_rows = calculate_fields(register)
+        all_new_payment_rows.extend(new_payment_rows)
+    for payment_row in all_new_payment_rows:
+        message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+        send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
 
-#     context = {
-#         'all_new_payment_rows': all_new_payment_rows,
-#         'amounts_by_month': amounts_by_month,
-#     }
+    # for payment_row in all_new_payment_rows:
+    #     message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number ${payment_row['room_number']}. Your current balance is ${payment_row['balance']}."
+    #     send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
 
-#     return render(request, 'list_register_test.html', context)
+    context = {
+        'all_new_payment_rows': all_new_payment_rows,
+        'amounts_by_month': amounts_by_month,
+    }
+
+    return render(request, 'list_register_test.html', context)
 
 #########################################################################
-def calculate_fields(register):
-    today = date.today()
-    new_payment_rows = []
+# # def calculate_fields(register):
+# #     today = date.today()
+# #     new_payment_rows = []
 
-    if Payment.objects.filter(owner=register).exists():
-        payment = Payment.objects.filter(owner=register).order_by('-date_paid')
-        last_payment = payment.first()
-        counts = payment.count()
-        ouw_us = 0
-        total_ouw_us = 0
+# #     if Payment.objects.filter(owner=register).exists():
+# #         payment = Payment.objects.filter(owner=register).order_by('-date_paid')
+# #         last_payment = payment.first()
+# #         counts = payment.count()
+# #         ouw_us = 0
+# #         total_ouw_us = 0
 
-        if register.reg_status:
-            due_months = calculate_month_difference(last_payment.month_paid, today) 
-            if due_months < 0:
-                ouw_us1 = abs(due_months)
-                ouw_us = ouw_us1
-            print("ouw_us:", ouw_us)
-            month_paid = last_payment.month_paid + relativedelta(months=1)
-            balance = register.room.amount * due_months
-            total_ouw_us = register.room.amount * ouw_us
-        else:
-            due_months = calculate_month_difference(last_payment.month_paid, register.end_date)
-            month_paid = last_payment.month_paid - relativedelta(months=1)
-            balance = register.room.amount * due_months
-            total_ouw_us = register.room.amount * ouw_us
+# #         if register.reg_status:
+# #             due_months = calculate_month_difference(last_payment.month_paid, today) 
+# #             if due_months < 0:
+# #                 ouw_us1 = abs(due_months)
+# #                 ouw_us = ouw_us1
+# #             print("ouw_us:", ouw_us)
+# #             month_paid = last_payment.month_paid + relativedelta(months=1)
+# #             balance = register.room.amount * due_months
+# #             total_ouw_us = register.room.amount * ouw_us
+# #         else:
+# #             due_months = calculate_month_difference(last_payment.month_paid, register.end_date)
+# #             month_paid = last_payment.month_paid - relativedelta(months=1)
+# #             balance = register.room.amount * due_months
+# #             total_ouw_us = register.room.amount * ouw_us
 
-        new_month_paid_list = []
-        for i in range(0, due_months):
-            new_month_paid = last_payment.month_paid + relativedelta(months=i)
-            print("new_month_paid_list:", new_month_paid)  
-            new_month_paid_list.append(new_month_paid)
+# #         new_month_paid_list = []
+# #         for i in range(0, due_months):
+# #             new_month_paid = last_payment.month_paid + relativedelta(months=i)
+# #             print("new_month_paid_list:", new_month_paid)  
+# #             new_month_paid_list.append(new_month_paid)
 
-        new_payment_row = {
-            'owner': register.owner.name,
-            'floor': register.room.floor,
-            'number': register.owner.mobile,
-            'room_number': register.room.room_number,
-            'amount': register.room.amount,
-            'balance': balance,
-            'due_months': due_months,
-            'ouw_us': ouw_us,
-            'total_ouw_us': total_ouw_us,
-            'month_paid': new_month_paid_list,  # Include the list of new_month_paid values in one row
-            'start_date': register.start_date,
-            'end_date': register.end_date,
-        }
+# #         new_payment_row = {
+# #             'owner': register.owner.name,
+# #             'floor': register.room.floor,
+# #             'number': register.owner.mobile,
+# #             'room_number': register.room.room_number,
+# #             'amount': register.room.amount,
+# #             'balance': balance,
+# #             'due_months': due_months,
+# #             'ouw_us': ouw_us,
+# #             'total_ouw_us': total_ouw_us,
+# #             'month_paid': new_month_paid_list,  # Include the list of new_month_paid values in one row
+# #             'start_date': register.start_date,
+# #             'end_date': register.end_date,
+# #         }
         
-        new_payment_rows.append(new_payment_row)
+# #         new_payment_rows.append(new_payment_row)
         
-    else:
-        if register.reg_status:
-            due_months = calculate_month_difference(register.start_date, today)
-            month_paid = register.start_date
-            balance = register.room.amount * due_months
-        else:
-            due_months = calculate_month_difference(register.start_date, register.end_date)
-            month_paid = register.start_date
-            balance = register.room.amount * due_months
+# #     else:
+# #         if register.reg_status:
+# #             due_months = calculate_month_difference(register.start_date, today)
+# #             month_paid = register.start_date
+# #             balance = register.room.amount * due_months
+# #         else:
+# #             due_months = calculate_month_difference(register.start_date, register.end_date)
+# #             month_paid = register.start_date
+# #             balance = register.room.amount * due_months
         
-        new_month_paid_list = []
-        for i in range(0, due_months):
-            new_month_paid = register.start_date + relativedelta(months=i)
-            print("new_month_paid_list:", new_month_paid)  
-            new_month_paid_list.append(new_month_paid)
+# #         new_month_paid_list = []
+# #         for i in range(0, due_months):
+# #             new_month_paid = register.start_date + relativedelta(months=i)
+# #             print("new_month_paid_list:", new_month_paid)  
+# #             new_month_paid_list.append(new_month_paid)
 
-        new_payment_row = {
-            'owner': register.owner.name,
-            'floor': register.room.floor,
-            'number': register.owner.mobile,
-            'room_number': register.room.room_number,
-            'amount': register.room.amount,
-            'balance': balance,
-            'due_months': due_months,
-            'month_paid': new_month_paid_list,  # Include the list of new_month_paid values in one row
-            'start_date': register.start_date,
-            'end_date': register.end_date,
-        }
+# #         new_payment_row = {
+# #             'owner': register.owner.name,
+# #             'floor': register.room.floor,
+# #             'number': register.owner.mobile,
+# #             'room_number': register.room.room_number,
+# #             'amount': register.room.amount,
+# #             'balance': balance,
+# #             'due_months': due_months,
+# #             'month_paid': new_month_paid_list,  # Include the list of new_month_paid values in one row
+# #             'start_date': register.start_date,
+# #             'end_date': register.end_date,
+# #         }
         
-        new_payment_rows.append(new_payment_row)
+# #         new_payment_rows.append(new_payment_row)
 
-    return new_payment_rows
+# #     return new_payment_rows
 @login_required(login_url="/account/login")
 def register_balance(request):
     amounts_by_month = defaultdict(float)

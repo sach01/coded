@@ -136,3 +136,7 @@
 [35;1m"GET /list_register_test HTTP/1.1" 500 79542[0m
 [35;1m"GET /list_register_test HTTP/1.1" 500 79950[0m
 [35;1m"GET /list_register_test HTTP/1.1" 500 79984[0m
+[35;1m"GET /list_register_test HTTP/1.1" 500 80115[0m
+[35;1m"GET /list_register_test HTTP/1.1" 500 78739[0m
+[35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 204092[0m
+[35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 204092[0m

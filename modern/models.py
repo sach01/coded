@@ -246,7 +246,7 @@ class ChangeLog(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    ip_address = models.CharField(max_length=100)  # For storing IP address
+    ip_address = models.CharField(max_length=100, null=False)  # For storing IP address
 
     class Meta:
         ordering = ['-timestamp']
