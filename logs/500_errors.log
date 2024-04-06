@@ -77,6 +77,7 @@
 [35;1m"POST /create_owner/ HTTP/1.1" 500 82695[0m
 [35;1m"POST /create_owner/ HTTP/1.1" 500 83025[0m
 [35;1m"POST /create_owner/ HTTP/1.1" 500 82963[0m
+<<<<<<< HEAD
 [35;1m"POST /account/login/?next=/create_owner/ HTTP/1.1" 500 204989[0m
 [35;1m"POST /account/login/ HTTP/1.1" 500 204551[0m
 [35;1m"POST /account/login/ HTTP/1.1" 500 205228[0m
@@ -140,3 +141,5 @@
 [35;1m"GET /list_register_test HTTP/1.1" 500 78739[0m
 [35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 204092[0m
 [35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 204092[0m
+=======
+>>>>>>> parent of 741b8fe (committing changelog ext ip)
