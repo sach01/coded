@@ -5,21 +5,7 @@ from django.contrib.auth.models import AbstractUser, Group
 #as AuthGroup
 
 #from django.contrib.auth.models import AbstractUser
-import requests
 
-def get_external_ip():
-    try:
-        # Use a service like ipify.org to fetch the external IP
-        response = requests.get('https://api.ipify.org?format=json')
-        if response.status_code == 200:
-            return response.json().get('ip')
-        else:
-            # If fetching fails, return None or handle the error accordingly
-            return None
-    except Exception as e:
-        # Handle exceptions
-        print("Error fetching external IP:", e)
-        return None
 
 class CustomUser(AbstractUser):
     name = models.CharField(max_length=50, blank=True)
