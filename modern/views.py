@@ -1444,6 +1444,15 @@ def list_register_test(request):
 
     return render(request, 'list_register_test.html', context)
 
+from modern.tasks import send_monthly_payment_reminder
+from django.utils import timezone
+from datetime import timedelta
+from .models import Register
+from collections import defaultdict
+#from .utils import calculate_fields, send_sms_retry
+from modern.utils import calculate_fields, send_sms_retry
+
+from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/account/login")
 def list_register_test(request):
@@ -1456,18 +1465,24 @@ def list_register_test(request):
     
     amounts_by_month = dict(amounts_by_month)
 
+    # Schedule the task to send SMS reminders
+    # first_day_of_next_month = timezone.now().replace(day=1) + timedelta(days=32)
+    # first_day_of_next_month = first_day_of_next_month.replace(day=1, hour=12, minute=0, second=0)
+    # send_monthly_payment_reminder.apply_async(eta=first_day_of_next_month)
+    
+    # Schedule the task to send SMS reminders
+    eta_time = timezone.now() + timedelta(minutes=5)
+    send_monthly_payment_reminder.apply_async(eta=eta_time)
+    # Send SMS reminders
     all_new_payment_rows = []
-
     for register in Register.objects.all():
         new_payment_rows = calculate_fields(register)
         all_new_payment_rows.extend(new_payment_rows)
+    
     for payment_row in all_new_payment_rows:
-        message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-        send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
-
-    # for payment_row in all_new_payment_rows:
-    #     message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number ${payment_row['room_number']}. Your current balance is ${payment_row['balance']}."
-    #     send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
+        if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
+            message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+            send_sms_retry(message, [payment_row['number']])
 
     context = {
         'all_new_payment_rows': all_new_payment_rows,
@@ -1475,6 +1490,36 @@ def list_register_test(request):
     }
 
     return render(request, 'list_register_test.html', context)
+# # # @login_required(login_url="/account/login")
+# # # def list_register_test(request):
+# # #     amounts_by_month = defaultdict(float)
+
+# # #     for register in Register.objects.all():
+# # #         new_payment_rows = calculate_fields(register)
+# # #         for payment_row in new_payment_rows:
+# # #             amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+    
+# # #     amounts_by_month = dict(amounts_by_month)
+
+# # #     all_new_payment_rows = []
+
+# # #     for register in Register.objects.all():
+# # #         new_payment_rows = calculate_fields(register)
+# # #         all_new_payment_rows.extend(new_payment_rows)
+# # #     for payment_row in all_new_payment_rows:
+# # #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+# # #         send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
+
+# # #     # for payment_row in all_new_payment_rows:
+# # #     #     message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number ${payment_row['room_number']}. Your current balance is ${payment_row['balance']}."
+# # #     #     send_sms_retry(message, [payment_row['number']])  # Use the retrying version of send_sms function
+
+# # #     context = {
+# # #         'all_new_payment_rows': all_new_payment_rows,
+# # #         'amounts_by_month': amounts_by_month,
+# # #     }
+
+# # #     return render(request, 'list_register_test.html', context)
 
 #########################################################################
 # # def calculate_fields(register):

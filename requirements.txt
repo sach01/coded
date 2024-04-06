@@ -1,7 +1,14 @@
 africastalking==1.2.7
+amqp==5.2.0
 asgiref==3.7.2
+billiard==4.2.0
+celery==5.3.6
 certifi==2024.2.2
 charset-normalizer==3.3.2
+click==8.1.7
+click-didyoumean==0.3.1
+click-plugins==1.1.1
+click-repl==0.3.0
 contextlib2==21.6.0
 contourpy==1.2.0
 cycler==0.12.1
@@ -13,6 +20,7 @@ et-xmlfile==1.1.0
 fonttools==4.50.0
 idna==3.6
 kiwisolver==1.4.5
+kombu==5.3.6
 MarkupPy==1.14
 matplotlib==3.8.3
 mysqlclient==2.2.4
@@ -22,6 +30,7 @@ openpyxl==3.1.2
 packaging==24.0
 pandas==2.2.1
 pillow==10.3.0
+prompt-toolkit==3.0.43
 pyparsing==3.1.2
 python-dateutil==2.8.2
 python-decouple==3.8
@@ -35,5 +44,7 @@ sqlparse==0.4.4
 tablib==3.5.0
 tzdata==2024.1
 urllib3==2.2.1
+vine==5.1.0
+wcwidth==0.2.13
 xlrd==2.0.1
 xlwt==1.3.0
