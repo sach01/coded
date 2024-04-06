@@ -28,10 +28,11 @@
             <th>Balance</th>
             <th>Due Months</th>
             <th>pay_status</th>
+            <th>new_month_paid_list</th>
         </tr>
     </thead>
     <tbody>
-        {% for result in result_list %}
+        {% for result in registers_in_payment %}
         <tr>
             <td>{{ result.room_number }}</td>
             <td>{{ result.owner }}</td>
@@ -43,6 +44,7 @@
             <td>{{ result.balance }}</td>
             <td>{{ result.due_months }}</td>
             <td>{{ result.pay_status }}</td>
+            <td>{{ result.new_month_paid_list }}</td>
         
         </tr>
         {% endfor %}

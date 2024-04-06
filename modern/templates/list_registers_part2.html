@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Registers</title>
+</head>
+<body>
+    <h1>Registers with Payments</h1>
+    <ul>
+        {% for register in registers_in_payment %}
+            <li>
+                Owner: {{ register.owner }} | 
+                Floor: {{ register.floor }} | 
+                Room Number: {{ register.room_number }} | 
+                Balance: {{ register.balance }} | 
+                Due Months: {{ register.due_months }} | 
+                Month Paid: {{ register.month_paid }} | 
+                Pay Status: {{ register.pay_status }} |
+                new_month_paid_list: {{ register.new_month_paid_list }} |
+                New Month Paid List:
+                <ul>
+                    {% for month in register.new_month_paid_list %}
+                        <li>{{ month }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h1>Registers without Payments</h1>
+    <ul>
+        {% for register in registers_not_in_payment %}
+            <li>
+                Owner: {{ register.owner }} | 
+                Floor: {{ register.floor }} | 
+                Room Number: {{ register.room_number }} | 
+                Balance: {{ register.balance }} | 
+                Due Months: {{ register.due_months }} | 
+                Month Paid: {{ register.month_paid }} | 
+                Pay Status: {{ register.pay_status }} |
+                {% for month in register.new_month_paid_list %}
+                        {{ month }}, 
+                    {% endfor %}
+                
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

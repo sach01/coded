@@ -32,7 +32,7 @@
     <tbody>
       {% for data in payment_data %}
         <tr>
-          <td>{{ data.owner }}</td>
+          <td>{{ data.owner.name }}</td>
           <td>{{ data.month_paid }}</td>
           <td>{{ data.due_months }}</td>
           <td>{{ data.balance }}</td>

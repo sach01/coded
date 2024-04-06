@@ -184,3 +184,6 @@ LOGGING['handlers']['500_error_file'] = {
 LOGGING['loggers']['django.server']['handlers'].append('500_error_file')
 
 #########$$#####$#####
+
+AFRICASTALKING_USERNAME = config("AFRICASTALKING_USERNAME") 
+AFRICASTALKING_API_KEY = config("AFRICASTALKING_API_KEY") 
