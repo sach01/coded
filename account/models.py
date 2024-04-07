@@ -6,42 +6,13 @@ from django.contrib.auth.models import AbstractUser, Group
 
 #from django.contrib.auth.models import AbstractUser
 
-
 class CustomUser(AbstractUser):
     name = models.CharField(max_length=50, blank=True)
     mobile = models.CharField(max_length=10, blank=True)
     is_active = models.BooleanField(default=True)
     groups = models.ManyToManyField(Group, related_name='users', blank=True)
     date_created = models.DateTimeField(null=True, blank=True)
-    last_login = models.DateTimeField(blank=True, null=True)
     #user_group = models.ManyToManyField(CustomGroup, blank=True)
-
-    # # def save(self, *args, **kwargs):
-    # #     request = kwargs.pop('request', None)
-
-    # #     if not self.pk:
-    # #         action = 'CREATE'
-    # #     else:
-    # #         action = 'UPDATE'
-
-    # #     ip_address = get_external_ip()  # Fetch external IP address
-    # #     if ip_address:
-    # #         self.ip_address = ip_address  # Set the IP address in the model
-
-    # #     super().save(*args, **kwargs)
-
-    # #     if request:
-    # #         if self.pk:  # If user is already created (not on creation)
-    # #             if self.last_login:  # If user has logged in
-    # #                 action = 'LOGIN'
-    # #             else:
-    # #                 action = 'LOGOUT'
-    # #             ChangeLog.objects.create(
-    # #                 user=self,
-    # #                 action=action,
-    # #                 ip_address=ip_address or 'Unknown'
-    # #             )
-
 
 # class CustomUser(AbstractUser):
 #     # email = models.EmailField(max_length=150, unique = True, blank=True)
