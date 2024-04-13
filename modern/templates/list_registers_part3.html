@@ -28,9 +28,9 @@
                     <tbody>
                         {% for register in all_registers %}
                 <tr>
-                    <td>{{ register.owner.name }}</td>
+                    <td>{{ register.owner }}</td>
                     <td>{{ register.floor }}</td>
-                    <td>{{ register.owner.mobile }}</td>
+                    <td>{{ register.owner }}</td>
                     <td>{{ register.room_number }}</td>
                     <td>{{ register.balance }}</td>
                     <td>{{ register.due_months }}</td>
