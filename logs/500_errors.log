@@ -173,3 +173,8 @@
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 81699[0m
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 82129[0m
 [35;1m"POST /account/login/?next=/list_registers_part1 HTTP/1.1" 500 202984[0m
+[35;1m"POST /account/login/?next=/ground HTTP/1.1" 500 202587[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 80898[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 80871[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 80871[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 80917[0m
