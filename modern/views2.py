@@ -68,35 +68,15 @@ def dashboard1(request):
 
 @login_required(login_url="/account/login")
 def ground(request):
-    g = Floor.objects.get(pk=1)
-    room = []
-    for i in range(1, 176):
-        x = 'A' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
-
-    g = Floor.objects.get(pk=2)
-    room = []
-    for i in range(1, 166):
-        x = 'B' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
-
-    g = Floor.objects.get(pk=3)
-    room = []
-    for i in range(1, 156):
-        x = 'C' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
+    # g = Floor.objects.get(pk=1)
+    # room = []
+    # for i in range(1, 176):
+    #     x = 'A' + str(i)
+    #     room.append(x)
+    # for i in room:
+    #     r = Room.objects.create(floor=g, room_number=i, amount=1500)
+    #     r.save()
+    #     print(r)
 
     grounds = Room.objects.filter(floor=1)
     context = {
@@ -1169,13 +1149,11 @@ def list_registers_part1(request):
             
     #owner_first_name = payment_row['owner'].split()[0]
     for payment_row in all_registers:
-        outstanding_months = ", ".join(map(str, payment_row['new_month_paid_list']))
         #message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid'].strftime('%B %Y')} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-        message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+        message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {payment_row['new_month_paid_list']}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
         #print(payment_row['mobile'])
         send_sms_retry(message, [payment_row['mobile']])  # Use the retrying version of send_sms function
-        #print({payment_row['new_month_paid_list']})
-                                #print(month)
+
     context = {
         'all_registers': all_registers,
     }
@@ -1522,10 +1500,10 @@ def list_register_test(request):
         new_payment_rows = calculate_fields(register)
         all_new_payment_rows.extend(new_payment_rows)
     
-    for payment_row in all_new_payment_rows:
-        if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
-            message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-            send_sms_retry(message, [payment_row['number']])
+    # # for payment_row in all_new_payment_rows:
+    # #     if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
+    # #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+    # #         send_sms_retry(message, [payment_row['number']])
 
     context = {
         'all_new_payment_rows': all_new_payment_rows,
@@ -1859,3 +1837,222 @@ def duplicate_payment_rows(register_id, due_months):
 
 ####################################################################################################
 
+
+################# BEGINING OF (AUTHENTICATION && AUTHORIZATION) FUNCTIONS #######################################
+
+
+# # Create your views here.
+# from django.contrib.auth import authenticate, login, logout
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.models import Permission
+# #from .models import CustomUser
+# #from .forms import CustomUserForm
+# from functools import wraps
+# from django.contrib.contenttypes.models import ContentType
+# from django.contrib.auth.models import Group 
+# #as AuthGroup
+
+# from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+# from django.contrib.auth import login, logout
+# from django.shortcuts import render, redirect
+
+
+# from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth import login
+# from django.shortcuts import render, redirect
+# from django.contrib.auth.models import Group
+# from django.shortcuts import render, redirect
+# from .models import CustomUser, CustomeGroup
+# from .forms import CustomUserForm, CustomGroupForm
+
+# def create_group(request):
+#     if request.method == 'POST':
+#         group_name = request.POST.get('group_name')
+#         if not Group.objects.filter(name=group_name).exists():
+#             Group.objects.create(name=group_name)
+#             return redirect('group_list')
+#         else:
+#             error_message = "Group with this name already exists."
+#             return render(request, 'create_group.html', {'error_message': error_message})
+#     return render(request, 'create_group.html')
+
+# def group_list(request):
+#     groups = Group.objects.all()
+#     return render(request, 'group_list.html', {'groups': groups})
+
+
+# def signup(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('login')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'signup.html', {'form': form})
+
+# def user_login(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('home')  # Redirect to home or any other page
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'login.html', {'form': form})
+
+# def user_logout(request):
+#     logout(request)
+#     return redirect('login')
+
+
+
+# def user_login(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('home')  # Redirect to home or any other page after successful login
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'login.html', {'form': form})
+
+# def user_login(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return redirect('firstapp:home')  # Assuming firstapp has a URL named 'home'
+#         else:
+#             # Handle invalid login
+#             return render(request, 'login.html', {'error': 'Invalid credentials'})
+#     else:
+#         return render(request, 'login.html')
+
+# def user_logout(request):
+#     logout(request)
+#     return redirect('login')
+
+# def group_required(group_name):
+#     def decorator(view_func):
+#         @wraps(view_func)
+#         def wrapped_view(request, *args, **kwargs):
+#             if request.user.groups.filter(name=group_name).exists():
+#                 content_type = ContentType.objects.get_for_model(CustomUser)
+#                 permission_codename = f'view_{CustomUser._meta.model_name}'
+#                 if request.user.has_perm(permission_codename, content_type):
+#                     return view_func(request, *args, **kwargs)
+#                 else:
+#                     return redirect('unauthorized_page')
+#             else:
+#                 return redirect('unauthorized_page')
+#         return wrapped_view
+#     return decorator
+
+# @login_required
+# @group_required('Collector')
+# def user_list(request):
+#     users = CustomUser.objects.all()
+#     return render(request, 'user_list.html', {'users': users})
+
+# @login_required
+# @group_required('admin')
+# def user_detail(request, pk):
+#     user = get_object_or_404(CustomUser, pk=pk)
+#     return render(request, 'user_detail.html', {'user': user})
+
+# @login_required
+# @group_required('admin')
+# def user_create(request):
+#     if request.method == 'POST':
+#         form = CustomUserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('user_list')
+#     else:
+#         form = CustomUserForm()
+#     return render(request, 'user_form.html', {'form': form})
+
+# @login_required
+# @group_required('admin')
+# def user_update(request, pk):
+#     user = get_object_or_404(CustomUser, pk=pk)
+#     if request.method == 'POST':
+#         form = CustomUserForm(request.POST, instance=user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('user_list')
+#     else:
+#         form = CustomUserForm(instance=user)
+#     return render(request, 'user_form.html', {'form': form})
+
+# @login_required
+# @group_required('admin')
+# def user_delete(request, pk):
+#     user = get_object_or_404(CustomUser, pk=pk)
+#     if request.method == 'POST':
+#         user.delete()
+#         return redirect('user_list')
+#     return render(request, 'user_confirm_delete.html', {'user': user})
+
+# @login_required
+# @group_required('admin')
+# def group_list(request):
+#     groups = Group.objects.all()
+#     return render(request, 'group_list.html', {'groups': groups})
+
+# @login_required
+# @group_required('admin')
+# def group_detail(request, pk):
+#     group = get_object_or_404(Group, pk=pk)
+#     return render(request, 'group_detail.html', {'group': group})
+
+# @login_required
+# @group_required('admin')
+# def group_create(request):
+#     if request.method == 'POST':
+#         form = CustomGroupForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('group_list')
+#     else:
+#         form = CustomGroupForm()
+#     return render(request, 'group_form.html', {'form': form})
+
+# @login_required
+# @group_required('admin')
+# def group_update(request, pk):
+#     group = get_object_or_404(Group, pk=pk)
+#     if request.method == 'POST':
+#         form = CustomGroupForm(request.POST, instance=group)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('group_list')
+#     else:
+#         form = CustomGroupForm(instance=group)
+#     return render(request, 'group_form.html', {'form': form})
+
+# @login_required
+# @group_required('admin')
+# def group_delete(request, pk):
+#     group = get_object_or_404(Group, pk=pk)
+#     if request.method == 'POST':
+#         group.delete()
+#         return redirect('group_list')
+#     return render(request, 'group_confirm_delete.html', {'group': group})
+
+# @login_required
+# def unauthorized_page(request):
+#     return render(request, 'unauthorized_page.html')
+
+
+################# END OF AUTHENTICATION FUNCTIONS #######################################
+
+####################################################################################################
