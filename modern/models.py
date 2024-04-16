@@ -127,6 +127,7 @@ class Owner(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
             ip_address=ip_address or 'Unknown'
+<<<<<<< HEAD
         )
 
     def delete(self, *args, **kwargs):
@@ -144,6 +145,8 @@ class Owner(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
             ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
+=======
+>>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
         )
 
 def get_client_ip(request):
@@ -279,7 +282,7 @@ class ChangeLog(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    ip_address = models.CharField(max_length=100, null=False)  # For storing IP address
+    ip_address = models.CharField(max_length=100)  # For storing IP address
 
     class Meta:
         ordering = ['-timestamp']

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta, date
 from .models import Register, Payment
@@ -8,16 +7,6 @@ from django.core.exceptions import SuspiciousOperation
 from django.conf import settings
 
 # Initialize Africa's Talking
-=======
-# utils.py
-import africastalking
-from django.core.exceptions import SuspiciousOperation
-from django.conf import settings
-from .models import Register, Payment
-from datetime import datetime, date, timedelta
-
-
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
 africastalking.initialize(settings.AFRICASTALKING_USERNAME, settings.AFRICASTALKING_API_KEY)
 sms = africastalking.SMS
 
@@ -32,49 +21,6 @@ def send_sms_retry(message, numbers):
         print(f"Failed to send message: {str(e)}")
         # Here you can implement retry logic if needed
 
-<<<<<<< HEAD
-=======
-from django.utils import timezone
-
-def is_specific_time():
-    current_time = timezone.now()
-    
-    # Check if it's the 1st of the month
-    if current_time.day == 1:
-        # Check if it's noon (12:00 PM)
-        if current_time.hour == 12 and current_time.minute == 0 and current_time.second == 0:
-            return True
-    
-    return False
-
-
-def month_difference(date1, date2):
-    # Calculate the difference in months
-    month_diff = date1.month - date2.month + 12 *  (date1.year - date2.year)
-        
-    return month_diff
-
-
-def calculate_month_difference(start_date, end_date):
-    #months = relativedelta(end_date, start_date).months
-    #days = relativedelta(end_date, start_date).days
-    # Convert start_date and end_date to date objects if they are datetime objects
-    start_date = start_date.date() if isinstance(start_date, datetime) else start_date
-
-    # If end_date is None, return 0 months
-    if end_date is None:
-        return 0
-
-    end_date = end_date.date() if isinstance(end_date, datetime) else end_date
-
-    # Calculate month difference
-    months = (end_date.year - start_date.year) * 12 + end_date.month - start_date.month
-
-    print("months:",months)
-    return months
-
-
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
 def calculate_fields(register):
     today = date.today()
     new_payment_rows = []
@@ -144,7 +90,6 @@ def calculate_fields(register):
                     'end_date': register.end_date,
                 })
 
-<<<<<<< HEAD
     return new_payment_rows
 
 def calculate_month_difference(start_date, end_date):
@@ -164,6 +109,3 @@ def calculate_month_difference(start_date, end_date):
 
     print("months:",months)
     return months
-=======
-    return new_payment_rows
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b

@@ -1,3 +1,59 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Register Balances</div>
+    </div>
+    <div class="card-body">
+        <div class="">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered text-nowrap key-buttons">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom-0">Owner</th>
+                            <th class="border-bottom-0">Amount</th>
+                            <th class="border-bottom-0">Balance</th>
+                            <th class="border-bottom-0">Due Months</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment_row in all_new_payment_rows %}
+            <tr>
+                <td>{{ payment_row.owner }}</td>
+                <td>{{ payment_row.amount }}</td>
+                <td>{{ payment_row.balance }}</td>
+                <td>{{ payment_row.month_paid|date:"F Y" }}</td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Amounts by Month</h2>
+    <ul>
+        {% for month, amount in amounts_by_month.items %}
+            <li>{{ month|date:"F Y" }}: {{ amount }}</li>
+        {% endfor %}
+    </ul>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +79,10 @@
                 <td>{{ payment_row.owner }}</td>
                 <td>{{ payment_row.amount }}</td>
                 <td>{{ payment_row.balance }}</td>
+                <td>{{ payment_row.month_paid|date:"F Y" }}</td>
+                
                 <td>
-                    {% for month_paid in payment_row.month_paid %}
-                        {{ month_paid|date:"F Y" }}
-                        {% if not forloop.last %}, {% endif %}
-                    {% endfor %}
+                    
                 </td>
             </tr>
             {% endfor %}

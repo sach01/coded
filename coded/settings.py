@@ -184,6 +184,43 @@ LOGGING['handlers']['500_error_file'] = {
 LOGGING['loggers']['django.server']['handlers'].append('500_error_file')
 
 #########$$#####$#####
+AFRICASTALKING_USERNAME = config("AFRICASTALKING_USERNAME") 
+AFRICASTALKING_API_KEY = config("AFRICASTALKING_API_KEY") 
+
+
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
+
+# settings.py
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 AFRICASTALKING_USERNAME = config("AFRICASTALKING_USERNAME") 
 AFRICASTALKING_API_KEY = config("AFRICASTALKING_API_KEY") 
+
+# CELERY_BEAT_SCHEDULE = {
+#     'send-sms-every-day': {
+#         'task': 'your_app.tasks.send_scheduled_sms',
+#         'schedule': timedelta(days=1),  # Send SMS every day
+#     },
+# }
+
+# # from celery.schedules import crontab
+# # from datetime import timedelta
+
+# # CELERY_BEAT_SCHEDULE = {
+# #     'send-monthly-sms': {
+# #         'task': 'modern.tasks.send_monthly_sms',
+# #         #'schedule': crontab(hour=12, day_of_month=1),
+# #         #'schedule': timedelta(seconds=60),
+# #         'schedule': crontab(minute='*/2'),
+# #     },
+# # }
+
+# from celery.schedules import crontab 
+# CELERY_BEAT_SCHEDULE = {
+#     'process-payment-rows': {
+#         'task': 'modern.tasks.process_payment_rows',
+#         'schedule': crontab(hour=8, minute=0),  # Adjust the time as needed
+#     },
+# }

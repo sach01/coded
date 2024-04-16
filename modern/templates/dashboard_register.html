@@ -100,12 +100,18 @@
     </div>
     <h2>Amount for This Month</h2>
                         <p>{{ amount_this_month }}</p>
-                    
+
+	
 
                         <h2>Amount for This Month per Floor</h2>
     <ul>
         {% for floor, amount in amount_this_month_per_floor.items %}
             <li>Floor {{ floor }}: {{ amount }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for month, amount in amounts_by_month.items %}
+            <li>Month: {{ month }}, Sum of Amounts: {{ amount }}</li>
         {% endfor %}
     </ul>
     <!-- Display total amount for the previous month -->
