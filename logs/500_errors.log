@@ -178,3 +178,4 @@
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 80871[0m
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 80871[0m
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 80917[0m
+[35;1m"GET /ground HTTP/1.1" 500 204595[0m
