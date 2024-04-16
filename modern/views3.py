@@ -1175,19 +1175,7 @@ def list_registers_part1(request):
         #print(payment_row['mobile'])
         send_sms_retry(message, [payment_row['mobile']])  # Use the retrying version of send_sms function
         #print({payment_row['new_month_paid_list']})
-    # Extracting the date part from each timestamp in 'new_month_paid_list'
-    # from datetime import datetime
-
-    # for payment_row in all_registers:
-    #     # Assuming payment_row['new_month_paid_list'] contains datetime objects
-    #     outstanding_dates = [date.strftime('%Y-%m-%d') for date in payment_row['new_month_paid_list']]
-        
-    #     outstanding_months = ", ".join(outstanding_dates)
-        
-    #     message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-        
-    #     # Send SMS
-    #     send_sms_retry(message, [payment_row['mobile']])
+                                #print(month)
     context = {
         'all_registers': all_registers,
     }

@@ -91,14 +91,6 @@ class Owner(models.Model):
         return '%s %s %s %s %s'% (self.name, self.mobile, self.owner_type.name, self.date_created, self.date_edited)
 
     def save(self, *args, **kwargs):
-<<<<<<< HEAD
-        ip_address = get_external_ip()  # Fetch external IP address
-        if ip_address:
-            self.ip_address = ip_address  # Set the IP address in the model
-        super().save(*args, **kwargs)
-
-        # Create ChangeLog entry after saving the Owner instance
-=======
         request = kwargs.pop('request', None)
 
         if not self.pk:
@@ -112,34 +104,13 @@ class Owner(models.Model):
 
         super().save(*args, **kwargs)
 
->>>>>>> 80f71a68ee08886fc13e0621f82969ee69b4c678
         ChangeLog.objects.create(
             user=self.created_by,
             timestamp=self.date_created,
             action='CREATE' if not self.pk else 'UPDATE',
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-<<<<<<< HEAD
             ip_address=ip_address or 'Unknown'
-        )
-
-    def delete(self, *args, **kwargs):
-        ip_address = get_external_ip()  # Fetch external IP address
-        if ip_address:
-            self.ip_address = ip_address  # Set the IP address in the model
-        super().delete(*args, **kwargs)
-
-        # Create ChangeLog entry after deleting the Owner instance
-        ChangeLog.objects.create(
-            user=self.created_by,
-            timestamp=timezone.now(),
-            action='DELETE',
-            content_type=ContentType.objects.get_for_model(self),
-            object_id=self.pk,
-            ip_address=ip_address or 'Unknown'
-=======
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
->>>>>>> 80f71a68ee08886fc13e0621f82969ee69b4c678
         )
 
     def delete(self, *args, **kwargs):

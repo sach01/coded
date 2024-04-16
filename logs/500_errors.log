@@ -181,3 +181,4 @@
 [35;1m"GET /ground HTTP/1.1" 500 204595[0m
 [35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 202670[0m
 [35;1m"POST /account/login/?next=/list_register_test HTTP/1.1" 500 202672[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 86399[0m
