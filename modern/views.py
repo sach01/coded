@@ -1522,10 +1522,10 @@ def list_register_test(request):
         new_payment_rows = calculate_fields(register)
         all_new_payment_rows.extend(new_payment_rows)
     
-    for payment_row in all_new_payment_rows:
-        if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
-            message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-            send_sms_retry(message, [payment_row['number']])
+    # # for payment_row in all_new_payment_rows:
+    # #     if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
+    # #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+    # #         send_sms_retry(message, [payment_row['number']])
 
     context = {
         'all_new_payment_rows': all_new_payment_rows,
