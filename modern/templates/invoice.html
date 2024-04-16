@@ -1,0 +1,132 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: black; /* Set text color to black */
+        }
+        .invoice-container {
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: black
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            
+        }
+        .invoice-header img {
+            max-height: 100px;
+            color: black
+        }
+        .invoice-details,
+        .invoice-items {
+            margin-bottom: 20px;
+        }
+        .invoice-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: black; /* Set text color to black */
+        }
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice-items th,
+        .invoice-items td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            color: black; /* Set text color to black */
+        }
+        .invoice-items th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+            color: black; /* Set text color to black */
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <img src="left_logo.png" alt="Left Logo">
+            <h1>Invoice</h1>
+            <img src="right_logo.png" alt="Right Logo">
+        </div>
+        <div class="invoice-details">
+            <div>
+                <p><strong>Customer:</strong> John Doe</p>
+                <p><strong>Email:</strong> john@example.com</p>
+            </div>
+            <div>
+                <p><strong>Invoice Number:</strong> INV-001</p>
+                <p><strong>Date:</strong> April 7, 2024</p>
+            </div>
+        </div>
+        <div class="invoice-items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item 1</td>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>2</td>
+                        <td>$10.00</td>
+                        <td>$20.00</td>
+                    </tr>
+                    <tr>
+                        <td>Item 2</td>
+                        <td>Consectetur adipiscing elit</td>
+                        <td>1</td>
+                        <td>$15.00</td>
+                        <td>$15.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>$15.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="total">
+            <p><strong>Total:</strong> $35.00</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock %}
