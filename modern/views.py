@@ -68,15 +68,15 @@ def dashboard1(request):
 
 @login_required(login_url="/account/login")
 def ground(request):
-    # g = Floor.objects.get(pk=1)
-    # room = []
-    # for i in range(1, 176):
-    #     x = 'A' + str(i)
-    #     room.append(x)
-    # for i in room:
-    #     r = Room.objects.create(floor=g, room_number=i, amount=1500)
-    #     r.save()
-    #     print(r)
+    g = Floor.objects.get(pk=1)
+    room = []
+    for i in range(1, 176):
+        x = 'A' + str(i)
+        room.append(x)
+    for i in room:
+        r = Room.objects.create(floor=g, room_number=i, amount=1500)
+        r.save()
+        print(r)
 
     grounds = Room.objects.filter(floor=1)
     context = {
@@ -413,7 +413,11 @@ def dashboard_register(request):
     for reg in register:
         new_payment_rows = calculate_fields(reg)
         for payment_row in new_payment_rows:
-            amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+            month_paid = str(payment_row['month_paid'])  # Convert to string
+            amounts_by_month[month_paid] += payment_row['amount']
+
+           # amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+
 
     amounts_by_month = dict(amounts_by_month)
     today = date.today()
