@@ -114,7 +114,6 @@ class Owner(models.Model):
         )
 
     def delete(self, *args, **kwargs):
-<<<<<<< HEAD
         ip_address = get_external_ip()  # Fetch external IP address
         if ip_address:
             self.ip_address = ip_address  # Set the IP address in the model
@@ -128,25 +127,6 @@ class Owner(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
             ip_address=ip_address or 'Unknown'
-        )
-
-    def delete(self, *args, **kwargs):
-=======
->>>>>>> 20b0f9559815d9dc85340d68edff40033d65dabe
-        request = kwargs.pop('request', None)
-        action = 'DELETE'
-
-        ip_address = get_external_ip()  # Fetch external IP address
-        if ip_address:
-            self.ip_address = ip_address  # Set the IP address in the model
-        super().delete(*args, **kwargs)
-
-        ChangeLog.objects.create(
-            user=self.created_by,
-            action=action,
-            content_type=ContentType.objects.get_for_model(self),
-            object_id=self.pk,
-            ip_address=ip_address   # Provide a default value if ip_address is None
         )
 
 def get_client_ip(request):

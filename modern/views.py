@@ -77,29 +77,6 @@ def ground(request):
         r = Room.objects.create(floor=g, room_number=i, amount=1500)
         r.save()
         print(r)
-<<<<<<< HEAD
-=======
-
-    g = Floor.objects.get(pk=2)
-    room = []
-    for i in range(1, 166):
-        x = 'B' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
-
-    g = Floor.objects.get(pk=3)
-    room = []
-    for i in range(1, 156):
-        x = 'C' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
->>>>>>> 20b0f9559815d9dc85340d68edff40033d65dabe
 
     grounds = Room.objects.filter(floor=1)
     context = {
@@ -1334,7 +1311,6 @@ def send_sms_retry(message, recipients):
     except Exception as e:
         print(f"Failed to send SMS: {e}")
 
-<<<<<<< HEAD
 @login_required(login_url="/account/login")
 def list_register_test(request):
     amounts_by_month = defaultdict(float)
@@ -1366,7 +1342,7 @@ def list_register_test(request):
         except Exception as e:
             print("Failed to send SMS to:", payment_row['number'])
             print("Error:", e)
-=======
+
 # # @login_required(login_url="/account/login")
 # # def list_register_test(request):
 # #     amounts_by_month = defaultdict(float)
@@ -1454,7 +1430,7 @@ def list_register_test(request):
     # #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
     # #         send_sms_retry(message, [payment_row['number']])
 
->>>>>>> 20b0f9559815d9dc85340d68edff40033d65dabe
+
     context = {
         'all_new_payment_rows': all_new_payment_rows,
         'amounts_by_month': dict(amounts_by_month),  # Convert to dict for rendering
@@ -1951,7 +1927,6 @@ def duplicate_payment_rows(register_id, due_months):
 
 ####################################################################################################
 
-<<<<<<< HEAD
 
 ################# BEGINING OF (AUTHENTICATION && AUTHORIZATION) FUNCTIONS #######################################
 
@@ -2171,5 +2146,3 @@ def duplicate_payment_rows(register_id, due_months):
 ################# END OF AUTHENTICATION FUNCTIONS #######################################
 
 ####################################################################################################
-=======
->>>>>>> 20b0f9559815d9dc85340d68edff40033d65dabe
