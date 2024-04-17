@@ -50,7 +50,7 @@
                             </tr>
                         </thead>
                         <tbody>
-            {% for data in payment_data %}
+            {% for payment in payments %}
             <tr>
                 <td>{{ payment.owner.owner.name }}</td>
                 <td>{{ payment.date_paid }}</td>
@@ -105,13 +105,35 @@
             {% endfor %}
         {% endfor %}
     </ul>
-
-    <h1>All Payments</h1>
-    <ul>
-        {% for payment in payments %}
-            <li>Owner: {{ payment.owner.owner.name }} - Room: {{ payment.owner.room.room_number }} - Balance: {{ payment.balance }}</li>
+    <table>
+    <thead>
+        <tr>
+            <th>Collected By</th>
+            <th>Total Amount Collected</th>
+            <th>Total Amount Received</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in total_collected_payment %}
+            <tr>
+                <td>{{ item.collected_by__username }}</td>
+                <td>{{ item.total_amount_collected }}</td>
+                <td>
+                    {% for collected_receiver in total_collected_receiver %}
+                        {% if collected_receiver.collector == item.collected_by %}
+                            {{ collected_receiver.total_amount_received }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ balances|default:item.total_amount_collected }}
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+    </tbody>
+</table>
+
 
     <h1>All Receivers</h1>
     <ul>
@@ -120,7 +142,7 @@
         {% endfor %}
     </ul>
 
-{{username}}
+<!---{{username}}--->
 </body>
 </html>
 

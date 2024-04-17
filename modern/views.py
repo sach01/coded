@@ -156,7 +156,12 @@ def dashboard_rooms(request):
     for floor in occupied_rooms_per_floor:
         floor_name = floor['floor__name']
         occupied_count = floor.get('occupied_count', 0)
-        vacant_count = next((item.get('vacant_count', 0)) for item in vacant_rooms_per_floor if item['floor__name'] == floor_name)
+        default_vacant_count = 0
+        try:
+            vacant_count = next((item.get('vacant_count', default_vacant_count)) for item in vacant_rooms_per_floor if item['floor__name'] == floor_name)
+        except StopIteration:
+            vacant_count = default_vacant_count
+        #vacant_count = next((item.get('vacant_count', 0)) for item in vacant_rooms_per_floor if item['floor__name'] == floor_name)
         total_rooms_per_floor[floor_name] = occupied_count + vacant_count
 
     # Calculate the percentage of occupied rooms per floor
@@ -299,6 +304,7 @@ def dashboard_payment(request):
     print(username)
     # List payments
     payments = Payment.objects.all()
+    receivers = Receiver.objects.all()
 
     # To get sum of owner.room.amount per owner and collected_by
     amount_per_owner_collector = Payment.objects.values('collected_by__username').annotate(total_amount=Sum('owner__room__amount'))
@@ -335,6 +341,7 @@ def dashboard_payment(request):
         'total_collected_receiver': total_collected_receiver,
         'balances': balances,  # Pass the balances dictionary to the template
         'username': username,
+        'receivers': receivers,
         #'payment_data': payment_data,
         #'all_new_payment_rows': all_new_payment_rows,
     }
@@ -1056,10 +1063,10 @@ def calculate_fields_part1(register):
             balance = register.room.amount * due_months
             pay_status = "Unpaid"
 
-        #new_month_paid_list = []
+        new_month_paid_list = []
         for i in range(0, due_months):
             new_month_paid = last_payment.month_paid + relativedelta(months=i)
-            #new_month_paid_list.append(new_month_paid)
+            new_month_paid_list.append(new_month_paid)
         #print(new_month_paid_list)
         return {
             'owner': register.owner.name,
@@ -1069,8 +1076,8 @@ def calculate_fields_part1(register):
             'amount': register.room.amount,
             'balance': balance,
             'due_months': due_months,
-            'month_paid': new_month_paid,
-            #'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
+            #'month_paid': new_month_paid,
+            'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
             'start_date': register.start_date,
             'pay_status': pay_status,
         }
@@ -1098,7 +1105,7 @@ def calculate_fields_part1(register):
             'amount': register.room.amount,
             'balance': balance,
             'due_months': due_months,
-            'month_paid': new_month_paid,
+            #'month_paid': new_month_paid,
             'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
             'start_date': register.start_date,
             'end_date': register.end_date,
@@ -1361,10 +1368,7 @@ def list_register_test(request):
 # #                 amounts_by_month[month_key] += payment_row['amount']
 
 # #     all_new_payment_rows = []
-
-<<<<<<< HEAD
 from modern.tasks import send_monthly_payment_reminder
-=======
 # #     for register in Register.objects.all():
 # #         new_payment_rows = calculate_fields(register)
 # #         all_new_payment_rows.extend(new_payment_rows)
@@ -1393,18 +1397,11 @@ from modern.tasks import send_monthly_payment_reminder
 
 
 #from modern.tasks import send_monthly_payment_reminder
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
 from django.utils import timezone
 from datetime import timedelta
 from .models import Register
 from collections import defaultdict
 #from .utils import calculate_fields, send_sms_retry
-<<<<<<< HEAD
-from modern.utils import calculate_fields, send_sms_retry
-=======
-#from modern.utils import calculate_fields, send_sms_retry
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
-
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/account/login")
@@ -1414,7 +1411,10 @@ def list_register_test(request):
     for register in Register.objects.all():
         new_payment_rows = calculate_fields(register)
         for payment_row in new_payment_rows:
-            amounts_by_month[payment_row['month_paid']] += payment_row['amount']
+            # Assuming payment_row['month_paid'] is a list
+            key = tuple(payment_row['month_paid'])
+            amounts_by_month[key] += payment_row['amount']
+           # amounts_by_month[payment_row['month_paid']] += payment_row['amount']
     
     amounts_by_month = dict(amounts_by_month)
     print(amounts_by_month)
@@ -1425,31 +1425,23 @@ def list_register_test(request):
     # send_monthly_payment_reminder.apply_async(eta=first_day_of_next_month)
     
     # Schedule the task to send SMS reminders
-<<<<<<< HEAD
-    eta_time = timezone.now() + timedelta(minutes=5)
-    send_monthly_payment_reminder.apply_async(eta=eta_time)
-=======
-    # # eta_time = timezone.now() + timedelta(minutes=5)
-    # # send_monthly_payment_reminder.apply_async(eta=eta_time)
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
+
     # Send SMS reminders
     all_new_payment_rows = []
     for register in Register.objects.all():
         new_payment_rows = calculate_fields(register)
         all_new_payment_rows.extend(new_payment_rows)
-    
-<<<<<<< HEAD
-    for payment_row in all_new_payment_rows:
-        if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
-            message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-            send_sms_retry(message, [payment_row['number']])
-=======
+   # for payment_row in all_new_payment_rows:
+        #if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
+         ##   message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+           ## send_sms_retry(message, [payment_row['number']])
+
     # # for payment_row in all_new_payment_rows:
     # #     if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
     # #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
     # #         send_sms_retry(message, [payment_row['number']])
 
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
+
 
     context = {
         'all_new_payment_rows': all_new_payment_rows,
@@ -1487,8 +1479,6 @@ def list_register_test(request):
 # # #     }
 
 # # #     return render(request, 'list_register_test.html', context)
-<<<<<<< HEAD
-=======
 
 
 
@@ -1653,8 +1643,6 @@ def list_register_test(request):
 #     }
 
 #     return render(request, 'list_register_test.html', context)
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
-
 #########################################################################
 def calculate_fields(register):
     today = date.today()

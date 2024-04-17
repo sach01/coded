@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta, date
 from .models import Register, Payment
@@ -8,7 +8,6 @@ from django.core.exceptions import SuspiciousOperation
 from django.conf import settings
 
 # Initialize Africa's Talking
-=======
 # utils.py
 import africastalking
 from django.core.exceptions import SuspiciousOperation
@@ -17,7 +16,6 @@ from .models import Register, Payment
 from datetime import datetime, date, timedelta
 
 
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
 africastalking.initialize(settings.AFRICASTALKING_USERNAME, settings.AFRICASTALKING_API_KEY)
 sms = africastalking.SMS
 
@@ -32,8 +30,6 @@ def send_sms_retry(message, numbers):
         print(f"Failed to send message: {str(e)}")
         # Here you can implement retry logic if needed
 
-<<<<<<< HEAD
-=======
 from django.utils import timezone
 
 def is_specific_time():
@@ -74,7 +70,6 @@ def calculate_month_difference(start_date, end_date):
     return months
 
 
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
 def calculate_fields(register):
     today = date.today()
     new_payment_rows = []
@@ -144,7 +139,6 @@ def calculate_fields(register):
                     'end_date': register.end_date,
                 })
 
-<<<<<<< HEAD
     return new_payment_rows
 
 def calculate_month_difference(start_date, end_date):
@@ -164,6 +158,5 @@ def calculate_month_difference(start_date, end_date):
 
     print("months:",months)
     return months
-=======
-    return new_payment_rows
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
+
+    #return new_payment_rows

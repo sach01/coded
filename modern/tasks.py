@@ -6,7 +6,7 @@ from .models import Register, Payment
 from .utils import send_sms_retry
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta, date
-<<<<<<< HEAD
+
 @shared_task
 def send_monthly_payment_reminder():
     all_new_payment_rows = []
@@ -21,8 +21,7 @@ def send_monthly_payment_reminder():
         if payment_row['month_paid'].day == 1:  # Check if it's the 1st day of the month
             message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
             send_sms_retry.delay(message, [payment_row['number']])  # Use .delay() to enqueue the task
-=======
-
+            
 # tasks.py
 
 # tasks.py
@@ -123,8 +122,6 @@ def send_monthly_sms():
 #         message = f"Hello {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding month of {payment_row['month_paid'].strftime('%B %Y')} for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
 #         send_scheduled_sms.apply_async(args=[message, [payment_row['number']]], eta=schedule_time)
 
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b
-
 def calculate_fields(register):
     today = date.today()
     new_payment_rows = []
@@ -196,7 +193,7 @@ def calculate_fields(register):
 
     return new_payment_rows
 
-<<<<<<< HEAD
+
 def calculate_month_difference(start_date, end_date):
     #months = relativedelta(end_date, start_date).months
     #days = relativedelta(end_date, start_date).days
@@ -214,7 +211,6 @@ def calculate_month_difference(start_date, end_date):
 
     print("months:",months)
     return months
-=======
 from datetime import datetime
 
 def calculate_month_difference(start_date, end_date):
@@ -243,4 +239,3 @@ def calculate_month_difference(start_date, end_date):
 
 #     #print("months:",months)
 #     return months
->>>>>>> 1eac095df8d82f175a19c4bfd03158e554c1318b

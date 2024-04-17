@@ -23,7 +23,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-from celery import Celery
 from celery.schedules import crontab
 # Celery Beat configuration for periodic tasks scheduling
 app.conf.beat_schedule = {
