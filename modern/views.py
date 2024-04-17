@@ -1072,10 +1072,10 @@ def calculate_fields_part1(register):
             balance = register.room.amount * due_months
             pay_status = "Unpaid"
 
-        #new_month_paid_list = []
+        new_month_paid_list = []
         for i in range(0, due_months):
             new_month_paid = last_payment.month_paid + relativedelta(months=i)
-            #new_month_paid_list.append(new_month_paid)
+            new_month_paid_list.append(new_month_paid)
         #print(new_month_paid_list)
         return {
             'owner': register.owner.name,
