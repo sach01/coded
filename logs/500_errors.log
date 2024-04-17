@@ -179,3 +179,5 @@
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 80871[0m
 [35;1m"GET /list_registers_part1 HTTP/1.1" 500 80917[0m
 [35;1m"GET /ground HTTP/1.1" 500 204595[0m
+[35;1m"GET /get_owner_data/?owner_id=1 HTTP/1.1" 500 73336[0m
+[35;1m"GET /get_owner_data/?owner_id=1 HTTP/1.1" 500 73336[0m
