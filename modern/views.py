@@ -1085,8 +1085,8 @@ def calculate_fields_part1(register):
             'amount': register.room.amount,
             'balance': balance,
             'due_months': due_months,
-            'month_paid': new_month_paid,
-            #'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
+            #'month_paid': new_month_paid,
+            'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
             'start_date': register.start_date,
             'pay_status': pay_status,
         }
@@ -1114,7 +1114,7 @@ def calculate_fields_part1(register):
             'amount': register.room.amount,
             'balance': balance,
             'due_months': due_months,
-            'month_paid': new_month_paid,
+            #'month_paid': new_month_paid,
             'new_month_paid_list': new_month_paid_list,  # List of incremented month_paid values
             'start_date': register.start_date,
             'end_date': register.end_date,
@@ -1168,14 +1168,14 @@ def list_registers_part1(request):
             all_registers.append(calculated_fields)
             
     #owner_first_name = payment_row['owner'].split()[0]
-    for payment_row in all_registers:
-        outstanding_months = ", ".join(map(str, payment_row['new_month_paid_list']))
-        #message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid'].strftime('%B %Y')} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-        message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-        #print(payment_row['mobile'])
-        send_sms_retry(message, [payment_row['mobile']])  # Use the retrying version of send_sms function
-        #print({payment_row['new_month_paid_list']})
-                                #print(month)
+    # # for payment_row in all_registers:
+    # #     outstanding_months = ", ".join(map(str, payment_row['new_month_paid_list']))
+    # #     #message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid'].strftime('%B %Y')} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
+    # #     message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
+    # #     #print(payment_row['mobile'])
+    # #     send_sms_retry(message, [payment_row['mobile']])  # Use the retrying version of send_sms function
+    # #     #print({payment_row['new_month_paid_list']})
+    # #                             #print(month)
     context = {
         'all_registers': all_registers,
     }
