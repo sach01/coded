@@ -91,14 +91,23 @@
 								<li><a class="slide-item"  href="{% url 'dashboard_payment' %}"><span>Payment</span></a></li>
 								<li><a class="slide-item" href="{% url 'dashboard_register' %}"><span>Register</span></a></li>
 								<li><a class="slide-item" href="{% url 'dashboard_rooms' %}"><span>Rooms</span></a></li>
-								<li><a class="slide-item" href="{% url 'dashboard03' %}"><span>dashboard 03</span></a></li>
-								<li><a class="slide-item" href="{% url 'dashboard04' %}"><span>Dashboard 04</span></a></li>
+								
 							</ul>
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="#">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
 							<span class="side-menu__label">Owners</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li class="sub-slide">
+									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owner Type</span><i class="sub-angle fe fe-chevron-down"></i></a>
+									<ul class="sub-slide-menu">
+										
+										<li><a href="{% url 'create_owner_type' %}" class="slide-item"> create owner type</a></li>
+										<li><a href="{% url 'list_owner_type' %}" class="slide-item"> list owner type</a></li>
+									</ul>
+								</li>
+							</ul>
 							<ul class="slide-menu">
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owners</span><i class="sub-angle fe fe-chevron-down"></i></a>
@@ -119,8 +128,7 @@
 									<ul class="sub-slide-menu">
 										<li><a href="{% url 'register' %}" class="slide-item">register</a></li>
 										<li><a href="{% url 'list_registers' %}" class="slide-item"> list registered</a></li>
-										<li><a href="{% url 'payment_list' %}" class="slide-item"> list balance</a></li>
-                                        
+										
 									</ul>
 								</li>
 							</ul>
@@ -150,9 +158,8 @@
                                 <li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Balance</span><i class="sub-angle fe fe-chevron-down"></i></a>
 									<ul class="sub-slide-menu">
-										<li><a href="{% url 'list_register_test1' %}" class="slide-item">List Balances</a></li>
-                                        <li><a href="{% url 'list_register_test' %}" class="slide-item">List Balances 2</a></li>
-										<li><a href="{% url 'payment_list' %}" class="slide-item">Balance List</a></li>
+										
+                                        <li><a href="{% url 'register_balance' %}" class="slide-item"> balance by month</a></li>
 										<li><a href="{% url 'list_registers_part1' %}" class="slide-item"> balance</a></li>
 									</ul>
 								</li>

@@ -95,15 +95,56 @@ class DateInput(forms.DateInput):
 #         super().__init__(*args, **kwargs)
 #         self.fields['owner'].queryset = Register.objects.all()
 
+# # class PaymentForm(forms.ModelForm):
+# #     class Meta:
+# #         model = Payment
+# #         fields = ['owner'] # Add or remove fields as needed
 class PaymentForm(forms.ModelForm):
+    owner = forms.ModelChoiceField(queryset=Register.objects.all())   # We'll use JavaScript to autocomplete this field
+    
     class Meta:
         model = Payment
-        fields = ['owner'] # Add or remove fields as needed
+        fields = ['owner']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['owner'].queryset = Register.objects.order_by('owner__name')
 
+from django import forms
+from .models import Payment, Register
+
+# class PaymentForm(forms.ModelForm):
+#     owner_name = forms.ModelChoiceField(queryset=Register.objects.all().values_list('owner__name', flat=True).distinct(), label='Owner Name')
+#     room_number = forms.ModelChoiceField(queryset=Register.objects.all().values_list('room__room_number', flat=True).distinct(), label='Room Number')
+
+#     # # owner_name = forms.ModelChoiceField(
+#     # #     queryset=Register.objects.all().values_list('owner__name', flat=True).distinct(),
+#     # #     label='Owner Name'
+#     # # )
+#     # # room_number = forms.ModelChoiceField(
+#     # #     queryset=Register.objects.all().values_list('room__room_number', flat=True).distinct(),
+#     # #     label='Room Number'
+#     # # )
+#     class Meta:
+#         model = Payment
+#         fields = ['owner_name', 'room_number']  # Add other fields as needed
+
+from django_select2.forms import ModelSelect2Widget
 class Payment2Form(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['pay_status', 'status']
+        fields = ['owner']
+        #fields = ['pay_status', 'status']
+        
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['owner'].queryset = Register.objects.all()  # Set the queryset for the owner field to include all registers
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['owner'].widget = ModelSelect2Widget(
+            model=Register,
+            search_fields=['owner__name__icontains'],
+            attrs={'data-placeholder': 'Search for owner'}
+        )
 
 from django import forms
 from .models import Receiver

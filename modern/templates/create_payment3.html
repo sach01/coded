@@ -1,0 +1,189 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<html>
+    <!--Page header-->
+    <div class="page-header">
+        <div class="page-leftheader">
+            <h4 class="page-title">Create Payment</h4>
+        </div>
+        <div class="page-rightheader ml-auto d-lg-flex d-none">
+            <div class="ml-5 mb-0">
+                <a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
+                    <svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                        <path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
+                    </svg> <span>Select Date
+                    <i class="fa fa-caret-down"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Page header-->
+<!-- create_payment.html 
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Payment</button>
+</form>
+-->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+
+
+
+
+
+<form method="post">
+    {% csrf_token %}
+    <label for="id_owner">Owner:</label>
+    {{ form.owner }}
+    
+   
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ownerDropdown = document.getElementById('id_owner');
+        const roomDropdown = document.getElementById('id_room');
+        const floorField = document.getElementById('id_floor');
+        const roomNumberField = document.getElementById('id_room_number');
+        const ownerNameField = document.getElementById('id_owner_name');
+
+        ownerDropdown.addEventListener('change', function() {
+            const ownerId = ownerDropdown.value;
+            
+            fetch(`/get_owner_data/?owner_id=${ownerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    roomDropdown.innerHTML = '<option value="">---------</option>';
+                    data.rooms.forEach(room => {
+                        roomDropdown.innerHTML += `<option value="${room.id}">${room.room_number}</option>`;
+                    });
+                    floorField.value = data.floor;
+                    roomNumberField.value = data.room_number;
+                    ownerNameField.value = data.owner_name;
+                });
+        });
+    });
+</script>
+
+
+
+
+##########################################################################
+#working
+##########################################################################
+{% extends "base2.html" %}
+
+{% block content %}
+
+<html>
+    <!--Page header-->
+    <div class="page-header">
+        <div class="page-leftheader">
+            <h4 class="page-title">Create Payment</h4>
+        </div>
+        <div class="page-rightheader ml-auto d-lg-flex d-none">
+            <div class="ml-5 mb-0">
+                <a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
+                    <svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                        <path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
+                    </svg> <span>Select Date
+                    <i class="fa fa-caret-down"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Page header-->
+<!-- create_payment.html 
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Payment</button>
+</form>
+-->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+<!-- payment_form.html -->
+
+
+
+
+
+<form method="post">
+    {% csrf_token %}
+    <label for="id_owner">Owner:</label>
+    {{ form.owner }}
+    <input type="submit" value="Submit">
+</form>
+
+
+<!-- create_payment.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Payment</title>
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include Select2 JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+    <h1>Create Payment</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="owner">Owner:</label>
+        <!-- Input field with datalist for autocomplete -->
+        <input type="text" id="owner" name="owner" list="owner-list">
+        <datalist id="owner-list">
+            <!-- Options will be dynamically populated -->
+        </datalist>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <script>
+    // Function to fetch and populate options dynamically
+    function populateOptions() {
+        const term = document.getElementById('owner').value.trim(); // Get the search term
+        const dataList = document.getElementById('owner-list');
+        dataList.innerHTML = ''; // Clear previous options
+    
+        // Fetch options from the server based on the search term
+        fetch(`/owner_autocomplete/?term=${term}`)
+            .then(response => response.json())
+            .then(data => {
+                // Add options to the datalist
+                data.forEach(owner => {
+                    const option = document.createElement('option');
+                    option.value = owner.text;
+                    dataList.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching owners:', error));
+    }
+    
+    // Update options as the user types
+    document.getElementById('owner').addEventListener('input', populateOptions);
+    </script>
+    
+    
+    
+    
+</body>
+</html>
+
+</html>
+
+{% endblock %}
+
+</html>
+
+{% endblock %}

@@ -25,4 +25,5 @@ urlpatterns = [
     path("", include("modern.urls")),
     path("account/", include("account.urls")),
     path('admin/', admin.site.urls),
+    path('select2/', include('django_select2.urls', namespace='select2')),
 ]

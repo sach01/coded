@@ -31,41 +31,20 @@
 <!-- payment_form.html -->
 <!-- payment_form.html -->
 
+
+
+
+
 <form method="post">
     {% csrf_token %}
     <label for="id_owner">Owner:</label>
     {{ form.owner }}
-    
-   
     <input type="submit" value="Submit">
 </form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ownerDropdown = document.getElementById('id_owner');
-        const roomDropdown = document.getElementById('id_room');
-        const floorField = document.getElementById('id_floor');
-        const roomNumberField = document.getElementById('id_room_number');
-        const ownerNameField = document.getElementById('id_owner_name');
 
-        ownerDropdown.addEventListener('change', function() {
-            const ownerId = ownerDropdown.value;
-            
-            fetch(`/get_owner_data/?owner_id=${ownerId}`)
-                .then(response => response.json())
-                .then(data => {
-                    roomDropdown.innerHTML = '<option value="">---------</option>';
-                    data.rooms.forEach(room => {
-                        roomDropdown.innerHTML += `<option value="${room.id}">${room.room_number}</option>`;
-                    });
-                    floorField.value = data.floor;
-                    roomNumberField.value = data.room_number;
-                    ownerNameField.value = data.owner_name;
-                });
-        });
-    });
-</script>
-
+</body>
+</html>
 
 
 </html>

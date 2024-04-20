@@ -5,6 +5,8 @@ from django.contrib import admin
 from modern import views as modern_views
 
 from . import views
+from django.urls import path
+from . import views
 
 urlpatterns = [
     path("", modern_views.index, name="index"),
@@ -27,6 +29,14 @@ urlpatterns = [
     path("create_payment", modern_views.create_payment, name="create_payment"),
     #path('success_page', views.success_page, name='success_page'),
     path("payment_list", modern_views.payment_list, name="payment_list"),
+    path('owner_autocomplete/', modern_views.owner_autocomplete, name='owner_autocomplete'),
+
+    path('get_owners/', modern_views.get_owners, name='get_owners'),
+    #path('submit_payment/', modern_views.submit_payment, name='submit_payment'),
+    #path('owner-autocomplete', modern_views.OwnerAutocomplete.as_view(), name='owner-autocomplete'),
+    #path('room-autocomplete', modern_views.RoomAutocomplete.as_view(), name='room-autocomplete'),
+    
+    #path('get_owners/', modern_views.get_owners, name='get_owners'),
     
     path("register_balance", modern_views.register_balance, name="register_balance"),
     path("list_registers_part1", modern_views.list_registers_part1, name="list_registers_part1"),
@@ -41,6 +51,7 @@ urlpatterns = [
     path('create_payment_test/<int:register_id>/', modern_views.create_payment_test, name='create_payment_test'),
     path('create_payment_test2/', modern_views.create_payment_test2, name='create_payment_test2'),
     path('create_payment_test2/<int:register_id>/', modern_views.create_payment_test2, name='create_payment_test2'),
+    path('search_owners/', modern_views.search_owners, name='search_owners'),
     
     path('dashboard_rooms/', modern_views.dashboard_rooms, name='dashboard_rooms'),
     path('dashboard_register/', modern_views.dashboard_register, name='dashboard_register'),

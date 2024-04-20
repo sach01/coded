@@ -63,60 +63,7 @@
         </div>
     </div>
 
-    <h1>Stalls Montly Balance</h1>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title">Stall Owners</div>
-        </div>
-        <div class="card-body">
-            <div class="">
-                <div class="table-responsive">
-                    <table id="example" class="table table-bordered text-nowrap key-buttons">
-                        <thead>
-                            <tr>
-                                
-                                <th class="border-bottom-0">Months</th>
-                                <th class="border-bottom-0">Sum of Amounts</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for month, amount in amounts_by_month.items %}
-                            <tr>
-                                <td>{{ month|date:"F Y" }}</td>
-                                <td>{{ amount }}</td>
-                            </tr>
-                        {% endfor %}
-                        
-                        <h1>Bar Graph</h1>
-                        <img src="data:image/png;base64,{{ graph }}" alt="Bar Graph">
-
-                        </tbody>
-                        
-                    </table>
-                
-                </div>
-            </div>
-        </div>
-    </div>
-    <h2>Amount for This Month</h2>
-                        <p>{{ amount_this_month }}</p>
-
-	
-
-                        <h2>Amount for This Month per Floor</h2>
-    <ul>
-        {% for floor, amount in amount_this_month_per_floor.items %}
-            <li>Floor {{ floor }}: {{ amount }}</li>
-        {% endfor %}
-    </ul>
-    <ul>
-        {% for month, amount in amounts_by_month.items %}
-            <li>Month: {{ month }}, Sum of Amounts: {{ amount }}</li>
-        {% endfor %}
-    </ul>
-    <!-- Display total amount for the previous month -->
-    <h2>Total Amount for Previous Month</h2>
-    <p>{{ total_amount_previous_month }}</p>
+   
 </body>
 </html>
 

@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'account',
     'modern',
     'import_export',
+    'dal',
+    'dal_select2',
+    #'select2',
+    'django_select2',
 ]
 
 MIDDLEWARE = [

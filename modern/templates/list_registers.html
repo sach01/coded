@@ -38,8 +38,9 @@
 							<th class="border-bottom-0">Amount</th>
 							<th class="border-bottom-0">Start Date</th>
 							<th class="border-bottom-0">Date Created</th>
-							<th class="border-bottom-0">Reassign</th>
-							<th class="border-bottom-0">Create Payment</th>
+							<!---<th class="border-bottom-0">Create Payment</th>
+							<th class="border-bottom-0">Reassign</th>--->
+						
 						</tr>
 					</thead>
 					<tbody>
@@ -52,8 +53,9 @@
 							<td>{{ i.room.amount }}</td>
 							<td>{{ i.start_date }}</td>
 							<td>{{ i.date_registered }}</td>
-							<td><a href="{% url 'edit_register' i.pk %}">Edit</a></td>
-							<td><a href="{% url 'create_payment_test2' i.pk %}">Edit</a></td>
+							<!---<td><a href="{% url 'create_payment_test2' i.pk %}">create</a></td>--->
+							<!---<td><a href="{% url 'edit_register' i.pk %}">Edit</a></td>---->
+							
 							
 
 							
@@ -73,6 +75,35 @@
 	</div>
 </div>
 <!--/div-->
+<!---
+<table id="example" class="table table-bordered text-nowrap key-buttons">
+    <thead>
+        <tr>
+            <th class="border-bottom-0">Owner</th>
+            <th class="border-bottom-0">Room</th>
+            <th class="border-bottom-0">Registration Status</th>
+            <th class="border-bottom-0">Start Date</th>
+            <th class="border-bottom-0">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for register in registers %}
+        <tr>
+            <td>{{ register.owner.name }}</td>
+            <td>{{ register.room.room_number }}</td>
+            <td>{{ register.reg_status }}</td>
+            <td>{{ register.start_date }}</td>
+            <td>
+                <a href="{% url 'create_payment_test2' register.owner_id %}">Create Payment</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 
+{% for register in registers %}
+    <a href="{% url 'create_payment_test2' register.id %}">{{ register.owner }}</a><br>
+{% endfor %}
+--->
 {% endblock %}

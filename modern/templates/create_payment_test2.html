@@ -19,7 +19,7 @@
 <!--Page header-->
 <div class="page-header">
   <div class="page-leftheader">
-    <h4 class="page-title">Dashboard</h4>
+    <h4 class="page-title">Dashboard 1</h4>
   </div>
   <div class="page-rightheader ml-auto d-lg-flex d-none">
     <div class="ml-5 mb-0">
@@ -33,6 +33,7 @@
   </div>
 </div>
 <!--End Page header-->
+
 
 <ul>
     {% for register in registers %}
@@ -52,5 +53,29 @@
     {{ form.as_p }}
     <button type="submit">Create Payment</button>
   </form>
+
+
+  <div class="box-body">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <div class="form-group">
+                <label>Minimal</label>
+                <select class="form-control select2" style="width: 100%;">
+                    {% for register in registers %}
+                        <option value="{{ register.owner }}">{{ register.owner }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+
 
 {% endblock %}

@@ -34,7 +34,7 @@
 <form method="post">
     {% csrf_token %}
     <label for="id_owner">Owner:</label>
-    {{ form.owner }}
+    {{ form.owner.owner.name }}
     <br>
     <label for="id_room">Room:</label>
     <select name="room" id="id_room">

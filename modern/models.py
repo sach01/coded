@@ -50,22 +50,6 @@ class OwnerType(models.Model):
     name = models.CharField(max_length=200, unique=True)
     def __str__(self):
         return '%s '% (self.name)
-import requests
-from django.db import models
-from django.contrib.contenttypes.models import ContentType
-from django.utils import timezone
-
-def get_external_ip():
-    try:
-        response = requests.get('https://api.ipify.org')
-        if response.status_code == 200:
-            return response.text
-        else:
-            print("Failed to retrieve external IP:", response.status_code)
-            return None
-    except Exception as e:
-        print("Error:", e)
-        return None
     
 def get_external_ip():
     try:
@@ -78,6 +62,7 @@ def get_external_ip():
     except Exception as e:
         print("Error:", e)
         return None   
+    
 class Owner(models.Model):
     name = models.CharField(max_length=200)
     mobile = models.CharField(max_length=13, blank=True, null=True)
@@ -110,23 +95,7 @@ class Owner(models.Model):
             action='CREATE' if not self.pk else 'UPDATE',
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address or 'Unknown'
-        )
-
-    def delete(self, *args, **kwargs):
-        ip_address = get_external_ip()  # Fetch external IP address
-        if ip_address:
-            self.ip_address = ip_address  # Set the IP address in the model
-        super().delete(*args, **kwargs)
-
-        # Create ChangeLog entry after deleting the Owner instance
-        ChangeLog.objects.create(
-            user=self.created_by,
-            timestamp=timezone.now(),
-            action='DELETE',
-            content_type=ContentType.objects.get_for_model(self),
-            object_id=self.pk,
-            ip_address=ip_address or 'Unknown'
+            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
         )
 
     def delete(self, *args, **kwargs):
@@ -143,8 +112,7 @@ class Owner(models.Model):
             action=action,
             content_type=ContentType.objects.get_for_model(self),
             object_id=self.pk,
-            ip_address=ip_address or 'Unknown'  # Provide a default value if ip_address is None
-
+            ip_address=ip_address   # Provide a default value if ip_address is None
         )
 
 def get_client_ip(request):
@@ -280,7 +248,7 @@ class ChangeLog(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    ip_address = models.CharField(max_length=100)  # For storing IP address
+    ip_address = models.CharField(max_length=100, null=False)  # For storing IP address
 
     class Meta:
         ordering = ['-timestamp']
