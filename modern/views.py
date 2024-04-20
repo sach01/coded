@@ -1202,12 +1202,6 @@ from .africastalking_utils import send_sms
 from django.shortcuts import HttpResponse
 #from .tasks import send_monthly_sms
 
-def trigger_sms_sending(request):
-    # Trigger the Celery task to schedule SMS sending
-    schedule_sms.delay()
-    return HttpResponse("SMS sending scheduled successfully!")
-
-
 # Define a decorator for retrying the API request
 @retry(stop_max_attempt_number=3, wait_fixed=2000)  # Retry for a maximum of 3 attempts with a fixed delay of 2 seconds between retries
 def send_sms_retry(message, recipients):
