@@ -11,31 +11,65 @@
     <title>List Receivers</title>
 </head>
 <body>
-    <h1>List Receivers</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Reference Number</th>
-                <th>Collector</th>
-                <th>Amount Received</th>
-                <th>Note</th>
-                <th>Received By</th>
-                <th>Date Received</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for receiver in receivers %}
-                <tr>
-                    <td>{{ receiver.reference_number }}</td>
-                    <td>{{ receiver.collector }}</td>
-                    <td>{{ receiver.amount_received }}</td>
-                    <td>{{ receiver.note }}</td>
-                    <td>{{ receiver.received_by }}</td>
-                    <td>{{ receiver.date_received }}</td>
-                </tr>
-            {% endfor %}
+    <div class="page-header">
+        <div class="page-leftheader">
+            <h4 class="page-title">Collector & Receiver Management</h4>
+        </div>
+        <div class="page-rightheader ml-auto d-lg-flex d-none">
+            <div class="ml-5 mb-0">
+                <a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
+                    <svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="f\
+alse">
+                        <path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2\
+-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
+                    </svg> <span>Select Date
+                    <i class="fa fa-caret-down"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Page header-->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">List Receivers</div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <div class="table-responsive">
+                    <table id="example" class="table table-bordered text-nowrap key-buttons">
+                        <thead>
+                            <tr>
+                                
+                <th class="border-bottom-0">Reference Number</th>
+                <th class="border-bottom-0">Collector</th>
+                <th class="border-bottom-0">Amount Received</th>
+                <th class="border-bottom-0">Note</th>
+                <th class="border-bottom-0">Received By</th>
+                <th class="border-bottom-0">Date Received</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for receiver in receivers %}
+                            <tr>
+                                <td>{{ receiver.reference_number }}</td>
+                                <td>{{ receiver.collector }}</td>
+                                <td>{{ receiver.amount_received }}</td>
+                                <td>{{ receiver.note }}</td>
+                                <td>{{ receiver.received_by }}</td>
+                                <td>{{ receiver.date_received }}</td>
+                            </tr>
+                        {% endfor %}
         </tbody>
     </table>
+</div>
+</div>
+</div>
+</div>
+
+
+
 </body>
 </html>
 

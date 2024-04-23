@@ -1,3 +1,81 @@
+{%  extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Receivers</title>
+</head>
+<body>
+    <div class="page-header">
+        <div class="page-leftheader">
+            <h4 class="page-title">Collector & Receiver Management</h4>
+        </div>
+        <div class="page-rightheader ml-auto d-lg-flex d-none">
+            <div class="ml-5 mb-0">
+                <a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
+                    <svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="f\
+alse">
+                        <path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2\
+-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
+                    </svg> <span>Select Date
+                    <i class="fa fa-caret-down"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Page header-->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Bank List</div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <div class="table-responsive">
+                    <table id="example" class="table table-bordered text-nowrap key-buttons">
+                        <thead>
+                            <tr>
+                                
+                <th class="border-bottom-0">Receiver</th>
+                <th class="border-bottom-0">amount_banked</th>
+                <th class="border-bottom-0">note</th>
+                <th class="border-bottom-0">reference_number</th>
+                <th class="border-bottom-0">banked_by</th>
+                <th class="border-bottom-0">date_received</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for receiver in banks %}
+                            <tr>
+                                <td>{{ receiver.receiver }}</td>
+                                <td>{{ receiver.amount_banked }}</td>
+                                <td>{{ receiver.note }}</td>
+                                <td>{{ receiver.reference_number }}</td>
+                                <td>{{ receiver.banked_by }}</td>
+                                <td>{{ receiver.date_received }}</td>
+                            </tr>
+                        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</body>
+</html>
+
+{% endblock %}
+
+
 <!-- bank_list.html -->
 <!DOCTYPE html>
 <html>

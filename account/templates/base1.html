@@ -88,17 +88,28 @@
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
 							<span class="side-menu__label">Dashboard</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
+								
+								<li><a class="slide-item"  href="{% url 'dashboard_bank' %}"><span>Bank</span></a></li>
 								<li><a class="slide-item"  href="{% url 'dashboard_payment' %}"><span>Payment</span></a></li>
 								<li><a class="slide-item" href="{% url 'dashboard_register' %}"><span>Register</span></a></li>
 								<li><a class="slide-item" href="{% url 'dashboard_rooms' %}"><span>Rooms</span></a></li>
-								<li><a class="slide-item" href="{% url 'dashboard03' %}"><span>dashboard 03</span></a></li>
-								<li><a class="slide-item" href="{% url 'dashboard04' %}"><span>Dashboard 04</span></a></li>
+								
 							</ul>
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="#">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
 							<span class="side-menu__label">Owners</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li class="sub-slide">
+									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owner Type</span><i class="sub-angle fe fe-chevron-down"></i></a>
+									<ul class="sub-slide-menu">
+										
+										<li><a href="{% url 'create_owner_type' %}" class="slide-item"> create owner type</a></li>
+										<li><a href="{% url 'list_owner_type' %}" class="slide-item"> list owner type</a></li>
+									</ul>
+								</li>
+							</ul>
 							<ul class="slide-menu">
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owners</span><i class="sub-angle fe fe-chevron-down"></i></a>
@@ -119,8 +130,7 @@
 									<ul class="sub-slide-menu">
 										<li><a href="{% url 'register' %}" class="slide-item">register</a></li>
 										<li><a href="{% url 'list_registers' %}" class="slide-item"> list registered</a></li>
-										<li><a href="{% url 'payment_list' %}" class="slide-item"> list balance</a></li>
-                                        
+										
 									</ul>
 								</li>
 							</ul>
@@ -150,10 +160,9 @@
                                 <li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Balance</span><i class="sub-angle fe fe-chevron-down"></i></a>
 									<ul class="sub-slide-menu">
-										<li><a href="{% url 'list_register_test1' %}" class="slide-item">List Balances</a></li>
-                                        <li><a href="{% url 'list_register_test' %}" class="slide-item">List Balances 2</a></li>
-										<li><a href="{% url 'payment_list' %}" class="slide-item">Balance List</a></li>
-										<li><a href="{% url 'dashboard_register' %}" class="slide-item"> balance</a></li>
+										
+                                        <li><a href="{% url 'register_balance' %}" class="slide-item"> balance by month</a></li>
+										<li><a href="{% url 'list_registers_part1' %}" class="slide-item"> balance</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -184,7 +193,16 @@
 								--->
 							</ul>
 						</li>
-						
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+							<span class="side-menu__label">Bank</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{% url 'create_banker' %}" class="slide-item"> create deposit</a></li>
+								<li><a href="{% url 'bank_list' %}" class="slide-item">list deposit</a></li>
+								
+							</ul>
+						</li>
 							<ul class="slide-menu">
 								<li class="sub-slide">
 									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Owner Types</span><i class="sub-angle fe fe-chevron-down"></i></a>
