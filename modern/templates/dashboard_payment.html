@@ -159,57 +159,7 @@ alse">
 </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <div class="card-title">Collector Balance</div>
-    </div>
-    <div class="card-body">
-        <div class="">
-            <div class="table-responsive">
-                <table id="example" class="table table-bordered text-nowrap key-buttons">
-                    <thead>
-                        <tr>
 
-                            <th class="border-bottom-0">Collected By</th>
-                            <th class="border-bottom-0">Total Amount Collected</th>
-                            <th class="border-bottom-0">Total Amount Received</th>
-                            <th class="border-bottom-0">Balance</th>
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-        {% for item in total_collected_payment %}
-        <tr>
-            <td>{{ item.collected_by__username }}</td>
-            <td>{{ item.total_amount_collected }}</td>
-            <td>{% for collected_receiver in total_collected_receiver %}
-                {% if collected_receiver.collector == item.collected_by %}
-                    {{ collected_receiver.total_amount_received }}
-                {% endif %}
-            {% endfor %}</td>
-            <!--- <td>{{ balances|default:item.total_amount_collected }}</td>--->
-            <!---<td>{{ balances|default:item.total_amount_collected }}</td>--->
-            <td>
-        {% for key, value in balances.items %}
-            {% if key == item.collected_by__username %}
-               <!--- {{ key }}:---> {{ value }}
-            {% endif %}
-        {% endfor %}
-    </td>
-</tr>
-
-</td>
-
-        </tr>
-{% endfor %}
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
