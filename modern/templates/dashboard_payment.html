@@ -128,11 +128,19 @@ alse">
             <tr>
                 <td>{{ item.collected_by__username }}</td>
                 <td>{{ item.total_amount_collected }}</td>
-                <td>{% for collected_receiver in total_collected_receiver %}
+                <!---<td>{% for collected_receiver in total_collected_receiver %}
                     {% if collected_receiver.collector == item.collected_by %}
                         {{ collected_receiver.total_amount_received }}
                     {% endif %}
-                {% endfor %}</td>
+                {% endfor %}</td>---->
+                <td>
+                    {% for collected_receiver in total_collected_receiver %}
+                        {% if collected_receiver.collector__username == item.collected_by__username %}
+                            {{ collected_receiver.total_amount_received }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                
 		<td>
             {% for key, value in balances.items %}
                 {% if key == item.collected_by__username %}
