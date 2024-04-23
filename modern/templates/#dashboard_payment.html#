@@ -86,22 +86,7 @@ alse">
             <tr>
 
 <th class="border-bottom-0">Collector</th>
-<th class="border-bottom-0">Total Amount</th>
-</tr>
-</thead>
-<tbody>
-    {% for item in amount_per_owner_collector %}
-<tr>
-<td>{{ item.collected_by__username }}</td>
-<td>{{ item.total_amount }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
+<
 
     <div class="card">
         <div class="card-header">
