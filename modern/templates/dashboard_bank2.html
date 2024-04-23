@@ -1,0 +1,161 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Total Collection</div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <div class="table-responsive">
+                    <table id="example" class="table table-bordered text-nowrap key-buttons">
+                        <thead>
+                            <tr>
+                                
+                <th class="border-bottom-0">Collector</th>
+                <th class="border-bottom-0">Total Amount</th>
+                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in amount_per_owner_collector %}
+            <tr>
+                <td>{{ item.collected_by__username }}</td>
+                <td>{{ item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <h2>Total Amount Received from Each Receiver:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Total Amount Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for banker, balance in balances.items %}
+            <tr>
+                <td>{{ banker }}</td>
+                <td>{{ balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Total Amount Banked by Each Banker:</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Banker</th>
+            <th>Total Amount Banked</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bank in total_collected_banked %}
+        <tr>
+            <td>{{ bank.receiver__username }}</td>
+            <td>{{ bank.total_amount_banked }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+######################################################################################
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ username }}</h1>
+
+    <h2>Total Amount Banked by Each Banker:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Banker</th>
+                <th>Total Amount Banked</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bank in total_collected_banked %}
+            <tr>
+                <td>{{ bank.receiver__username }}</td>
+                <td>{{ bank.total_amount_banked }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Total Amount Received by Each Receiver:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Total Amount Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receiver in total_collected_receiver %}
+            <tr>
+                <td>{{ receiver.received_by__username }}</td>
+                <td>{{ receiver.total_amount_received }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Balance for Each Receiver:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receiver_username, balance in balances.items %}
+            <tr>
+                <td>{{ receiver_username }}</td>
+                <td>{{ balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+#####################################################################################
+
+
+
+
+
+</body>
+</html>

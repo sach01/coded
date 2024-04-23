@@ -1,5 +1,5 @@
 from django import forms
-from .models import Register, Payment, Room, Floor, Owner, Receiver, OwnerType
+from .models import Register, Payment, Room, Floor, Owner, Receiver, OwnerType, Bank
 from datetime import datetime, date, timedelta
 from django.forms import widgets
 from django.core.exceptions import ValidationError
@@ -149,15 +149,46 @@ class Payment2Form(forms.ModelForm):
 from django import forms
 from .models import Receiver
 
+# class ReceiverForm(forms.ModelForm):
+#     class Meta:
+#         model = Receiver
+#         fields = ['collector', 'amount_received', 'note']
+
+#     def __init__(self, *args, **kwargs):
+#         super(ReceiverForm, self).__init__(*args, **kwargs)
+#         # If you want to customize form widgets or add additional validation,
+#         # you can do so here.
+# class ReceiverForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         # Set choices for the collector field to display usernames
+#         self.fields['collector'].queryset = Receiver.objects.all()
+#         self.fields['collector'].label_from_instance = lambda obj: obj.collector.collected_by.username
+
+#     class Meta:
+#         model = Receiver
+#         fields = ['collector', 'amount_received', 'note']
+
+from account.models import CustomUser
+from django import forms
+from .models import Receiver, Payment
 class ReceiverForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields['collector'].disabled = True
+            self.fields['collector'].widget.attrs['value'] = self.instance.collector.collected_by.username
+        else:
+            # Configure the queryset to retrieve CustomUser instances
+            self.fields['collector'].queryset = CustomUser.objects.all()
+
     class Meta:
         model = Receiver
         fields = ['collector', 'amount_received', 'note']
-
-    def __init__(self, *args, **kwargs):
-        super(ReceiverForm, self).__init__(*args, **kwargs)
-        # If you want to customize form widgets or add additional validation,
-        # you can do so here.
+class BankForm(forms.ModelForm):
+    class Meta:
+        model = Bank
+        fields = ['receiver', 'amount_banked', 'note']
 
 # class OwnerTypeForm(forms.ModelForm):
 #     class Meta:

@@ -41,4 +41,27 @@
     </tbody>
   </table>
   
+
+  <!-- payment_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment List</title>
+</head>
+<body>
+    <h1>Payment List</h1>
+    <ul>
+        {% for payment in payments %}
+            <li>{{ payment }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Payment Collected By Sum</h2>
+    <ul>
+        {% for item in payment_collected_by_sum %}
+            <li>{{ item.collected_by }}: {{ item.collected_amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
 {% endblock %}

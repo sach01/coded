@@ -1,0 +1,21 @@
+<!-- bank_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank List</title>
+</head>
+<body>
+    <h1>Bank List</h1>
+    <ul>
+        {% for bank in banks %}
+            <li>{{ bank }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Amount Banked Sum</h2>
+    <ul>
+        {% for item in amount_banked_sum %}
+            <li>{{ item.banked_by }}: {{ item.banked_amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

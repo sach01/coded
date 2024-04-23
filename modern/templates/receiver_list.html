@@ -1,0 +1,21 @@
+<!-- receiver_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receiver List</title>
+</head>
+<body>
+    <h1>Receiver List</h1>
+    <ul>
+        {% for receiver in receivers %}
+            <li>{{ receiver }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Receiver Received By Sum</h2>
+    <ul>
+        {% for item in receiver_received_by_sum %}
+            <li>{{ item.received_by }}: {{ item.received_amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

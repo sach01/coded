@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collector and Receiver Balances</title>
+</head>
+<body>
+    <h1>Collector Balances</h1>
+    <ul>
+        {% for collector, balance in collector_balances.items %}
+            <li>{{ collector }}: {{ balance }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Receiver Balances</h1>
+    <ul>
+        {% for receiver, balance in receiver_balances.items %}
+            <li>{{ receiver }}: {{ balance }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

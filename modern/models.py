@@ -25,6 +25,7 @@ from django.contrib.contenttypes.models import ContentType
 import requests
 from django.db import models
 from django.utils import timezone
+from django.db.models import Sum
 
 
 # Create your models here.
@@ -213,8 +214,8 @@ class Receiver(models.Model):
     date_received = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):
-        return '%s %s %s %s'% (self.collector, self.note, self.received_by, self.date_received)
-     
+        return '%s %s %s %s'% (self.collector.username, self.note, self.received_by, self.date_received)
+
     def save(self, *args, **kwargs):
         # Generate a unique reference number before saving
         if not self.reference_number:
@@ -232,15 +233,35 @@ class Receiver(models.Model):
         reference_number = f"{day:02d}{month:02d}{year}{random_part}"
         return reference_number
     
-    # def save(self, *args, **kwargs):
-    #     if not self.reference_number:
-    #         self.reference_number = get_random_string(length=10).upper()
-    #     super().save(*args, **kwargs)
-
 class Arreas(models.Model):
     pass
 
-
+class Bank(models.Model):
+    receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received')
+    amount_banked = models.IntegerField()
+    note = models.TextField(blank=True, null=True)
+    reference_number = models.CharField(max_length=20, unique=True)
+    banked_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='banked')
+    date_received = models.DateTimeField(auto_now_add=True)
+   
+    def __str__(self):
+        return '%s %s %s %s'% (self.receiver, self.note, self.banked_by, self.date_received)
+     
+    def save(self, *args, **kwargs):
+        # Generate a unique reference number before saving
+        if not self.reference_number:
+            self.reference_number = self.generate_reference_number()
+        super().save(*args, **kwargs)
+    def generate_reference_number(self):
+        # Implement your logic to generate a unique reference number
+        now = datetime.datetime.now()
+        year = now.year
+        month = now.month
+        day = now.day
+        random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+        #invoice_number = f"{year}{month:02d}{day:02d}-{random_part}"
+        reference_number = f"{day:02d}{month:02d}{year}{random_part}"
+        return reference_number
 class ChangeLog(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
