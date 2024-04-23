@@ -1,0 +1,31 @@
+<!-- balances.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Balances</title>
+</head>
+<body>
+    <h1>User Balances</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Receiver Balance</th>
+                <th>Banker Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for username, balances in user_balances.items %}
+            <tr>
+                <td>{{ username }}</td>
+                <td>{{ balances.receiver_balance }}</td>
+                <td>{{ balances.banker_balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

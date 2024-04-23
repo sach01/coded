@@ -138,21 +138,12 @@
                         {{ collected_receiver.total_amount_received }}
                     {% endif %}
                 {% endfor %}</td>
-		<!--- <td>{{ balances|default:item.total_amount_collected }}</td>--->
-		<!---<td>{{ balances|default:item.total_amount_collected }}</td>--->
-		<td>
-            {% for key, value in balances.items %}
-                {% if key == item.collected_by__username %}
-                   <!--- {{ key }}:---> {{ value }}
-                {% endif %}
-            {% endfor %}
-        </td>
-    </tr>
-        	
-</td>
+                <td>{{ balances|default:item.total_amount_collected }}</td>
+                
                 
             </tr>
-{% endfor %}                            
+            {% endfor %}
+                            
                             
                         </tbody>
                     </table>
@@ -162,7 +153,102 @@
     </div>
 
 
+
+
+    <!-- dashboard_payment.html -->
+
+
+    <h1>Payment Dashboard</h1>
+    <p>Welcome, {{ username }}</p>
+    
+    <h2>Balance Summary</h2>
+    <table>
+        <tr>
+            <th>Collected By</th>
+            <th>Difference</th>
+        </tr>
+        {% for collected_by, difference in balances.items %}
+            <tr>
+                <td>{{ collected_by }}</td>
+                <td>{{ difference }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <!-- Additional content here -->
+
+
+
+    <table>
+        <thead>
+            <tr>
+              
+                <th>Collector</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in amount_per_owner_collector %}
+            <tr>
+                <td>{{ item.collected_by__username }}</td>
+                <td>{{ item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Total Amount Collected per Collected By</h1>
+    <ul>
+        {% for item in total_collected_payment %}
+            <li>Collected By: {{ item.collected_by__username }}</li>
+            <li>Total Amount Collected: {{ item.total_amount_collected }}</li>
+            {% for collected_receiver in total_collected_receiver %}
+                {% if collected_receiver.collector == item.collected_by %}
+                    <li>Total Amount Received: {{ collected_receiver.total_amount_received }}</li>
+                    <li>Balance: {{ balances|default:item.total_amount_collected }}</li>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    <table>
+    <thead>
+        <tr>
+            <th>Collected By</th>
+            <th>Total Amount Collected</th>
+            <th>Total Amount Received</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in total_collected_payment %}
+            <tr>
+                <td>{{ item.collected_by__username }}</td>
+                <td>{{ item.total_amount_collected }}</td>
+                <td>
+                    {% for collected_receiver in total_collected_receiver %}
+                        {% if collected_receiver.collector == item.collected_by %}
+                            {{ collected_receiver.total_amount_received }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ balances|default:item.total_amount_collected }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+    <h1>All Receivers</h1>
+    <ul>
+        {% for receiver in receivers %}
+            <li>Collector: {{ receiver.collector }} - Amount Received: {{ receiver.amount_received }}</li>
+        {% endfor %}
+    </ul>
 <!---{{username}}--->
+
+
 </body>
 </html>
 

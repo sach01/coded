@@ -15,6 +15,11 @@ urlpatterns = [
     path("ground", views.ground, name="ground"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
+    
+    
+    path("dashboard_bank", views.dashboard_bank, name="dashboard_bank"),
+    path("bank_list", modern_views.bank_list, name="bank_list"),
+    path("create_banker", modern_views.create_banker, name="create_banker"),
 
     path("register", modern_views.register, name="register"),
     path("edited_registers", modern_views.edited_registers, name="edited_registers"),
@@ -28,7 +33,7 @@ urlpatterns = [
 
     path("create_payment", modern_views.create_payment, name="create_payment"),
     #path('success_page', views.success_page, name='success_page'),
-    path("payment_list", modern_views.payment_list, name="payment_list"),
+    
     path('owner_autocomplete/', modern_views.owner_autocomplete, name='owner_autocomplete'),
 
     path('get_owners/', modern_views.get_owners, name='get_owners'),

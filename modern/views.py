@@ -11,8 +11,8 @@ from django.contrib import messages
 #from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime, date, timedelta
-from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType
-from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm
+from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType, Bank
+from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm, BankForm
 from django.http import JsonResponse
 from django.utils import timezone
 from django.db import models
@@ -191,56 +191,201 @@ def dashboard_rooms(request):
 
     return render(request, 'dashboard_rooms.html', context)
 
+# # @login_required(login_url="/account/login")
+# # def dashboard_payment(request):
+# #     username = request.user.username
+# #     print(username)
+# #     # List payments
+# #     payments = Payment.objects.all()
+# #     receivers = Receiver.objects.all()
+
+# #     # To get sum of owner.room.amount per owner and collected_by
+# #     amount_per_owner_collector = Payment.objects.values('collected_by__username').annotate(total_amount=Sum('owner__room__amount'))
+# #     print(amount_per_owner_collector)
+
+# #     # To get sum of amount_received per collector
+# #     amount_received_per_collector = Receiver.objects.values('collector__username').annotate(total_received=Sum('amount_received'))
+# #     print(amount_received_per_collector)
+
+# #     # Step 1: Calculate the sum of total amount collected per collected_by in the Payment model
+# #     total_collected_payment = Payment.objects.values('collected_by__username').annotate(total_amount_collected=Sum(F('owner__room__amount')))
+
+# #     # Step 2: Calculate the sum of total amount collected per collector in the Receiver model
+# #     total_collected_receiver = Receiver.objects.values('collector__username').annotate(total_amount_received=Sum('amount_received'))
+
+# #     # Step 3: Prepare a dictionary to store the balances
+# #     balances = {}
+# #     for collected_payment in total_collected_payment:
+# #         collected_by_username = collected_payment['collected_by__username']
+# #         total_amount_collected = collected_payment['total_amount_collected']
+        
+# #         for collected_receiver in total_collected_receiver:
+# #             collector_username = collected_receiver['collector__username']
+# #             total_amount_received = collected_receiver['total_amount_received']
+            
+# #             if collected_by_username == collector_username:
+# #                 balance = total_amount_collected - total_amount_received
+# #                 balances[collected_by_username] = balance
+# #     print('balances:',balances)
+# #     context = {
+# #         'payments': payments,
+# #         'amount_per_owner_collector': amount_per_owner_collector,
+# #         'total_collected_payment': total_collected_payment,
+# #         'total_collected_receiver': total_collected_receiver,
+# #         'balances': balances,  # Pass the balances dictionary to the template
+# #         'username': username,
+# #         'receivers': receivers,
+# #         #'payment_data': payment_data,
+# #         #'all_new_payment_rows': all_new_payment_rows,
+# #     }
+# #     return render(request, 'dashboard_payment.html', context)
+# @login_required(login_url="/account/login")
+# def dashboard_payment(request):
+#     username = request.user.username
+#     print(username)
+#     # List payments                                                                                                                                                   
+#     payments = Payment.objects.all()
+#     receivers = Receiver.objects.all()
+
+#     # To get sum of owner.room.amount per owner and collected_by                                                                                                      
+#     amount_per_owner_collector = Payment.objects.values('collected_by__username').annotate(total_amount=Sum('owner__room__amount'))
+#     print(amount_per_owner_collector)
+
+#     # To get sum of amount_received per collector                                                                                                                     
+#     amount_received_per_collector = Receiver.objects.values('collector__username').annotate(total_received=Sum('amount_received'))
+#     print(amount_received_per_collector)
+
+#     # Step 1: Calculate the sum of total amount collected per collected_by in the Payment model                                                                       
+#     total_collected_payment = Payment.objects.values('collected_by__username').annotate(total_amount_collected=Sum(F('owner__room__amount')))
+
+#     # Step 2: Calculate the sum of total amount collected per collector in the Receiver model                                                                         
+#     total_collected_receiver = Receiver.objects.values('collector__username').annotate(total_amount_received=Sum('amount_received'))
+
+#     # Step 3: Prepare a dictionary to store the balances                                                                                                              
+#     balances = {}
+#     for collected_payment in total_collected_payment:
+#         collected_by_username = collected_payment['collected_by__username']
+#         total_amount_collected = collected_payment['total_amount_collected']
+
+#         for collected_receiver in total_collected_receiver:
+#             collector_username = collected_receiver['collector__username']
+#             total_amount_received = collected_receiver['total_amount_received']
+
+#             if collected_by_username == collector_username:
+#                 balance = total_amount_collected - total_amount_received
+#                 balances[collected_by_username] = balance
+
+#     context = {
+#         'payments': payments,
+#         'amount_per_owner_collector': amount_per_owner_collector,
+#         'total_collected_payment': total_collected_payment,
+#         'total_collected_receiver': total_collected_receiver,
+#         'balances': balances,  # Pass the balances dictionary to the template                                                                                         
+#         'username': username,
+#         'receivers': receivers,
+#         #'payment_data': payment_data,                                                                                                                                
+#         #'all_new_payment_rows': all_new_payment_rows,                                                                                                                
+#     }
+#     return render(request, 'dashboard_payment.html', context)
+
+
+
 @login_required(login_url="/account/login")
 def dashboard_payment(request):
     username = request.user.username
     print(username)
-    # List payments
+    # List payments                                                                                                                                                   
     payments = Payment.objects.all()
     receivers = Receiver.objects.all()
 
-    # To get sum of owner.room.amount per owner and collected_by
+    # To get sum of owner.room.amount per owner and collected_by                                                                                                      
     amount_per_owner_collector = Payment.objects.values('collected_by__username').annotate(total_amount=Sum('owner__room__amount'))
     print(amount_per_owner_collector)
 
-    # To get sum of amount_received per collector
+    # To get sum of amount_received per collector                                                                                                                     
     amount_received_per_collector = Receiver.objects.values('collector__username').annotate(total_received=Sum('amount_received'))
     print(amount_received_per_collector)
 
-    # Step 1: Calculate the sum of total amount collected per collected_by in the Payment model
+    # Step 1: Calculate the sum of total amount collected per collected_by in the Payment model                                                                       
     total_collected_payment = Payment.objects.values('collected_by__username').annotate(total_amount_collected=Sum(F('owner__room__amount')))
 
-    # Step 2: Calculate the sum of total amount collected per collector in the Receiver model
+    # Step 2: Calculate the sum of total amount collected per collector in the Receiver model                                                                         
     total_collected_receiver = Receiver.objects.values('collector__username').annotate(total_amount_received=Sum('amount_received'))
-
-    # Step 3: Prepare a dictionary to store the balances
+    print('total_collected_receiver:', total_collected_receiver )
+    # Step 3: Prepare a dictionary to store the balances                                                                                                              
     balances = {}
+
     for collected_payment in total_collected_payment:
         collected_by_username = collected_payment['collected_by__username']
         total_amount_collected = collected_payment['total_amount_collected']
-        
+
         for collected_receiver in total_collected_receiver:
             collector_username = collected_receiver['collector__username']
             total_amount_received = collected_receiver['total_amount_received']
-            
+
             if collected_by_username == collector_username:
                 balance = total_amount_collected - total_amount_received
                 balances[collected_by_username] = balance
-
+    print(balances)
     context = {
         'payments': payments,
         'amount_per_owner_collector': amount_per_owner_collector,
         'total_collected_payment': total_collected_payment,
         'total_collected_receiver': total_collected_receiver,
-        'balances': balances,  # Pass the balances dictionary to the template
+        'balances': balances,  # Pass the balances dictionary to the template                                                                                         
         'username': username,
         'receivers': receivers,
-        #'payment_data': payment_data,
-        #'all_new_payment_rows': all_new_payment_rows,
+        #'payment_data': payment_data,                                                                                                                                
+        #'all_new_payment_rows': all_new_payment_rows,                                                                                                                
     }
     return render(request, 'dashboard_payment.html', context)
 
 
+@login_required(login_url="/account/login")
+def dashboard_bank(request):
+    username = request.user.username
+    print(username)
+    # List payments
+    #payments = Payment.objects.all()
+    receivers = Receiver.objects.all()
+    bankers = Bank.objects.all()
+
+    # To get sum of owner.room.amount per owner and collected_by                                                                                                      
+    amount_per_owner_collector = Payment.objects.values('collected_by__username').annotate(total_amount=Sum('owner__room__amount'))
+    print(amount_per_owner_collector)
+
+    # Step 1: Calculate the sum of total amount collected per collector in the Receiver model
+    total_collected_receiver = Receiver.objects.values('received_by__username').annotate(total_amount_received=Sum('amount_received'))
+    print(total_collected_receiver)
+    # Step 2: Calculate the sum of total amount collected per collected_by in the Payment model
+    total_collected_banked = Bank.objects.values('receiver__username').annotate(total_amount_banked=Sum(F('amount_banked')))
+    print(total_collected_banked)
+    # Step 3: Prepare a dictionary to store the balances
+    balances = {}
+    for collected_receiver in total_collected_receiver:
+        collector_username = collected_receiver['received_by__username']
+        total_amount_received = collected_receiver['total_amount_received']
+        
+        # Find the corresponding total amount banked for the collector username
+        total_collected_banked_amount = next((item['total_amount_banked'] for item in total_collected_banked if item['receiver__username'] == collector_username), 0)
+        
+        # Calculate the balance
+        print(total_amount_received)
+        print(total_collected_banked_amount)
+        balance = total_amount_received - total_collected_banked_amount
+        balances[collector_username] = balance
+       
+    print('balances:', balances)
+    context = {
+        'bankers': bankers,
+        'amount_per_owner_collector': amount_per_owner_collector,
+        'total_collected_banked': total_collected_banked,
+        'total_collected_receiver': total_collected_receiver,
+        'balances': balances,  # Pass the balances dictionary to the template
+        'username': username,
+        'receivers': receivers,
+    }
+    return render(request, 'dashboard_bank.html', context)
 
 from django.shortcuts import render
 from collections import defaultdict
@@ -395,6 +540,39 @@ def dashboard04(request):
         #'payment': payment,
     }
     return render(request, 'dashboard04.html', context)
+def calculate_balances(request):
+    payment_collected_by_sum = Payment.get_payment_collected_by_sum()
+    receiver_received_by_sum = Receiver.get_receiver_received_by_sum()
+    amount_banked_sum = Bank.get_amount_banked_sum()
+
+    collector_balances = {}
+    receiver_balances = {}
+
+    for payment_sum in payment_collected_by_sum:
+        collector = payment_sum['collected_by']
+        collector_balance = payment_sum['payment_collected_by_sum']
+        receiver_balance = next((receiver['receiver_received_by_sum'] for receiver in receiver_received_by_sum if receiver['received_by'] == collector), 0)
+        collector_balances[collector] = collector_balance - receiver_balance
+
+    for receiver_sum in receiver_received_by_sum:
+        receiver = receiver_sum['received_by']
+        receiver_balance = receiver_sum['receiver_received_by_sum']
+        banked_balance = next((bank['amount_banked_sum'] for bank in amount_banked_sum if bank['banked_by'] == receiver), 0)
+        receiver_balances[receiver] = receiver_balance - banked_balance
+
+    return render(request, 'balances1.html', {
+        'collector_balances': collector_balances,
+        'receiver_balances': receiver_balances,
+    })
+
+
+def bank_list(request):
+    banks = Bank.objects.all()
+    context = {
+        'banks': banks,
+        #'amount_banked_sum': amount_banked_sum,
+    }
+    return render(request, 'bank_list.html', context)
 
 from django.utils.crypto import get_random_string
 
@@ -413,6 +591,23 @@ def edit_payment(request, payment_id):
 def payment_detail(request, payment_id):
     payment = Payment.objects.get(id=payment_id)
     return render(request, 'payment_detail.html', {'payment': payment})
+
+
+@login_required(login_url="/account/login")
+def create_banker(request):
+    if request.method == 'POST':
+        form = BankForm(request.POST)
+        if form.is_valid():
+            receiver = form.save(commit=False)
+            #if not receiver.reference_number:
+            #    receiver.reference_number = get_random_string(length=10).upper()
+            receiver.banked_by = request.user  # Set received_by to the current user
+            receiver.save()
+            return redirect('bank_list')  # Redirect to a success page
+    else:
+        form = BankForm()
+    
+    return render(request, 'create_banker.html', {'form': form})
 
 @login_required(login_url="/account/login")
 def create_receiver(request):
@@ -1067,7 +1262,7 @@ def get_room_and_owner(request):
 ##############
 ##########5ww
 @login_required(login_url="/account/login")
-def payment_list(request):
+def payment_list1(request):
     # List all Register entries
     registers = Register.objects.all()
 
