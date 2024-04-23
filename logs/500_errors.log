@@ -296,3 +296,6 @@
 [35;1m"GET /dashboard_bank HTTP/1.1" 500 81946[0m
 [35;1m"GET /dashboard_bank HTTP/1.1" 500 86841[0m
 [35;1m"GET /dashboard_bank HTTP/1.1" 500 205599[0m
+[35;1m"GET /dashboard_payment/ HTTP/1.1" 500 252188[0m
+[35;1m"GET /dashboard_payment/ HTTP/1.1" 500 252188[0m
+[35;1m"GET /dashboard_payment/ HTTP/1.1" 500 252188[0m
