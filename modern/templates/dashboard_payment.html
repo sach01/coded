@@ -133,7 +133,6 @@ alse">
                         {{ collected_receiver.total_amount_received }}
                     {% endif %}
                 {% endfor %}</td>
-		
 		<td>
             {% for key, value in balances.items %}
                 {% if key == item.collected_by__username %}
@@ -142,10 +141,7 @@ alse">
             {% endfor %}
         </td>
     </tr>
-        	
-</td>
-                
-            </tr>
+ 
 {% endfor %}                            
                             
                         </tbody>
