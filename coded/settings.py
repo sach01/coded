@@ -228,3 +228,5 @@ AFRICASTALKING_API_KEY = config("AFRICASTALKING_API_KEY")
 #         'schedule': crontab(hour=8, minute=0),  # Adjust the time as needed
 #     },
 # }
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
