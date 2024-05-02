@@ -268,7 +268,7 @@ class Member(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
    
     def __str__(self):
-        return '%s %s %s %s'% (self.name, self.date_created)
+        return '%s %s'% (self.name, self.date_created)
      
 class Inventory(models.Model):
     staff_member = models.ForeignKey(Member, on_delete=models.CASCADE)
