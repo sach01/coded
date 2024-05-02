@@ -281,7 +281,7 @@ class Inventory(models.Model):
     date_returned = models.DateTimeField(auto_now=True, null=True)
     
     def __str__(self):
-        return '%s %s %s %s %s'% (self.staff_member, self.item, self.quantity, self.serial_number, self.note, self.date_received, self.date_returned)
+        return '%s %s %s %s %s %s %s'% (self.staff_member, self.item, self.quantity, self.serial_number, self.note, self.date_received, self.date_returned)
      
 class ChangeLog(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
