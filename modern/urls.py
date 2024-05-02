@@ -15,6 +15,8 @@ urlpatterns = [
     path("ground", views.ground, name="ground"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
+
+    path("payment_plot", modern_views.payment_plot, name="payment_plot"),
     
     
     path("dashboard_bank", views.dashboard_bank, name="dashboard_bank"),

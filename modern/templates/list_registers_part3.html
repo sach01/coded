@@ -54,4 +54,58 @@
     </div>
 </div>
 
+<!-- list_registers_part3.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Over Time</title>
+    <!-- Include necessary CSS or JavaScript libraries here -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
+</head>
+<body>
+    <canvas id="balanceChart" width="800" height="400"></canvas> <!-- Canvas to render the chart -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('balanceChart').getContext('2d');
+            var data = {
+                labels: [{% for register in all_registers %}"{{ register.new_month_paid_list|date:'M Y' }}",{% endfor %}], // X-axis labels with month and year
+                datasets: [{
+                    label: 'Balance Over Time',
+                    data: [{% for register in all_registers %}{{ register.balance }},{% endfor %}], // Y-axis data
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Background color
+                    borderColor: 'rgba(75, 192, 192, 1)', // Border color
+                    borderWidth: 1
+                }]
+            };
+            var options = {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month and Year' // X-axis title
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Balance' // Y-axis title
+                        }
+                    }
+                }
+            };
+            var balanceChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
 {% endblock %}

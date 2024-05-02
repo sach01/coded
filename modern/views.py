@@ -68,15 +68,15 @@ def dashboard1(request):
 
 @login_required(login_url="/account/login")
 def ground(request):
-    g = Floor.objects.get(pk=1)
-    room = []
-    for i in range(1, 176):
-        x = 'A' + str(i)
-        room.append(x)
-    for i in room:
-        r = Room.objects.create(floor=g, room_number=i, amount=1500)
-        r.save()
-        print(r)
+    # # g = Floor.objects.get(pk=1)
+    # # room = []
+    # # for i in range(1, 176):
+    # #     x = 'A' + str(i)
+    # #     room.append(x)
+    # # for i in room:
+    # #     r = Room.objects.create(floor=g, room_number=i, amount=1500)
+    # #     r.save()
+    # #     print(r)
 
     grounds = Room.objects.filter(floor=1)
     context = {
@@ -1406,6 +1406,11 @@ def send_sms_retry(message, recipients):
     except Exception as e:
         print(f"Failed to send SMS: {e}")
 
+import matplotlib
+import matplotlib.pyplot as plt
+import io
+import urllib
+import base64
 @login_required(login_url="/account/login")
 def list_registers_part1(request):
     all_registers = []
@@ -1416,34 +1421,86 @@ def list_registers_part1(request):
             all_registers.append(calculated_fields)
         else:
             all_registers.append(calculated_fields)
-            
-    #owner_first_name = payment_row['owner'].split()[0]
-    for payment_row in all_registers:
-        outstanding_months = ", ".join(map(str, payment_row['new_month_paid_list']))
-        #message = f"Hello {payment_row['owner']}, your monthly payment for {payment_row['month_paid'].strftime('%B %Y')} is ${payment_row['amount']}. Your current balance is ${payment_row['balance']}."
-        message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-        #print(payment_row['mobile'])
-        send_sms_retry(message, [payment_row['mobile']])  # Use the retrying version of send_sms function
-        #print({payment_row['new_month_paid_list']})
-    # Extracting the date part from each timestamp in 'new_month_paid_list'
-    # from datetime import datetime
 
-    # for payment_row in all_registers:
-    #     # Assuming payment_row['new_month_paid_list'] contains datetime objects
-    #     outstanding_dates = [date.strftime('%Y-%m-%d') for date in payment_row['new_month_paid_list']]
-        
-    #     outstanding_months = ", ".join(outstanding_dates)
-        
-    #     message = f"Hi {payment_row['owner']}, Marsabit Municipality would like you to know that you have outstanding months of {outstanding_months}, for stall number {payment_row['room_number']}. Your current balance is Ksh. {payment_row['balance']}."
-        
-    #     # Send SMS
-    #     send_sms_retry(message, [payment_row['mobile']])
+# # #    # Extracting data for plotting
+# # #     x_values = []
+# # #     y_values = []
+
+# # #     for register_data in all_registers:
+# # #         for month_paid in register_data['new_month_paid_list']:
+# # #             # Format the datetime object to display month and year
+# # #             formatted_date = month_paid.strftime('%b %Y')  # Example: 'Jan 2024'
+# # #             x_values.append(formatted_date)
+# # #             y_values.append(register_data['balance'])
+
+# # #     # Plotting
+# # #     plt.plot(x_values, y_values)
+# # #     #plt.xlabel('New Month Paid (Month Year)')
+# # #     plt.xlabel('New Month Paid (Month Year)', labelpad=10)  # Adjust labelpad as needed
+# # #     plt.ylabel('Balance')
+# # #     plt.title('Balance Over Time')
+# # #     plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+# # #     #plt.tight_layout()
+# # #     #plt.figure(figsize=(10, 6))  # Adjust width and height as needed
+
+
+# # #     # Save the plot or show it
+# # #     plt.show()  # Show the plot
     context = {
         'all_registers': all_registers,
+        #'plot_url': 'data:image/png;base64,' + plot_url,
     }
 
     return render(request, 'list_registers_part3.html', context)
 
+       
+import matplotlib
+import matplotlib.pyplot as plt
+import io
+import urllib
+import base64
+@login_required(login_url="/account/login")
+def payment_plot(request):
+    all_registers = []
+
+    for register in Register.objects.all():
+        calculated_fields = calculate_fields_part1(register)
+        if Payment.objects.filter(owner=register).exists():
+            all_registers.append(calculated_fields)
+        else:
+            all_registers.append(calculated_fields)
+
+    # Extracting data for plotting
+    x_values = []
+    y_values = []
+    for register_data in all_registers:
+        for i in range(len(register_data['new_month_paid_list'])):
+            
+            x_values.append(register_data['new_month_paid_list'][i].strftime('%b %Y'))
+            y_values.append(register_data['balance'])
+
+    # Plotting
+    plt.plot(x_values, y_values, marker='o', linestyle='-')  # Line plot with markers
+    plt.xlabel('New Month Paid (Month Year)')
+    plt.ylabel('Balance')
+    plt.title('Balance Over Time')
+    plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+    plt.tight_layout()
+
+    # Save the plot as an image
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
+    img.close()
+
+
+    context = {
+        'all_registers': all_registers,
+        'plot_url': 'data:image/png;base64,' + plot_url,
+    }
+
+    return render(request, 'payment_plot.html', context)
 
 # # @login_required(login_url="/account/login")
 # # def list_registers_part1(request):

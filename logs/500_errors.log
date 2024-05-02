@@ -301,3 +301,9 @@
 [35;1m"GET /dashboard_payment/ HTTP/1.1" 500 252188[0m
 [35;1m"GET /account/user_list/ HTTP/1.1" 500 165796[0m
 [35;1m"GET /account/user_list/ HTTP/1.1" 500 165636[0m
+[35;1m"GET /ground HTTP/1.1" 500 207701[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 83247[0m
+[35;1m"GET /list_registers_part1 HTTP/1.1" 500 160397[0m
+[35;1m"GET /payment_plot HTTP/1.1" 500 160214[0m
+[35;1m"GET /payment_plot HTTP/1.1" 500 160212[0m
+[35;1m"GET /payment_plot HTTP/1.1" 500 160214[0m

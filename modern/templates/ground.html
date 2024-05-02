@@ -9,6 +9,7 @@
     <title>Marsabit Municipality</title>
 <style>
 
+
 .main-container{
     display: grid;
     height: 100vh;
@@ -110,10 +111,11 @@
 #body{
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
     background-color: azure;
     border-radius: 10px;
     grid-area: 2 / 2 / 6 / 3;
-
+    padding: 20px;
     
 }
 
@@ -123,6 +125,9 @@
     grid-template-columns: repeat(19, 1fr); /* 19 columns with equal width */
     gap: 5px; /* Gap between grid items */
     color: #050505;
+
+    margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .grid-item {
@@ -134,6 +139,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+
+    font-size: 12px;
 }
 
 
@@ -216,6 +223,11 @@
 .blue-bg {
     background-color: blue;
 }
+@media only screen and (max-width: 768px) {
+            .grid-item {
+                padding-top: 20%;
+            }
+        }
 </style>
 </head>
 <body>
