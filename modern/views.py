@@ -11,7 +11,7 @@ from django.contrib import messages
 #from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime, date, timedelta
-from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType, Bank
+from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType, Bank, Inventory, Member
 from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm, BankForm
 from django.http import JsonResponse
 from django.utils import timezone
@@ -160,7 +160,7 @@ def create_member(request):
         form = MemberForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('inventory_list')
+            return redirect('member_list')
     else:
         form = MemberForm()
     return render(request, 'create_member.html', {'form': form})
