@@ -1,0 +1,62 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h4 class="page-title">Inventory List</h4>
+    </div>
+    <div class="page-rightheader ml-auto d-lg-flex d-none">
+        <div class="ml-5 mb-0">
+            <a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
+                <svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                    <path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
+                </svg> <span>Select Date
+                <i class="fa fa-caret-down"></i></span>
+            </a>
+        </div>
+    </div>
+</div>
+<!--End Page header-->
+
+<!-- Inventory List -->
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Inventory List</div>
+    </div>
+    <div class="card-body">
+        <div class="">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered text-nowrap key-buttons">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom-0">Staff Member</th>
+                            <th class="border-bottom-0">Item</th>
+                            <th class="border-bottom-0">Quantity</th>
+                            <th class="border-bottom-0">Serial Number</th>
+                            <th class="border-bottom-0">Status</th>
+                            <th class="border-bottom-0">Note</th>
+                            <th class="border-bottom-0">Date Received</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in inventory %}
+                        <tr>
+                            <td>{{ item.staff_member }}</td>
+                            <td>{{ item.item }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.serial_number }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.note }}</td>
+                            <td>{{ item.date_received }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Inventory List -->
+{% endblock %}

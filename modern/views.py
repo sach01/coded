@@ -132,6 +132,46 @@ def index(request):
     #return HttpResponse("Hello, world. You're at the polls index.")
 
 
+#########################################################################################
+from .models import Member
+from django.shortcuts import render, redirect
+from .forms import MemberForm, InventoryForm
+
+@login_required(login_url="/account/login")
+def create_inventory(request):
+    if request.method == 'POST':
+        form = InventoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inventory_list')
+    else:
+        form = InventoryForm()
+    return render(request, 'create_inventory.html', {'form': form})
+
+from .models import Inventory
+@login_required(login_url="/account/login")
+def inventory_list(request):
+    inventories = Inventory.objects.all()
+    return render(request, 'inventory_list.html', {'inventories': inventories})
+
+@login_required(login_url="/account/login")
+def create_member(request):
+    if request.method == 'POST':
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inventory_list')
+    else:
+        form = MemberForm()
+    return render(request, 'create_member.html', {'form': form})
+
+@login_required(login_url="/account/login")
+def member_list(request):
+    members = Member.objects.all()
+    return render(request, 'member_list.html', {'members': members})
+
+
+
 ###################################################################################################
 
 from django.db.models import Count

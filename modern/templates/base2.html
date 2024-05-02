@@ -216,6 +216,29 @@
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="#">
+							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+							<span class="side-menu__label">Staff & Inventory</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li class="sub-slide">
+									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Staff</span><i class="sub-angle fe fe-chevron-down"></i></a>
+									<ul class="sub-slide-menu">
+                                        <li><a href="{% url 'create_member' %}" class="slide-item"> Create Staff Member</a></li>
+										
+										<li><a href="{% url 'member_list' %}" class="slide-item">List Staff Member</a></li>
+									</ul>
+								</li>
+                                <li class="sub-slide">
+									<a class="sub-side-menu__item" data-toggle="sub-slide" href="#"><span class="sub-side-menu__label">Inventory</span><i class="sub-angle fe fe-chevron-down"></i></a>
+									<ul class="sub-slide-menu">
+										
+                                        <li><a href="{% url 'create_inventory' %}" class="slide-item"> Create Inventory</a></li>
+										<li><a href="{% url 'inventory_list' %}" class="slide-item"> List Inventory</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
 							<span class="side-menu__label">Users & Group </span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">

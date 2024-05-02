@@ -262,6 +262,27 @@ class Bank(models.Model):
         #invoice_number = f"{year}{month:02d}{day:02d}-{random_part}"
         reference_number = f"{day:02d}{month:02d}{year}{random_part}"
         return reference_number
+    
+class Member(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+   
+    def __str__(self):
+        return '%s %s %s %s'% (self.name, self.date_created)
+     
+class Inventory(models.Model):
+    staff_member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    item = models.CharField(max_length=200)
+    quantity = models.IntegerField(null=True)
+    serial_number = models.CharField(max_length=100)
+    status = models.BooleanField(default=True)
+    note = models.TextField(blank=True, null=True)
+    date_received = models.DateTimeField(auto_now_add=True, null=True)
+    date_returned = models.DateTimeField(auto_now=True, null=True)
+    
+    def __str__(self):
+        return '%s %s %s %s %s'% (self.staff_member, self.item, self.quantity, self.serial_number, self.note, self.date_received, self.date_returned)
+     
 class ChangeLog(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)

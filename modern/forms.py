@@ -5,7 +5,7 @@ from django.forms import widgets
 from django.core.exceptions import ValidationError
 
 from django import forms
-from .models import Owner, Room
+from .models import Owner, Room, Member, Inventory
 
 class OwnerTypeForm(forms.ModelForm):
     class Meta:
@@ -185,10 +185,21 @@ class ReceiverForm(forms.ModelForm):
     class Meta:
         model = Receiver
         fields = ['collector', 'amount_received', 'note']
+
 class BankForm(forms.ModelForm):
     class Meta:
         model = Bank
         fields = ['receiver', 'amount_banked', 'note']
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['name']
+
+class InventoryForm(forms.ModelForm):
+    class Meta:
+        model = Inventory
+        fields = ['staff_member','item','quantity','serial_number','status','note']
 
 # class OwnerTypeForm(forms.ModelForm):
 #     class Meta:

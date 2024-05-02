@@ -16,6 +16,11 @@ urlpatterns = [
     path("dashboard1", views.dashboard1, name="dashboard1"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
 
+    path('create_member/', modern_views.create_member, name='create_member'),
+    path('create_inventory/', modern_views.create_inventory, name='create_inventory'),
+    path('member_list/', modern_views.member_list, name='member_list'),
+    path('inventory_list/', modern_views.inventory_list, name='inventory_list'),
+
     path("payment_plot", modern_views.payment_plot, name="payment_plot"),
     
     
