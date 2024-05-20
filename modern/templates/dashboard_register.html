@@ -79,15 +79,15 @@
             var data = graph.map(item => item['Total Amount']);
 
             var chart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Total Amount per Month',
                         data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                        fill: false
+                        borderWidth: 1
                     }]
                 },
                 options: {
