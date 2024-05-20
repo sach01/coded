@@ -39,6 +39,7 @@ urlpatterns = [
     
 
     path("create_payment", modern_views.create_payment, name="create_payment"),
+    path("autocomplete_register", modern_views.autocomplete_register, name="autocomplete_register"),
     #path('success_page', views.success_page, name='success_page'),
     
     path('owner_autocomplete/', modern_views.owner_autocomplete, name='owner_autocomplete'),
