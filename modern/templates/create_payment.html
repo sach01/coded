@@ -34,14 +34,47 @@
 
 
 
-
+<!---
 <form method="post">
     {% csrf_token %}
     <label for="id_owner">Owner:</label>
     {{ form.owner }}
     <input type="submit" value="Submit">
 </form>
+--->
+<!-- payment_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <form method="post" id="payment-form">
+        {% csrf_token %}
+        <label for="id_owner">Owner:</label>
+        {{ form.owner }}
+        
+        <input type="submit" value="Submit">
+    </form>
 
+    <script>
+        $(document).ready(function() {
+            $('#id_owner').autocomplete({
+                source: "{% url 'autocomplete_register' %}",
+                minLength: 2,
+                select: function(event, ui) {
+                    $('#id_owner').val(ui.item.value);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
 </body>
 </html>
