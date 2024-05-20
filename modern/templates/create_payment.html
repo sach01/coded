@@ -43,6 +43,7 @@
 </form>
 --->
 <!-- payment_form.html -->
+<!-- payment_form.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,28 +57,36 @@
 <body>
     <form method="post" id="payment-form">
         {% csrf_token %}
-        <label for="id_owner">Owner:</label>
-        {{ form.owner }}
-        
+        <label for="id_owner_search">Search Owner:</label>
+        <input type="text" id="id_owner_search">
+        <input type="hidden" id="id_owner_hidden" name="owner_hidden">
+        <br>
+        <label for="id_amount">Amount:</label>
+        {{ form.amount }}
+        <br>
         <input type="submit" value="Submit">
     </form>
 
     <script>
         $(document).ready(function() {
-            $('#id_owner').autocomplete({
+            $('#id_owner_search').autocomplete({
                 source: "{% url 'autocomplete_register' %}",
                 minLength: 2,
                 select: function(event, ui) {
-                    $('#id_owner').val(ui.item.value);
+                    $('#id_owner_search').val(ui.item.name);
+                    $('#id_owner_hidden').val(ui.item.id);
+                    return false; // Prevent the default behavior of the autocomplete widget
                 }
-            });
+            }).autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>")
+                    .append("<div>" + item.name + "</div>")
+                    .appendTo(ul);
+            };
         });
     </script>
 </body>
 </html>
 
-</body>
-</html>
 
 
 </html>
