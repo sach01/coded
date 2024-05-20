@@ -963,9 +963,10 @@ def edit_register(request, register_id):
 ################## BEGINING OF PAYMENT FUNCTIONS #######################################
 def autocomplete_register(request):
     if 'term' in request.GET:
-        qs = Register.objects.filter(name__icontains=request.GET.get('term'))
-        names = list(qs.values_list('name', flat=True))
-        return JsonResponse(names, safe=False)
+        term = request.GET.get('term')
+        qs = Register.objects.filter(name__icontains=term)
+        suggestions = [{'id': owner.id, 'name': owner.name} for owner in qs]
+        return JsonResponse(suggestions, safe=False)
     return JsonResponse([], safe=False)
 
 from datetime import datetime
