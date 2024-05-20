@@ -961,6 +961,13 @@ def edit_register(request, register_id):
 ####################################################################################################
 
 ################## BEGINING OF PAYMENT FUNCTIONS #######################################
+def autocomplete_register(request):
+    if 'term' in request.GET:
+        qs = Register.objects.filter(name__icontains=request.GET.get('term'))
+        names = list(qs.values_list('name', flat=True))
+        return JsonResponse(names, safe=False)
+    return JsonResponse([], safe=False)
+
 from datetime import datetime
 def generate_invoice_number():
     now = datetime.now()
