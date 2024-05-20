@@ -99,16 +99,31 @@ class DateInput(forms.DateInput):
 # #     class Meta:
 # #         model = Payment
 # #         fields = ['owner'] # Add or remove fields as needed
-class PaymentForm(forms.ModelForm):
-    owner = forms.ModelChoiceField(queryset=Register.objects.all())   # We'll use JavaScript to autocomplete this field
+# # class PaymentForm(forms.ModelForm):
+# #     owner = forms.ModelChoiceField(queryset=Register.objects.all())   # We'll use JavaScript to autocomplete this field
     
+# #     class Meta:
+# #         model = Payment
+# #         fields = ['owner']
+# #     def __init__(self, *args, **kwargs):
+# #         super().__init__(*args, **kwargs)
+# #         self.fields['owner'].queryset = Register.objects.order_by('owner__name')
+
+from django_select2.forms import Select2Widget
+
+class PaymentForm(forms.ModelForm):
+    owner = forms.ModelChoiceField(
+        queryset=Register.objects.order_by('owner__name'),
+        widget=Select2Widget
+    )
+
     class Meta:
         model = Payment
         fields = ['owner']
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['owner'].queryset = Register.objects.order_by('owner__name')
-
 from django import forms
 from .models import Payment, Register
 
