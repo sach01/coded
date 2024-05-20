@@ -510,19 +510,22 @@ def dashboard_register(request):
 
     # Plot the bar graph
     df = pd.DataFrame(list(amounts_by_month.items()), columns=['Month', 'Total Amount'])
-    plt.figure(figsize=(10, 6))
-    plt.bar(df['Month'], df['Total Amount'])
-    plt.xlabel('Month')
-    plt.ylabel('Total Amount')
-    plt.title('Total Amount Paid per Month')
-    plt.xticks(rotation=45, ha='right')
-    plt.grid(True)
+    #plt.figure(figsize=(10, 6))
+    #plt.bar(df['Month'], df['Total Amount'])
+    #plt.xlabel('Month')
+    #plt.ylabel('Total Amount')
+    #plt.title('Total Amount Paid per Month')
+    #plt.xticks(rotation=45, ha='right')
+    #plt.grid(True)
 
     # Save the plot to a memory buffer
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
-    plt.close()
+    #buffer = BytesIO()
+    #plt.savefig(buffer, format='png')
+    #buffer.seek(0)
+    #plt.close()
+    
+    # Convert DataFrame to dictionary to pass to template
+    graph = df.to_dict(orient='records')
 
     # Pass the plot to the template along with other context data
     context = {
@@ -530,7 +533,8 @@ def dashboard_register(request):
         'payment_data': payment_data,
         'amounts_by_month': amounts_by_month,
         'amount_this_month': amount_this_month,
-        'graph': buffer,
+        'graph': graph,
+        #'graph': buffer,
     }
     return render(request, 'dashboard_register.html', context)
 
