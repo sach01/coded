@@ -11,8 +11,10 @@ from django.contrib import messages
 #from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime, date, timedelta
-from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType, Bank, Inventory, Member
-from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm, BankForm
+from .models import Register, Payment, Room, Owner, Floor, Receiver, OwnerType, Bank, Inventory, Member, ChangeLog
+from .forms import RegisterForm , RegisterEditForm, PaymentForm, OwnerForm, Payment1Form, ReceiverForm, OwnerTypeForm, BankForm, MemberForm, InventoryForm
+from django.db.models import Count
+
 from django.http import JsonResponse
 from django.utils import timezone
 from django.db import models
@@ -40,8 +42,6 @@ import string
 from django.contrib.auth.decorators import login_required
 from account.decorators import group_required, unauthenticated_user, allowed_users
 
-from django.shortcuts import render
-from .models import ChangeLog
 
 def changelog(request):
     change_logs = ChangeLog.objects.all()
@@ -133,9 +133,11 @@ def index(request):
 
 
 #########################################################################################
-from .models import Member
-from django.shortcuts import render, redirect
-from .forms import MemberForm, InventoryForm
+@login_required
+def get_user_permissions(request):
+    user_permissions = list(request.user.groups.values_list('permissions__codename', flat=True))
+    return JsonResponse(user_permissions, safe=False)
+
 
 @login_required(login_url="/account/login")
 def create_inventory(request):
@@ -148,7 +150,7 @@ def create_inventory(request):
         form = InventoryForm()
     return render(request, 'create_inventory.html', {'form': form})
 
-from .models import Inventory
+
 @login_required(login_url="/account/login")
 def inventory_list(request):
     inventories = Inventory.objects.all()
@@ -170,14 +172,8 @@ def member_list(request):
     members = Member.objects.all()
     return render(request, 'member_list.html', {'members': members})
 
-
-
 ###################################################################################################
 
-from django.db.models import Count
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .models import Room
 
 @login_required(login_url="/account/login")
 def dashboard_rooms(request):

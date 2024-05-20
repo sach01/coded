@@ -320,3 +320,8 @@
 [35;1m"GET /create_inventory/ HTTP/1.1" 500 166945[0m
 [35;1m"GET /create_inventory/ HTTP/1.1" 500 167299[0m
 [35;1m"GET /create_inventory/ HTTP/1.1" 500 167347[0m
+[35;1m"GET / HTTP/1.1" 500 220665[0m
+[35;1m"GET /list_register_test1/ HTTP/1.1" 500 197909[0m
+[35;1m"GET / HTTP/1.1" 500 179254[0m
+[35;1m"GET / HTTP/1.1" 500 179230[0m
+[35;1m"GET / HTTP/1.1" 500 179206[0m

@@ -16,6 +16,8 @@ urlpatterns = [
     path("dashboard1", views.dashboard1, name="dashboard1"),
     path("dashboard1", views.dashboard1, name="dashboard1"),
 
+    path('get_user_permissions/', modern_views.get_user_permissions, name='get_user_permissions'),
+    
     path('create_member/', modern_views.create_member, name='create_member'),
     path('create_inventory/', modern_views.create_inventory, name='create_inventory'),
     path('member_list/', modern_views.member_list, name='member_list'),

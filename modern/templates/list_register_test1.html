@@ -27,7 +27,45 @@
             </div>
         </div>
     </div>
-    <!--End Page header-->
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Register Balances</div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <div class="table-responsive">
+                    <table id="example" class="table table-bordered text-nowrap key-buttons">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom-0">Owner</th>
+                                <th class="border-bottom-0">Room Number</th>
+                                <th class="border-bottom-0">Floor</th>
+                                <th class="border-bottom-0">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for owner, balance in owner_total_balance.items %}
+            <tr>
+                <td>{{ owner.0 }}</td>
+                <td>{{ owner.1 }}</td>
+                <td>{{ owner.2 }}</td>
+                <td>{{ balance }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}
+    <!---
+   
     <h1>Payment Details</h1>
     
     <table border="1">
@@ -56,8 +94,9 @@
             {% endfor %}
         </tbody>
     </table>
+    --->
 
-    <h2>Summed Balance per Combination</h2>
+    <h2>Owner Balance per Room</h2>
     
     <table border="1">
         <thead>
@@ -81,5 +120,3 @@
     </table>
 </body>
 </html>
-
-{% endblock %}
